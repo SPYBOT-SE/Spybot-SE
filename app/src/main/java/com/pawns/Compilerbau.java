@@ -2,8 +2,6 @@ package com.pawns;
 
 import com.example.spybot.R;
 import com.pawns.Attack.AttackBuild;
-import com.pawns.Attack.AttackSize;
-import com.pawns.Attack.AttackSpeed;
 
 public class Compilerbau extends Pawn{
 
@@ -19,7 +17,7 @@ public class Compilerbau extends Pawn{
         this.pictureTailLeft = R.drawable.com_left;
         this.pictureTailRight = R.drawable.com_right;
 
-        this.attack1 = new AttackBuild("Trivial", R.drawable.highlighting_attack,(byte)1,(byte)1);
-        this.attack2 = new AttackBuild("Titanic", R.drawable.highlighting_attack,(byte)1,(byte)-1);
+        this.attack1 = new AttackBuild("Trivial", R.drawable.highlighting_attack,R.raw.attack_sound,(byte)1,(byte)1);
+        this.attack2 = new AttackBuild("Titanic", R.drawable.highlighting_attack,R.raw.attack_sound,(byte)1,(byte)-1);
     }
 }

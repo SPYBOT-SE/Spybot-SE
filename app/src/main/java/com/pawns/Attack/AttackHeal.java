@@ -10,8 +10,8 @@ import static java.lang.Math.abs;
 public class AttackHeal extends Attack{
 
 
-    public AttackHeal(String attackName,int icon,  byte range, byte magnitude) {
-        super(attackName,icon, range, magnitude);
+    public AttackHeal(String attackName, int icon, int audio, byte range, byte magnitude) {
+        super(attackName,icon, audio,range, magnitude);
     }
 
     @Override

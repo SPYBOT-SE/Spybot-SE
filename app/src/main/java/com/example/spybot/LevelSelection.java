@@ -6,11 +6,11 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.level.levelSingle;
 import com.spybot.app.AppSetting;
+
+import static com.example.spybot.MainMenu.music;
 
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +52,19 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             btnTag.setId(i);
             btnTag.setOnClickListener(this);
             layout.addView(btnTag);
+
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            music.pause();
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            music.start();
 
         }
 

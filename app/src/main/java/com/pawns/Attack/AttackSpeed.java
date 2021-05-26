@@ -6,8 +6,8 @@ import com.pawns.Pawn;
 
 public class AttackSpeed extends Attack{
 
-    public AttackSpeed(String attackName,int icon,  byte range, byte magnitude) {
-        super(attackName,icon,  range, magnitude);
+    public AttackSpeed(String attackName, int icon, int audio, byte range, byte magnitude) {
+        super(attackName,icon, audio, range, magnitude);
     }
 
     @Override

@@ -6,8 +6,8 @@ import com.level.Field;
 
 public class AttackBuild extends Attack{
 
-    public AttackBuild(String attackName,int icon,  byte range, byte magnitude) {
-        super(attackName,icon, range, magnitude);
+    public AttackBuild(String attackName, int icon, int audio, byte range, byte magnitude) {
+        super(attackName,icon, audio, range, magnitude);
     }
 
     @Override

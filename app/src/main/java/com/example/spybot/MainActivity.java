@@ -18,14 +18,16 @@ import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
 import com.level.levelSingle;
-import com.model.shortcuts.ActionID;
 import com.model.Direction;
 import com.model.LevelState;
+import com.model.shortcuts.ActionID;
 import com.pawns.*;
 import com.spybot.app.AppSetting;
 import com.utilities.BoardUtil;
 
 import java.util.NoSuchElementException;
+
+import static com.example.spybot.MainMenu.music;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -483,6 +485,20 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        music.pause();
+        // stop the clock
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        music.start();
+
+    }
     /**
      * By clicking on a highlighted field the associated action will be performed here
      *
@@ -494,9 +510,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             Pawn actor;
             Pawn target;
 
-            MediaPlayer sound_move;
-            sound_move = MediaPlayer.create(this, R.raw.move1);
-
+            MediaPlayer audio;
+            audio = MediaPlayer.create(this, R.raw.move_sound);
+            audio.setVolume(5,5);
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
@@ -508,27 +524,27 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 case MovableUp:
                     actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.UP);
-                    sound_move.start();
+                    audio.start();
                     break;
                 case MovableDown:
                     actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.DOWN);
-                    sound_move.start();
+                    audio.start();
                     break;
                 case MovableLeft:
                     actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.LEFT);
-                    sound_move.start();
+                    audio.start();
                     break;
                 case MovableRight:
                     actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.RIGHT);
-                    sound_move.start();
+                    audio.start();
                     break;
                 case Movable:
                     actor = lastSelected.getSegment().getPawn();
                     actor.move(lastSelected, field, Direction.NONE);
-                    sound_move.start();
+                    audio.start();
                     break;
                 case Healable:
                     //TODO
@@ -537,6 +553,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     actor = lastSelected.getSegment().getPawn();
                     if(field.getSegment() != null && actor.getAttack1().canAttack()) {
                         actor.attack1(this, field);
+                        audio = MediaPlayer.create(this, actor.getAttack1().getAudio());
+                        audio.start();
                         actor.getAttack1().SetAttackFlag(false);
 
                     }
@@ -545,6 +563,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     actor = lastSelected.getSegment().getPawn();
                     if(field.getSegment() != null && actor.getAttack2().canAttack()) {
                         actor.attack2(this, field);
+                        audio = MediaPlayer.create(this, actor.getAttack2().getAudio());
+                        audio.start();
                         actor.getAttack2().SetAttackFlag(false);
                     }
                     break;
