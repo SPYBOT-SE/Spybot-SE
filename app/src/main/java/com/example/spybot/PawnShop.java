@@ -2,6 +2,7 @@ package com.example.spybot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.player.PawnTypes;
 import com.player.Player;
@@ -19,6 +20,12 @@ public class PawnShop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pawn_shop);
         AppSetting.hideSystemUI(this);
+
+        TextView money = findViewById(R.id.labelPlayerMoneyShop);
+        money.setText(selectedPlayer.getMoney());
+
+        TextView playerName = findViewById(R.id.labelPlayerName);
+        playerName.setText(selectedPlayer.getPlayerName());
 
         findViewById(R.id.btnBack).setOnClickListener((v) -> {
             Intent i = new Intent(this, SessionMainMenu.class);
@@ -61,6 +68,9 @@ public class PawnShop extends AppCompatActivity {
             selectedPlayer.setMoney(pawnCost);
             selectedPlayer.getCatalogue().add(pawnType);
         }
+
+        TextView money = findViewById(R.id.labelPlayerMoneyShop);
+        money.setText(selectedPlayer.getMoney());
     }
 
     @Override
