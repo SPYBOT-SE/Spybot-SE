@@ -20,6 +20,22 @@
             android:screenOrientation="landscape">
         </activity>
 
+        <activity android:name=".PlayerSelection"
+                  android:screenOrientation="landscape">
+        </activity>
+
+        <activity android:name=".PawnShop"
+                  android:screenOrientation="landscape">
+        </activity>
+
+        <activity android:name=".SessionMainMenu"
+                  android:screenOrientation="landscape">
+        </activity>
+
+        <activity android:name=".SessionSettings"
+                  android:screenOrientation="landscape">
+        </activity>
+
         <activity android:name=".MainMenu"
             android:screenOrientation="landscape">
 
