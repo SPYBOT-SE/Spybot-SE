@@ -11,6 +11,8 @@ import java.util.LinkedList;
 
 public abstract class Pawn {
 
+    public final boolean buildAbility;
+
     protected String name = "Template";
     protected byte team = 0;
 
@@ -32,6 +34,10 @@ public abstract class Pawn {
 
 
     private final LinkedList<PawnSegment> segments = new LinkedList<>();
+
+    public Pawn (boolean buildAbility) {
+        this.buildAbility = buildAbility;
+    }
 
     public void createSegment(Field field, BodyType type) {
         PawnSegment newSeg = new PawnSegment(this, type, field);

@@ -6,6 +6,7 @@ import com.pawns.Attack.AttackBuild;
 public class Compilerbau extends Pawn{
 
     public Compilerbau(){
+        super(true);
         this.name = "T3INF2002";
         this.speed = 2;
         this.leftSteps = this.speed;

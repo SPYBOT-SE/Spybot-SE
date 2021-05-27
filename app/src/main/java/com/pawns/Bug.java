@@ -7,6 +7,7 @@ import com.pawns.Attack.AttackSpeed;
 public class Bug extends Pawn {
 
     public Bug() {
+        super(false);
         this.team = 0;
         this.name = "Bug";
         this.speed = 6;

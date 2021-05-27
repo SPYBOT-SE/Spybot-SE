@@ -7,6 +7,7 @@ import com.pawns.Attack.AttackSpeed;
 public class Dumbbell extends Pawn {
 
     public Dumbbell() {
+        super(false);
         this.name = "Dumbbell";
         this.speed = 5;
         this.leftSteps = this.speed;
