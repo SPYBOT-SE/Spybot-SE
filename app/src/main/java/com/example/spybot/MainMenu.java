@@ -14,7 +14,6 @@ import com.utilities.SavegameUtil;
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
     public static MediaPlayer music;
-    private MediaPlayer winxp;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +33,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         music.setLooping(true);
         music.start();
 
-        winxp = MediaPlayer.create(this, R.raw.winxp);
+        MediaPlayer winxp = MediaPlayer.create(this, R.raw.winxp);
         winxp.start();
 
 
