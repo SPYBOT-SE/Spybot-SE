@@ -3,6 +3,7 @@ package com.example.spybot;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import com.player.PawnTypes;
 import com.player.Player;
 import com.spybot.app.AppSetting;
 
@@ -27,6 +28,22 @@ public class PawnShop extends AppCompatActivity {
         findViewById(R.id.playerToggle).setOnClickListener((v) -> {
             TogglePlayer();
         });
+
+        findViewById(R.id.buyBtnIcon1).setOnClickListener((v) -> {
+            BuyFigure(PawnTypes.bug,1000);
+        });
+        findViewById(R.id.buyBtnIcon2).setOnClickListener((v) -> {
+            BuyFigure(PawnTypes.dumbbell,2000);
+        });
+        findViewById(R.id.buyBtnIcon3).setOnClickListener((v) -> {
+            BuyFigure(PawnTypes.T3INF2002,5000);
+        });
+        findViewById(R.id.buyBtnIcon4).setOnClickListener((v) -> {
+            BuyFigure(PawnTypes.bug, 10000);
+        });
+        findViewById(R.id.buyBtnIcon5).setOnClickListener((v) -> {
+            BuyFigure(PawnTypes.bug, 15000);
+        });
     }
 
     void TogglePlayer(){
@@ -36,6 +53,13 @@ public class PawnShop extends AppCompatActivity {
             selectedPlayer = MainActivity.player1;
         } else {
             selectedPlayer = MainActivity.player2;
+        }
+    }
+
+    void BuyFigure(PawnTypes pawnType, int pawnCost){
+        if(pawnCost < selectedPlayer.getMoney() && !selectedPlayer.getCatalogue().contains(pawnType)){
+            selectedPlayer.setMoney(pawnCost);
+            selectedPlayer.getCatalogue().add(pawnType);
         }
     }
 
