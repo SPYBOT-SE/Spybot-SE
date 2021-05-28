@@ -22,10 +22,10 @@ public class PawnShop extends AppCompatActivity {
         AppSetting.hideSystemUI(this);
 
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
-        money.setText(selectedPlayer.getMoney());
+        // money.setText(selectedPlayer.getMoney());
 
         TextView playerName = findViewById(R.id.labelPlayerName);
-        playerName.setText(selectedPlayer.getPlayerName());
+        // playerName.setText(selectedPlayer.getPlayerName());
 
         findViewById(R.id.btnBack).setOnClickListener((v) -> {
             Intent i = new Intent(this, SessionMainMenu.class);
