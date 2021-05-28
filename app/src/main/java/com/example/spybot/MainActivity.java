@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         infoPanel.setOrientation(LinearLayout.VERTICAL);
         parentLayout.addView(infoPanel); //add info box to parent
 
-        SetUpInfoPanel(infoPanel);
+        setUpInfoPanel(infoPanel);
         //infoPanel.setBackgroundColor(Color.GRAY);
 
 
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-    private void RefreshInteractableView(Field field){
+    private void refreshInteractableView(Field field){
         if (field != null){
             Button button = findViewById(field.getId());
             int visible = field.getStatus() ? 0 : 4;
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void SetUpInfoPanel(LinearLayout panel) {
+    private void setUpInfoPanel(LinearLayout panel) {
         Button btn = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -579,7 +579,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 default:
 
             }
-            RefreshInteractableView(field);
+            refreshInteractableView(field);
 
             checkEndCondition();
 
