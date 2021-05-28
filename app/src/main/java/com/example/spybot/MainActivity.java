@@ -22,6 +22,7 @@ import com.model.Direction;
 import com.model.LevelState;
 import com.model.shortcuts.ActionID;
 import com.pawns.*;
+import com.player.Player;
 import com.spybot.app.AppSetting;
 import com.utilities.BoardUtil;
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private Resources r = null;
 
+    public static Player player1;
+    public static Player player2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
