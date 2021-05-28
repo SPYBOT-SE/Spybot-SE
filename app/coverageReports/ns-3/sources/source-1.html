@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AdjacencyList</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.model</a>
+</div>
+
+<h1>Coverage Summary for Class: AdjacencyList (com.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AdjacencyList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (4/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38%
+  </span>
+  <span class="absValue">
+    (19/50)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.model;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.util.ArrayList;
+<i class="no-highlight">4</i>&nbsp;import java.util.HashSet;
+<i class="no-highlight">5</i>&nbsp;import java.util.Iterator;
+<i class="no-highlight">6</i>&nbsp;import java.util.NoSuchElementException;
+<i class="no-highlight">7</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">8</i>&nbsp;
+<b class="fc"><i class="no-highlight">9</i>&nbsp;public class AdjacencyList&lt;T&gt; {</b>
+<b class="fc"><i class="no-highlight">10</i>&nbsp;    HashSet&lt;Vertex&lt;T&gt;&gt; vertices = new HashSet&lt;&gt;(96);</b>
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    public void addVertex(T vertex) {
+<b class="fc"><i class="no-highlight">14</i>&nbsp;        Optional&lt;Vertex&lt;T&gt;&gt; v = getVertex(vertex);</b>
+<b class="fc"><i class="no-highlight">15</i>&nbsp;        if (!v.isPresent()) {</b>
+<b class="fc"><i class="no-highlight">16</i>&nbsp;            vertices.add(new Vertex&lt;&gt;(vertex));</b>
+<i class="no-highlight">17</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    }</b>
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;    public void addVertex(Vertex&lt;T&gt; vertex) {
+<b class="nc"><i class="no-highlight">21</i>&nbsp;        for (Vertex&lt;T&gt; v : vertices) {</b>
+<b class="nc"><i class="no-highlight">22</i>&nbsp;            if (v.same(vertex.getSelf())) {</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;                return;</b>
+<i class="no-highlight">24</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;        vertices.add(vertex);</b>
+<b class="nc"><i class="no-highlight">27</i>&nbsp;    }</b>
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    public void removeVertex(T remVertex) {
+<i class="no-highlight">30</i>&nbsp;        Vertex&lt;T&gt; current;
+<b class="nc"><i class="no-highlight">31</i>&nbsp;        for (Iterator&lt;Vertex&lt;T&gt;&gt; it = vertices.iterator(); it.hasNext(); ) {</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;            current = it.next();</b>
+<b class="nc"><i class="no-highlight">33</i>&nbsp;            if (current.same(remVertex)) {</b>
+<b class="nc"><i class="no-highlight">34</i>&nbsp;                it.remove();</b>
+<i class="no-highlight">35</i>&nbsp;            } else {
+<b class="nc"><i class="no-highlight">36</i>&nbsp;                for (Vertex&lt;T&gt; neighbour: current.getNeighbours()) {</b>
+<b class="nc"><i class="no-highlight">37</i>&nbsp;                    if (neighbour.same(remVertex)) {</b>
+<b class="nc"><i class="no-highlight">38</i>&nbsp;                        current.getNeighbours().remove(neighbour);</b>
+<i class="no-highlight">39</i>&nbsp;                    }
+<b class="nc"><i class="no-highlight">40</i>&nbsp;                }</b>
+<i class="no-highlight">41</i>&nbsp;            }
+<i class="no-highlight">42</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">43</i>&nbsp;    }</b>
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;    public void addEdge(T from, T to) {
+<b class="fc"><i class="no-highlight">46</i>&nbsp;        addVertex(from);</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;        addVertex(to);</b>
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        Optional&lt;Vertex&lt;T&gt;&gt; optFromVertex = getVertex(from);</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        if (optFromVertex.isPresent()) {</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;            optFromVertex.get().getNeighbours().add(new Vertex&lt;&gt;(to));</b>
+<i class="no-highlight">51</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">52</i>&nbsp;    }</b>
+<i class="no-highlight">53</i>&nbsp;
+<i class="no-highlight">54</i>&nbsp;    public void removeEdge(T from, T to) {
+<b class="nc"><i class="no-highlight">55</i>&nbsp;        Optional&lt;Vertex&lt;T&gt;&gt; optFromVertex = getVertex(from);</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;        if (optFromVertex.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;            optFromVertex.get().getNeighbours().remove(to);</b>
+<i class="no-highlight">58</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">59</i>&nbsp;    }</b>
+<i class="no-highlight">60</i>&nbsp;
+<i class="no-highlight">61</i>&nbsp;    public Optional&lt;Vertex&lt;T&gt;&gt; getVertex(T vertex) {
+<b class="fc"><i class="no-highlight">62</i>&nbsp;        Vertex&lt;T&gt; v = null;</b>
+<i class="no-highlight">63</i>&nbsp;
+<b class="fc"><i class="no-highlight">64</i>&nbsp;        for (Vertex&lt;T&gt; tVertex : vertices) {</b>
+<b class="fc"><i class="no-highlight">65</i>&nbsp;            if (tVertex.same(vertex)) {</b>
+<b class="fc"><i class="no-highlight">66</i>&nbsp;                v = tVertex;</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;                break;</b>
+<i class="no-highlight">68</i>&nbsp;            }
+<b class="fc"><i class="no-highlight">69</i>&nbsp;        }</b>
+<i class="no-highlight">70</i>&nbsp;
+<b class="fc"><i class="no-highlight">71</i>&nbsp;        return Optional.ofNullable(v);</b>
+<i class="no-highlight">72</i>&nbsp;    }
+<i class="no-highlight">73</i>&nbsp;
+<i class="no-highlight">74</i>&nbsp;    public HashSet&lt;Vertex&lt;T&gt;&gt; getAllVertices() {
+<b class="nc"><i class="no-highlight">75</i>&nbsp;        return vertices;</b>
+<i class="no-highlight">76</i>&nbsp;    }
+<i class="no-highlight">77</i>&nbsp;
+<i class="no-highlight">78</i>&nbsp;    public ArrayList&lt;Vertex&lt;T&gt;&gt; getNeighbours(T vertex) throws NoSuchElementException {
+<b class="nc"><i class="no-highlight">79</i>&nbsp;        Optional&lt;Vertex&lt;T&gt;&gt; optionalVertex = getVertex(vertex);</b>
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        if (optionalVertex.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;            return optionalVertex.get().getNeighbours();</b>
+<i class="no-highlight">82</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">83</i>&nbsp;        throw new NoSuchElementException(&quot;Vertex not found&quot;);</b>
+<i class="no-highlight">84</i>&nbsp;    }
+<i class="no-highlight">85</i>&nbsp;
+<i class="no-highlight">86</i>&nbsp;    public ArrayList&lt;T&gt; getNeighbourFields(T vertex) throws NoSuchElementException {
+<b class="nc"><i class="no-highlight">87</i>&nbsp;        ArrayList&lt;T&gt; list = new ArrayList&lt;&gt;();</b>
+<i class="no-highlight">88</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            for (Vertex&lt;T&gt; v : getNeighbours(vertex)) {</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;                list.add(v.getSelf());</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;            }</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;            return list;</b>
+<b class="nc"><i class="no-highlight">93</i>&nbsp;        } catch (NoSuchElementException e) {</b>
+<b class="nc"><i class="no-highlight">94</i>&nbsp;            throw new NoSuchElementException(e.getMessage());</b>
+<i class="no-highlight">95</i>&nbsp;        }
+<i class="no-highlight">96</i>&nbsp;    }
+<i class="no-highlight">97</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-28 11:30</div>
+</div>
+</body>
+</html>

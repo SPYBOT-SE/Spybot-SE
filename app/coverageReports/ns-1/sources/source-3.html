@@ -1,0 +1,956 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MainActivity</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.spybot</a>
+</div>
+
+<h1>Coverage Summary for Class: MainActivity (com.example.spybot)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/390)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MainActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MainActivity$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MainActivity$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/397)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.example.spybot;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import android.annotation.SuppressLint;
+<i class="no-highlight">4</i>&nbsp;import android.content.DialogInterface;
+<i class="no-highlight">5</i>&nbsp;import android.content.Intent;
+<i class="no-highlight">6</i>&nbsp;import android.graphics.Color;
+<i class="no-highlight">7</i>&nbsp;import android.graphics.drawable.Drawable;
+<i class="no-highlight">8</i>&nbsp;import android.graphics.drawable.LayerDrawable;
+<i class="no-highlight">9</i>&nbsp;import android.media.MediaPlayer;
+<i class="no-highlight">10</i>&nbsp;import android.os.Bundle;
+<i class="no-highlight">11</i>&nbsp;import android.util.DisplayMetrics;
+<i class="no-highlight">12</i>&nbsp;import android.view.MenuItem;
+<i class="no-highlight">13</i>&nbsp;import android.view.View;
+<i class="no-highlight">14</i>&nbsp;import android.widget.*;
+<i class="no-highlight">15</i>&nbsp;import androidx.appcompat.app.AlertDialog;
+<i class="no-highlight">16</i>&nbsp;import androidx.appcompat.app.AppCompatActivity;
+<i class="no-highlight">17</i>&nbsp;import com.level.Board;
+<i class="no-highlight">18</i>&nbsp;import com.level.Field;
+<i class="no-highlight">19</i>&nbsp;import com.level.Highlighting;
+<i class="no-highlight">20</i>&nbsp;import com.level.LevelSingle;
+<i class="no-highlight">21</i>&nbsp;import com.model.Direction;
+<i class="no-highlight">22</i>&nbsp;import com.model.LevelState;
+<i class="no-highlight">23</i>&nbsp;import com.model.shortcuts.ActionID;
+<i class="no-highlight">24</i>&nbsp;import com.pawns.*;
+<i class="no-highlight">25</i>&nbsp;import com.player.Player;
+<i class="no-highlight">26</i>&nbsp;import com.spybot.app.AppSetting;
+<i class="no-highlight">27</i>&nbsp;import com.utilities.BoardUtil;
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;import java.util.NoSuchElementException;
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;import static com.example.spybot.MainMenu.music;
+<i class="no-highlight">32</i>&nbsp;
+<b class="nc"><i class="no-highlight">33</i>&nbsp;public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {</b>
+<i class="no-highlight">34</i>&nbsp;
+<b class="nc"><i class="no-highlight">35</i>&nbsp;    public static int[][] selectedLevel = LevelSingle.Error;</b>
+<i class="no-highlight">36</i>&nbsp;
+<b class="nc"><i class="no-highlight">37</i>&nbsp;    private Board board = null;</b>
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;
+<b class="nc"><i class="no-highlight">40</i>&nbsp;    private int height = 0;</b>
+<b class="nc"><i class="no-highlight">41</i>&nbsp;    private int width = 0;</b>
+<i class="no-highlight">42</i>&nbsp;
+<b class="nc"><i class="no-highlight">43</i>&nbsp;    private Field lastSelected = null;</b>
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;    public static Player player1;
+<i class="no-highlight">46</i>&nbsp;    public static Player player2;
+<i class="no-highlight">47</i>&nbsp;
+<i class="no-highlight">48</i>&nbsp;    @Override
+<i class="no-highlight">49</i>&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<i class="no-highlight">50</i>&nbsp;
+<b class="nc"><i class="no-highlight">51</i>&nbsp;        super.onCreate(savedInstanceState);</b>
+<i class="no-highlight">52</i>&nbsp;
+<b class="nc"><i class="no-highlight">53</i>&nbsp;        board = new Board(selectedLevel);</b>
+<i class="no-highlight">54</i>&nbsp;
+<b class="nc"><i class="no-highlight">55</i>&nbsp;        height = board.getSizeY();</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;        width = board.getSizeX();</b>
+<i class="no-highlight">57</i>&nbsp;
+<i class="no-highlight">58</i>&nbsp;
+<i class="no-highlight">59</i>&nbsp;
+<b class="nc"><i class="no-highlight">60</i>&nbsp;        setContentView(R.layout.activity_main);</b>
+<b class="nc"><i class="no-highlight">61</i>&nbsp;        AppSetting.hideSystemUI(this);</b>
+<i class="no-highlight">62</i>&nbsp;
+<b class="nc"><i class="no-highlight">63</i>&nbsp;        LinearLayout parentLayout = new LinearLayout(this); //main layout of the level screen</b>
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        parentLayout.setOrientation(LinearLayout.HORIZONTAL);</b>
+<b class="nc"><i class="no-highlight">65</i>&nbsp;        parentLayout.setBackgroundResource(R.drawable.background);</b>
+<i class="no-highlight">66</i>&nbsp;
+<b class="nc"><i class="no-highlight">67</i>&nbsp;        LinearLayout infoPanel = new LinearLayout(this); //layout containing the information</b>
+<b class="nc"><i class="no-highlight">68</i>&nbsp;        infoPanel.setOrientation(LinearLayout.VERTICAL);</b>
+<b class="nc"><i class="no-highlight">69</i>&nbsp;        parentLayout.addView(infoPanel); //add info box to parent</b>
+<i class="no-highlight">70</i>&nbsp;
+<b class="nc"><i class="no-highlight">71</i>&nbsp;        setUpInfoPanel(infoPanel);</b>
+<i class="no-highlight">72</i>&nbsp;        //infoPanel.setBackgroundColor(Color.GRAY);
+<i class="no-highlight">73</i>&nbsp;
+<i class="no-highlight">74</i>&nbsp;
+<b class="nc"><i class="no-highlight">75</i>&nbsp;        LinearLayout gameLayout = new LinearLayout(this); //layout containing the game and a info box</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        gameLayout.setOrientation(LinearLayout.VERTICAL);</b>
+<b class="nc"><i class="no-highlight">77</i>&nbsp;        parentLayout.addView(gameLayout);</b>
+<i class="no-highlight">78</i>&nbsp;
+<b class="nc"><i class="no-highlight">79</i>&nbsp;        LinearLayout fields = new LinearLayout(this); //fields</b>
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        fields.setOrientation(LinearLayout.VERTICAL);</b>
+<b class="nc"><i class="no-highlight">81</i>&nbsp;        gameLayout.addView(fields);</b>
+<i class="no-highlight">82</i>&nbsp;
+<b class="nc"><i class="no-highlight">83</i>&nbsp;        LinearLayout infoBox = new LinearLayout(this); //info box</b>
+<b class="nc"><i class="no-highlight">84</i>&nbsp;        infoBox.setOrientation(LinearLayout.VERTICAL);</b>
+<b class="nc"><i class="no-highlight">85</i>&nbsp;        gameLayout.addView(infoBox);</b>
+<i class="no-highlight">86</i>&nbsp;
+<i class="no-highlight">87</i>&nbsp;
+<b class="nc"><i class="no-highlight">88</i>&nbsp;        for (short y = 0; y &lt; height; y++) {</b>
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            LinearLayout row = new LinearLayout(this);</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;            row.setLayoutParams(new LinearLayout.LayoutParams</b>
+<i class="no-highlight">91</i>&nbsp;                    (LinearLayout.LayoutParams.WRAP_CONTENT,
+<i class="no-highlight">92</i>&nbsp;                            LinearLayout.LayoutParams.WRAP_CONTENT));
+<i class="no-highlight">93</i>&nbsp;
+<b class="nc"><i class="no-highlight">94</i>&nbsp;            for (short x = 0; x &lt; width; x++) {</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;                int id = y * width + x;</b>
+<i class="no-highlight">96</i>&nbsp;
+<b class="nc"><i class="no-highlight">97</i>&nbsp;                if (board.getField(x,y).getStatus()) {</b>
+<b class="nc"><i class="no-highlight">98</i>&nbsp;                    createButton(row, id, View.VISIBLE, 20);</b>
+<i class="no-highlight">99</i>&nbsp;                } else {
+<b class="nc"><i class="no-highlight">100</i>&nbsp;                    createButton(row, id, View.INVISIBLE, 20);</b>
+<i class="no-highlight">101</i>&nbsp;                }
+<i class="no-highlight">102</i>&nbsp;
+<i class="no-highlight">103</i>&nbsp;
+<i class="no-highlight">104</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">105</i>&nbsp;            fields.addView(row);</b>
+<i class="no-highlight">106</i>&nbsp;        }
+<i class="no-highlight">107</i>&nbsp;
+<i class="no-highlight">108</i>&nbsp;
+<i class="no-highlight">109</i>&nbsp;
+<b class="nc"><i class="no-highlight">110</i>&nbsp;        setContentView(parentLayout);</b>
+<i class="no-highlight">111</i>&nbsp;        //resetButtons();
+<b class="nc"><i class="no-highlight">112</i>&nbsp;        refreshBoard();</b>
+<b class="nc"><i class="no-highlight">113</i>&nbsp;        loadDefaultView();</b>
+<i class="no-highlight">114</i>&nbsp;    }
+<i class="no-highlight">115</i>&nbsp;
+<i class="no-highlight">116</i>&nbsp;    private void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
+<b class="nc"><i class="no-highlight">117</i>&nbsp;        Button btnTag = new Button(this);</b>
+<i class="no-highlight">118</i>&nbsp;
+<b class="nc"><i class="no-highlight">119</i>&nbsp;        DisplayMetrics dm = new DisplayMetrics();</b>
+<b class="nc"><i class="no-highlight">120</i>&nbsp;        this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);</b>
+<b class="nc"><i class="no-highlight">121</i>&nbsp;        int width = dm.widthPixels;</b>
+<i class="no-highlight">122</i>&nbsp;
+<b class="nc"><i class="no-highlight">123</i>&nbsp;        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / ratio, width / ratio));</b>
+<b class="nc"><i class="no-highlight">124</i>&nbsp;        btnTag.setId(id);</b>
+<i class="no-highlight">125</i>&nbsp;
+<b class="nc"><i class="no-highlight">126</i>&nbsp;        btnTag.setOnClickListener((v) -&gt; {</b>
+<b class="nc"><i class="no-highlight">127</i>&nbsp;            OnClick(v.getId());</b>
+<i class="no-highlight">128</i>&nbsp;        });
+<i class="no-highlight">129</i>&nbsp;
+<b class="nc"><i class="no-highlight">130</i>&nbsp;        btnTag.setVisibility(viewVisibility);</b>
+<b class="nc"><i class="no-highlight">131</i>&nbsp;        layout.addView(btnTag);</b>
+<i class="no-highlight">132</i>&nbsp;    }
+<i class="no-highlight">133</i>&nbsp;
+<i class="no-highlight">134</i>&nbsp;    private Button createButton(LinearLayout layout, int id, int ratio) {
+<b class="nc"><i class="no-highlight">135</i>&nbsp;        Button btnTag = new Button(this);</b>
+<i class="no-highlight">136</i>&nbsp;
+<b class="nc"><i class="no-highlight">137</i>&nbsp;        DisplayMetrics dm = new DisplayMetrics();</b>
+<b class="nc"><i class="no-highlight">138</i>&nbsp;        this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);</b>
+<b class="nc"><i class="no-highlight">139</i>&nbsp;        int width = dm.widthPixels;</b>
+<i class="no-highlight">140</i>&nbsp;
+<b class="nc"><i class="no-highlight">141</i>&nbsp;        btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / ratio));</b>
+<b class="nc"><i class="no-highlight">142</i>&nbsp;        btnTag.setId(id);</b>
+<i class="no-highlight">143</i>&nbsp;
+<b class="nc"><i class="no-highlight">144</i>&nbsp;        btnTag.setVisibility(View.VISIBLE);</b>
+<i class="no-highlight">145</i>&nbsp;
+<b class="nc"><i class="no-highlight">146</i>&nbsp;        return btnTag;</b>
+<i class="no-highlight">147</i>&nbsp;    }
+<i class="no-highlight">148</i>&nbsp;
+<i class="no-highlight">149</i>&nbsp;
+<i class="no-highlight">150</i>&nbsp;    void OnClick(int id) {
+<i class="no-highlight">151</i>&nbsp;
+<i class="no-highlight">152</i>&nbsp;        //Field field = board.getFieldById(id);//should be in following if block
+<b class="nc"><i class="no-highlight">153</i>&nbsp;        if (id &lt; 1000) { // if button is on board</b>
+<b class="nc"><i class="no-highlight">154</i>&nbsp;            Field field = board.getFieldById(id);</b>
+<i class="no-highlight">155</i>&nbsp;
+<b class="nc"><i class="no-highlight">156</i>&nbsp;            switch (board.getState()) {</b>
+<i class="no-highlight">157</i>&nbsp;                case Preparation:
+<b class="nc"><i class="no-highlight">158</i>&nbsp;                    doHighlightingActions(field);</b>
+<b class="nc"><i class="no-highlight">159</i>&nbsp;                    break;</b>
+<i class="no-highlight">160</i>&nbsp;                case Running:
+<b class="nc"><i class="no-highlight">161</i>&nbsp;                    doHighlightingActions(field);</b>
+<i class="no-highlight">162</i>&nbsp;
+<b class="nc"><i class="no-highlight">163</i>&nbsp;                    if(field.getSegment() != null</b>
+<b class="nc"><i class="no-highlight">164</i>&nbsp;                            &amp;&amp; field.getSegment().getBodyType() == BodyType.Head</b>
+<b class="nc"><i class="no-highlight">165</i>&nbsp;                            &amp;&amp; field.getSegment().getPawn().getTeam() == board.currentPlayer) {</b>
+<b class="nc"><i class="no-highlight">166</i>&nbsp;                        lastSelected = field;</b>
+<b class="nc"><i class="no-highlight">167</i>&nbsp;                        loadInfoWithPawn();</b>
+<b class="nc"><i class="no-highlight">168</i>&nbsp;                        setHighlightingMove(field);</b>
+<i class="no-highlight">169</i>&nbsp;                    }
+<i class="no-highlight">170</i>&nbsp;                    break;
+<i class="no-highlight">171</i>&nbsp;                default:
+<i class="no-highlight">172</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">173</i>&nbsp;        } else { // ID &gt; 1000 are not on board</b>
+<b class="nc"><i class="no-highlight">174</i>&nbsp;            clearBoard();</b>
+<i class="no-highlight">175</i>&nbsp;
+<b class="nc"><i class="no-highlight">176</i>&nbsp;            if(lastSelected == null) {</b>
+<i class="no-highlight">177</i>&nbsp;                return;
+<i class="no-highlight">178</i>&nbsp;            }
+<i class="no-highlight">179</i>&nbsp;
+<b class="nc"><i class="no-highlight">180</i>&nbsp;            switch (id) {</b>
+<i class="no-highlight">181</i>&nbsp;                case ActionID.MOVE:
+<b class="nc"><i class="no-highlight">182</i>&nbsp;                    setHighlightingMove(lastSelected);</b>
+<b class="nc"><i class="no-highlight">183</i>&nbsp;                    break;</b>
+<i class="no-highlight">184</i>&nbsp;                case ActionID.ATTACK_1:
+<b class="nc"><i class="no-highlight">185</i>&nbsp;                    setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange());</b>
+<b class="nc"><i class="no-highlight">186</i>&nbsp;                    break;</b>
+<i class="no-highlight">187</i>&nbsp;                case ActionID.ATTACK_2:
+<b class="nc"><i class="no-highlight">188</i>&nbsp;                    setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange());</b>
+<b class="nc"><i class="no-highlight">189</i>&nbsp;                    break;</b>
+<i class="no-highlight">190</i>&nbsp;                default:
+<i class="no-highlight">191</i>&nbsp;            }
+<i class="no-highlight">192</i>&nbsp;        }
+<i class="no-highlight">193</i>&nbsp;
+<b class="nc"><i class="no-highlight">194</i>&nbsp;        refreshBoard();</b>
+<i class="no-highlight">195</i>&nbsp;
+<i class="no-highlight">196</i>&nbsp;    }
+<i class="no-highlight">197</i>&nbsp;
+<i class="no-highlight">198</i>&nbsp;    @SuppressLint(&quot;WrongConstant&quot;)
+<i class="no-highlight">199</i>&nbsp;    private void refreshInteractableView(Field field){
+<b class="nc"><i class="no-highlight">200</i>&nbsp;        if (field != null){</b>
+<b class="nc"><i class="no-highlight">201</i>&nbsp;            Button button = findViewById(field.getId());</b>
+<b class="nc"><i class="no-highlight">202</i>&nbsp;            int visible = field.getStatus() ? 0 : 4;</b>
+<b class="nc"><i class="no-highlight">203</i>&nbsp;            button.setVisibility(visible);</b>
+<i class="no-highlight">204</i>&nbsp;
+<b class="nc"><i class="no-highlight">205</i>&nbsp;        } else{</b>
+<b class="nc"><i class="no-highlight">206</i>&nbsp;            for (short y = 0; y &lt; height; y++) {</b>
+<b class="nc"><i class="no-highlight">207</i>&nbsp;                for (short x = 0; x &lt; width; x++) {</b>
+<b class="nc"><i class="no-highlight">208</i>&nbsp;                    int id = y * width + x;</b>
+<b class="nc"><i class="no-highlight">209</i>&nbsp;                    if (board.getField(x,y).getStatus()) {</b>
+<b class="nc"><i class="no-highlight">210</i>&nbsp;                        Button button = findViewById(id);</b>
+<b class="nc"><i class="no-highlight">211</i>&nbsp;                        button.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">212</i>&nbsp;                    } else {</b>
+<b class="nc"><i class="no-highlight">213</i>&nbsp;                        Button button = findViewById(field.getId());</b>
+<b class="nc"><i class="no-highlight">214</i>&nbsp;                        button.setVisibility(View.INVISIBLE);</b>
+<i class="no-highlight">215</i>&nbsp;                    }
+<i class="no-highlight">216</i>&nbsp;                }
+<i class="no-highlight">217</i>&nbsp;
+<i class="no-highlight">218</i>&nbsp;            }
+<i class="no-highlight">219</i>&nbsp;        }
+<i class="no-highlight">220</i>&nbsp;
+<i class="no-highlight">221</i>&nbsp;    }
+<i class="no-highlight">222</i>&nbsp;
+<i class="no-highlight">223</i>&nbsp;
+<i class="no-highlight">224</i>&nbsp;    @SuppressLint(&quot;ResourceType&quot;)
+<i class="no-highlight">225</i>&nbsp;    private void setUpInfoPanel(LinearLayout panel) {
+<b class="nc"><i class="no-highlight">226</i>&nbsp;        Button btn = new Button(this);</b>
+<i class="no-highlight">227</i>&nbsp;
+<b class="nc"><i class="no-highlight">228</i>&nbsp;        DisplayMetrics dm = new DisplayMetrics();</b>
+<b class="nc"><i class="no-highlight">229</i>&nbsp;        this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);</b>
+<b class="nc"><i class="no-highlight">230</i>&nbsp;        int width = dm.widthPixels;</b>
+<i class="no-highlight">231</i>&nbsp;
+<b class="nc"><i class="no-highlight">232</i>&nbsp;        btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));</b>
+<b class="nc"><i class="no-highlight">233</i>&nbsp;        btn.setId(1100);</b>
+<i class="no-highlight">234</i>&nbsp;
+<b class="nc"><i class="no-highlight">235</i>&nbsp;        btn.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">236</i>&nbsp;        btn.setClickable(false);</b>
+<b class="nc"><i class="no-highlight">237</i>&nbsp;        panel.addView(btn);</b>
+<i class="no-highlight">238</i>&nbsp;
+<i class="no-highlight">239</i>&nbsp;
+<b class="nc"><i class="no-highlight">240</i>&nbsp;        createTextViews(panel, &quot;Name:&quot;, Color.BLACK,ActionID.NAME);</b>
+<b class="nc"><i class="no-highlight">241</i>&nbsp;        createTextViews(panel, &quot;HP:&quot;, Color.BLACK, ActionID.HP);</b>
+<b class="nc"><i class="no-highlight">242</i>&nbsp;        createTextViews(panel, &quot;Steps:&quot;, Color.BLACK, ActionID.STEPS);</b>
+<b class="nc"><i class="no-highlight">243</i>&nbsp;        createTextViews(panel, &quot;Class:&quot;, Color.BLACK, ActionID.CLASS);</b>
+<i class="no-highlight">244</i>&nbsp;
+<b class="nc"><i class="no-highlight">245</i>&nbsp;        LinearLayout btnLayout = new LinearLayout(this);</b>
+<b class="nc"><i class="no-highlight">246</i>&nbsp;        btnLayout.setOrientation(LinearLayout.VERTICAL);</b>
+<b class="nc"><i class="no-highlight">247</i>&nbsp;        btnLayout.setLayoutParams(new LinearLayout.LayoutParams</b>
+<i class="no-highlight">248</i>&nbsp;                (LinearLayout.LayoutParams.MATCH_PARENT,
+<i class="no-highlight">249</i>&nbsp;                        LinearLayout.LayoutParams.WRAP_CONTENT));
+<i class="no-highlight">250</i>&nbsp;
+<i class="no-highlight">251</i>&nbsp;
+<i class="no-highlight">252</i>&nbsp;
+<i class="no-highlight">253</i>&nbsp;
+<b class="nc"><i class="no-highlight">254</i>&nbsp;        btn = createButton(btnLayout, ActionID.MOVE, 20);</b>
+<b class="nc"><i class="no-highlight">255</i>&nbsp;        btn.setText(&quot;Move&quot;);</b>
+<b class="nc"><i class="no-highlight">256</i>&nbsp;        btnLayout.addView(btn);</b>
+<b class="nc"><i class="no-highlight">257</i>&nbsp;        btn.setOnClickListener((v) -&gt; {</b>
+<b class="nc"><i class="no-highlight">258</i>&nbsp;            OnClick(v.getId());</b>
+<i class="no-highlight">259</i>&nbsp;        });
+<i class="no-highlight">260</i>&nbsp;
+<b class="nc"><i class="no-highlight">261</i>&nbsp;        btn = createButton(btnLayout, ActionID.ATTACK_1, 20);</b>
+<b class="nc"><i class="no-highlight">262</i>&nbsp;        btn.setText(&quot;Attack 1&quot;);</b>
+<b class="nc"><i class="no-highlight">263</i>&nbsp;        btnLayout.addView(btn);</b>
+<b class="nc"><i class="no-highlight">264</i>&nbsp;        btn.setOnClickListener((v) -&gt; {</b>
+<b class="nc"><i class="no-highlight">265</i>&nbsp;            OnClick(v.getId());</b>
+<i class="no-highlight">266</i>&nbsp;        });
+<i class="no-highlight">267</i>&nbsp;
+<b class="nc"><i class="no-highlight">268</i>&nbsp;        btn = createButton(btnLayout, ActionID.ATTACK_2, 20);</b>
+<b class="nc"><i class="no-highlight">269</i>&nbsp;        btn.setText(&quot;Attack 2&quot;);</b>
+<b class="nc"><i class="no-highlight">270</i>&nbsp;        btnLayout.addView(btn);</b>
+<b class="nc"><i class="no-highlight">271</i>&nbsp;        btn.setOnClickListener((v) -&gt; {</b>
+<b class="nc"><i class="no-highlight">272</i>&nbsp;            OnClick(v.getId());</b>
+<i class="no-highlight">273</i>&nbsp;        });
+<i class="no-highlight">274</i>&nbsp;
+<b class="nc"><i class="no-highlight">275</i>&nbsp;        btn = createButton(btnLayout, ActionID.NEXT_TURN, 20);</b>
+<b class="nc"><i class="no-highlight">276</i>&nbsp;        btn.setText(&quot;Next Turn&quot;);</b>
+<b class="nc"><i class="no-highlight">277</i>&nbsp;        btnLayout.addView(btn);</b>
+<b class="nc"><i class="no-highlight">278</i>&nbsp;        btn.setOnClickListener((v) -&gt; {</b>
+<b class="nc"><i class="no-highlight">279</i>&nbsp;            turnButtonOnClick();</b>
+<i class="no-highlight">280</i>&nbsp;        });
+<i class="no-highlight">281</i>&nbsp;
+<b class="nc"><i class="no-highlight">282</i>&nbsp;        btn = createButton(btnLayout, ActionID.BACK, 20);</b>
+<b class="nc"><i class="no-highlight">283</i>&nbsp;        btn.setText(&quot;Back&quot;);</b>
+<b class="nc"><i class="no-highlight">284</i>&nbsp;        btnLayout.addView(btn);</b>
+<b class="nc"><i class="no-highlight">285</i>&nbsp;        btn.setOnClickListener((v) -&gt; {</b>
+<b class="nc"><i class="no-highlight">286</i>&nbsp;            loadMainMenu();</b>
+<i class="no-highlight">287</i>&nbsp;        });
+<i class="no-highlight">288</i>&nbsp;
+<b class="nc"><i class="no-highlight">289</i>&nbsp;        panel.addView(btnLayout);</b>
+<i class="no-highlight">290</i>&nbsp;    }
+<i class="no-highlight">291</i>&nbsp;
+<i class="no-highlight">292</i>&nbsp;    private void loadMainMenu(){
+<i class="no-highlight">293</i>&nbsp;
+<b class="nc"><i class="no-highlight">294</i>&nbsp;        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);</b>
+<b class="nc"><i class="no-highlight">295</i>&nbsp;        builder1.setTitle(&quot;Leave game&quot;);</b>
+<b class="nc"><i class="no-highlight">296</i>&nbsp;        builder1.setIcon(android.R.drawable.ic_dialog_alert);</b>
+<b class="nc"><i class="no-highlight">297</i>&nbsp;        builder1.setMessage(&quot;Do you really want to leave the game? Progress will not be saved&quot;);</b>
+<b class="nc"><i class="no-highlight">298</i>&nbsp;        builder1.setCancelable(true);</b>
+<i class="no-highlight">299</i>&nbsp;
+<b class="nc"><i class="no-highlight">300</i>&nbsp;        builder1.setPositiveButton(</b>
+<i class="no-highlight">301</i>&nbsp;                &quot;Yes&quot;,
+<b class="nc"><i class="no-highlight">302</i>&nbsp;                new DialogInterface.OnClickListener() {</b>
+<i class="no-highlight">303</i>&nbsp;                    public void onClick(DialogInterface dialog, int id) {
+<b class="nc"><i class="no-highlight">304</i>&nbsp;                        exitGame();</b>
+<i class="no-highlight">305</i>&nbsp;                    }
+<i class="no-highlight">306</i>&nbsp;                });
+<i class="no-highlight">307</i>&nbsp;
+<b class="nc"><i class="no-highlight">308</i>&nbsp;        builder1.setNegativeButton(</b>
+<i class="no-highlight">309</i>&nbsp;                &quot;No&quot;,
+<b class="nc"><i class="no-highlight">310</i>&nbsp;                new DialogInterface.OnClickListener() {</b>
+<i class="no-highlight">311</i>&nbsp;                    public void onClick(DialogInterface dialog, int id) {
+<b class="nc"><i class="no-highlight">312</i>&nbsp;                        dialog.cancel();</b>
+<i class="no-highlight">313</i>&nbsp;                    }
+<i class="no-highlight">314</i>&nbsp;                });
+<i class="no-highlight">315</i>&nbsp;
+<b class="nc"><i class="no-highlight">316</i>&nbsp;        AlertDialog alert11 = builder1.create();</b>
+<b class="nc"><i class="no-highlight">317</i>&nbsp;        alert11.show();</b>
+<i class="no-highlight">318</i>&nbsp;    }
+<i class="no-highlight">319</i>&nbsp;
+<i class="no-highlight">320</i>&nbsp;    private void exitGame(){
+<b class="nc"><i class="no-highlight">321</i>&nbsp;        Intent i = new Intent(this, LevelSelection.class);</b>
+<b class="nc"><i class="no-highlight">322</i>&nbsp;        startActivity(i);</b>
+<i class="no-highlight">323</i>&nbsp;    }
+<i class="no-highlight">324</i>&nbsp;
+<i class="no-highlight">325</i>&nbsp;    private void turnButtonOnClick(){
+<b class="nc"><i class="no-highlight">326</i>&nbsp;        if (board.currentState.equals(LevelState.Preparation) &amp;&amp; board.currentPlayer == 0){</b>
+<b class="nc"><i class="no-highlight">327</i>&nbsp;            board.currentPlayer = 1;</b>
+<b class="nc"><i class="no-highlight">328</i>&nbsp;        } else if(board.currentState.equals(LevelState.Preparation) &amp;&amp; board.currentPlayer == 1){</b>
+<b class="nc"><i class="no-highlight">329</i>&nbsp;            board.currentPlayer = 0;</b>
+<b class="nc"><i class="no-highlight">330</i>&nbsp;            sortPawnsInTeams();</b>
+<b class="nc"><i class="no-highlight">331</i>&nbsp;            board.currentState = LevelState.Running;</b>
+<b class="nc"><i class="no-highlight">332</i>&nbsp;        } else if(board.currentState.equals(LevelState.Running) &amp;&amp; board.currentPlayer == 0){</b>
+<b class="nc"><i class="no-highlight">333</i>&nbsp;            board.currentPlayer = 1;</b>
+<i class="no-highlight">334</i>&nbsp;
+<i class="no-highlight">335</i>&nbsp;
+<b class="nc"><i class="no-highlight">336</i>&nbsp;        } else if(board.currentState.equals(LevelState.Running) &amp;&amp; board.currentPlayer == 1){</b>
+<b class="nc"><i class="no-highlight">337</i>&nbsp;            board.currentPlayer = 0;</b>
+<i class="no-highlight">338</i>&nbsp;
+<i class="no-highlight">339</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">340</i>&nbsp;        int currentPlayerIndex = board.currentPlayer;</b>
+<b class="nc"><i class="no-highlight">341</i>&nbsp;        resetAttributes();</b>
+<b class="nc"><i class="no-highlight">342</i>&nbsp;        clearBoard();</b>
+<b class="nc"><i class="no-highlight">343</i>&nbsp;        refreshBoard();</b>
+<b class="nc"><i class="no-highlight">344</i>&nbsp;        Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();</b>
+<i class="no-highlight">345</i>&nbsp;    }
+<i class="no-highlight">346</i>&nbsp;
+<i class="no-highlight">347</i>&nbsp;    private void sortPawnsInTeams() {
+<b class="nc"><i class="no-highlight">348</i>&nbsp;        for (Pawn pawn: board.pawnsOnBoard) {</b>
+<b class="nc"><i class="no-highlight">349</i>&nbsp;            if (pawn.getTeam() == 0){</b>
+<b class="nc"><i class="no-highlight">350</i>&nbsp;                board.pawnsInTeam1.add(pawn);</b>
+<b class="nc"><i class="no-highlight">351</i>&nbsp;            } else if (pawn.getTeam() == 1){</b>
+<b class="nc"><i class="no-highlight">352</i>&nbsp;                board.pawnsInTeam2.add(pawn);</b>
+<i class="no-highlight">353</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">354</i>&nbsp;        }</b>
+<i class="no-highlight">355</i>&nbsp;    }
+<i class="no-highlight">356</i>&nbsp;
+<i class="no-highlight">357</i>&nbsp;
+<i class="no-highlight">358</i>&nbsp;    private void resetAttributes(){
+<b class="nc"><i class="no-highlight">359</i>&nbsp;        for (Pawn pawn: board.pawnsOnBoard) {</b>
+<b class="nc"><i class="no-highlight">360</i>&nbsp;            pawn.setLeftSteps(pawn.getSpeed());</b>
+<b class="nc"><i class="no-highlight">361</i>&nbsp;            pawn.getAttack1().SetAttackFlag(true);</b>
+<b class="nc"><i class="no-highlight">362</i>&nbsp;            pawn.getAttack2().SetAttackFlag(true);</b>
+<b class="nc"><i class="no-highlight">363</i>&nbsp;        }</b>
+<i class="no-highlight">364</i>&nbsp;    }
+<i class="no-highlight">365</i>&nbsp;
+<i class="no-highlight">366</i>&nbsp;
+<i class="no-highlight">367</i>&nbsp;    private void createTextViews(LinearLayout panel, String description, int color, int id) {
+<b class="nc"><i class="no-highlight">368</i>&nbsp;        TextView text = new TextView(this);</b>
+<b class="nc"><i class="no-highlight">369</i>&nbsp;        text.setText(description);</b>
+<b class="nc"><i class="no-highlight">370</i>&nbsp;        text.setTextColor(color);</b>
+<b class="nc"><i class="no-highlight">371</i>&nbsp;        text.setId(id);</b>
+<b class="nc"><i class="no-highlight">372</i>&nbsp;        panel.addView(text);</b>
+<i class="no-highlight">373</i>&nbsp;    }
+<i class="no-highlight">374</i>&nbsp;
+<i class="no-highlight">375</i>&nbsp;
+<i class="no-highlight">376</i>&nbsp;    /**
+<i class="no-highlight">377</i>&nbsp;     * Function iterates over field and refreshes every button representation
+<i class="no-highlight">378</i>&nbsp;     */
+<i class="no-highlight">379</i>&nbsp;    public void refreshBoard() {
+<b class="nc"><i class="no-highlight">380</i>&nbsp;        for (short y = 0; y &lt; height; y++) {</b>
+<b class="nc"><i class="no-highlight">381</i>&nbsp;            for (short x = 0; x &lt; width; x++) {</b>
+<i class="no-highlight">382</i>&nbsp;
+<b class="nc"><i class="no-highlight">383</i>&nbsp;                mapFieldToView(board.getField(x,y));</b>
+<i class="no-highlight">384</i>&nbsp;            }
+<i class="no-highlight">385</i>&nbsp;        }
+<i class="no-highlight">386</i>&nbsp;    }
+<i class="no-highlight">387</i>&nbsp;
+<i class="no-highlight">388</i>&nbsp;
+<i class="no-highlight">389</i>&nbsp;    /**
+<i class="no-highlight">390</i>&nbsp;     * Function maps the status of a field to the correct picture representation
+<i class="no-highlight">391</i>&nbsp;     *
+<i class="no-highlight">392</i>&nbsp;     * @param field current field to refresh picture
+<i class="no-highlight">393</i>&nbsp;     */
+<i class="no-highlight">394</i>&nbsp;    private void mapFieldToView(Field field) {
+<i class="no-highlight">395</i>&nbsp;
+<b class="nc"><i class="no-highlight">396</i>&nbsp;        Button currBut = findViewById(field.getId());</b>
+<i class="no-highlight">397</i>&nbsp;
+<i class="no-highlight">398</i>&nbsp;
+<b class="nc"><i class="no-highlight">399</i>&nbsp;        Drawable[] layerView = new Drawable[3];</b>
+<i class="no-highlight">400</i>&nbsp;
+<b class="nc"><i class="no-highlight">401</i>&nbsp;        layerView[0] = this.getDrawable(field.background);</b>
+<b class="nc"><i class="no-highlight">402</i>&nbsp;        layerView[1] = this.getDrawable(R.drawable.field_transparent);</b>
+<b class="nc"><i class="no-highlight">403</i>&nbsp;        layerView[2] = this.getDrawable(R.drawable.field_transparent);</b>
+<i class="no-highlight">404</i>&nbsp;
+<b class="nc"><i class="no-highlight">405</i>&nbsp;        if (field.getStatus()) {</b>
+<i class="no-highlight">406</i>&nbsp;
+<b class="nc"><i class="no-highlight">407</i>&nbsp;            currBut.setVisibility(View.VISIBLE);</b>
+<i class="no-highlight">408</i>&nbsp;
+<b class="nc"><i class="no-highlight">409</i>&nbsp;            switch (field.getHighlighting()) {</b>
+<i class="no-highlight">410</i>&nbsp;                case Empty:
+<b class="nc"><i class="no-highlight">411</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.field_transparent);</b>
+<b class="nc"><i class="no-highlight">412</i>&nbsp;                    break;</b>
+<i class="no-highlight">413</i>&nbsp;
+<i class="no-highlight">414</i>&nbsp;                case Reachable:
+<b class="nc"><i class="no-highlight">415</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_reachable);</b>
+<b class="nc"><i class="no-highlight">416</i>&nbsp;                    break;</b>
+<i class="no-highlight">417</i>&nbsp;                case MovableUp:
+<b class="nc"><i class="no-highlight">418</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_up);</b>
+<b class="nc"><i class="no-highlight">419</i>&nbsp;                    break;</b>
+<i class="no-highlight">420</i>&nbsp;                case MovableDown:
+<b class="nc"><i class="no-highlight">421</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_down);</b>
+<b class="nc"><i class="no-highlight">422</i>&nbsp;                    break;</b>
+<i class="no-highlight">423</i>&nbsp;                case MovableLeft:
+<b class="nc"><i class="no-highlight">424</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_left);</b>
+<b class="nc"><i class="no-highlight">425</i>&nbsp;                    break;</b>
+<i class="no-highlight">426</i>&nbsp;                case MovableRight:
+<b class="nc"><i class="no-highlight">427</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable_right);</b>
+<b class="nc"><i class="no-highlight">428</i>&nbsp;                    break;</b>
+<i class="no-highlight">429</i>&nbsp;                case Movable:
+<b class="nc"><i class="no-highlight">430</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_movable);</b>
+<b class="nc"><i class="no-highlight">431</i>&nbsp;                    break;</b>
+<i class="no-highlight">432</i>&nbsp;                case Healable:
+<b class="nc"><i class="no-highlight">433</i>&nbsp;                    break;</b>
+<i class="no-highlight">434</i>&nbsp;                case Attackable:
+<b class="nc"><i class="no-highlight">435</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_attack_reachable);</b>
+<b class="nc"><i class="no-highlight">436</i>&nbsp;                    break;</b>
+<i class="no-highlight">437</i>&nbsp;                case Attackable1:
+<b class="nc"><i class="no-highlight">438</i>&nbsp;                    layerView[2] = this.getDrawable(lastSelected.getSegment().getPawn().getAttack1().getResource());</b>
+<b class="nc"><i class="no-highlight">439</i>&nbsp;                    break;</b>
+<i class="no-highlight">440</i>&nbsp;                case Attackable2:
+<b class="nc"><i class="no-highlight">441</i>&nbsp;                    layerView[2] = this.getDrawable(lastSelected.getSegment().getPawn().getAttack2().getResource());</b>
+<b class="nc"><i class="no-highlight">442</i>&nbsp;                    break;</b>
+<i class="no-highlight">443</i>&nbsp;                case Buildable:
+<b class="nc"><i class="no-highlight">444</i>&nbsp;                    break;</b>
+<i class="no-highlight">445</i>&nbsp;                case SpawnableP1:
+<b class="nc"><i class="no-highlight">446</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p0);</b>
+<b class="nc"><i class="no-highlight">447</i>&nbsp;                    break;</b>
+<i class="no-highlight">448</i>&nbsp;                case SpawnableP2:
+<b class="nc"><i class="no-highlight">449</i>&nbsp;                    layerView[2] = this.getDrawable(R.drawable.highlighting_spawnable_p1);</b>
+<b class="nc"><i class="no-highlight">450</i>&nbsp;                    break;</b>
+<i class="no-highlight">451</i>&nbsp;                default:
+<i class="no-highlight">452</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">453</i>&nbsp;            PawnSegment segment = field.getSegment();</b>
+<b class="nc"><i class="no-highlight">454</i>&nbsp;            if (segment != null) {</b>
+<i class="no-highlight">455</i>&nbsp;
+<b class="nc"><i class="no-highlight">456</i>&nbsp;                switch (segment.getBodyType()) {</b>
+<i class="no-highlight">457</i>&nbsp;                    case Head:
+<b class="nc"><i class="no-highlight">458</i>&nbsp;                        layerView[1] = this.getDrawable(segment.getPawn().pictureHead);</b>
+<b class="nc"><i class="no-highlight">459</i>&nbsp;                        break;</b>
+<i class="no-highlight">460</i>&nbsp;                    case Tail:
+<b class="nc"><i class="no-highlight">461</i>&nbsp;                        layerView[1] = this.getDrawable(segment.getPawn().pictureTail);</b>
+<b class="nc"><i class="no-highlight">462</i>&nbsp;                        break;</b>
+<i class="no-highlight">463</i>&nbsp;                    case TailUp:
+<b class="nc"><i class="no-highlight">464</i>&nbsp;                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailUp);</b>
+<b class="nc"><i class="no-highlight">465</i>&nbsp;                        break;</b>
+<i class="no-highlight">466</i>&nbsp;                    case TailDown:
+<b class="nc"><i class="no-highlight">467</i>&nbsp;                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailDown);</b>
+<b class="nc"><i class="no-highlight">468</i>&nbsp;                        break;</b>
+<i class="no-highlight">469</i>&nbsp;                    case TailLeft:
+<b class="nc"><i class="no-highlight">470</i>&nbsp;                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailLeft);</b>
+<b class="nc"><i class="no-highlight">471</i>&nbsp;                        break;</b>
+<i class="no-highlight">472</i>&nbsp;                    case TailRight:
+<b class="nc"><i class="no-highlight">473</i>&nbsp;                        layerView[1] = this.getDrawable(segment.getPawn().pictureTailRight);</b>
+<b class="nc"><i class="no-highlight">474</i>&nbsp;                        break;</b>
+<i class="no-highlight">475</i>&nbsp;                    default:
+<i class="no-highlight">476</i>&nbsp;                }
+<i class="no-highlight">477</i>&nbsp;
+<i class="no-highlight">478</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">479</i>&nbsp;        } else {</b>
+<b class="nc"><i class="no-highlight">480</i>&nbsp;            currBut.setVisibility(View.INVISIBLE);</b>
+<i class="no-highlight">481</i>&nbsp;        }
+<i class="no-highlight">482</i>&nbsp;
+<b class="nc"><i class="no-highlight">483</i>&nbsp;        LayerDrawable layerDrawable = new LayerDrawable(layerView);</b>
+<b class="nc"><i class="no-highlight">484</i>&nbsp;        currBut.setBackground(layerDrawable);</b>
+<i class="no-highlight">485</i>&nbsp;
+<i class="no-highlight">486</i>&nbsp;    }
+<i class="no-highlight">487</i>&nbsp;
+<i class="no-highlight">488</i>&nbsp;
+<i class="no-highlight">489</i>&nbsp;    @Override
+<i class="no-highlight">490</i>&nbsp;    public void onPause() {
+<b class="nc"><i class="no-highlight">491</i>&nbsp;        super.onPause();</b>
+<b class="nc"><i class="no-highlight">492</i>&nbsp;        music.pause();</b>
+<i class="no-highlight">493</i>&nbsp;        // stop the clock
+<i class="no-highlight">494</i>&nbsp;    }
+<i class="no-highlight">495</i>&nbsp;
+<i class="no-highlight">496</i>&nbsp;    @Override
+<i class="no-highlight">497</i>&nbsp;    public void onResume() {
+<b class="nc"><i class="no-highlight">498</i>&nbsp;        super.onResume();</b>
+<b class="nc"><i class="no-highlight">499</i>&nbsp;        music.start();</b>
+<i class="no-highlight">500</i>&nbsp;
+<i class="no-highlight">501</i>&nbsp;    }
+<i class="no-highlight">502</i>&nbsp;    /**
+<i class="no-highlight">503</i>&nbsp;     * By clicking on a highlighted field the associated action will be performed here
+<i class="no-highlight">504</i>&nbsp;     *
+<i class="no-highlight">505</i>&nbsp;     * @param field clicked field
+<i class="no-highlight">506</i>&nbsp;     */
+<i class="no-highlight">507</i>&nbsp;    private void doHighlightingActions(Field field) {
+<b class="nc"><i class="no-highlight">508</i>&nbsp;        if (field.getHighlighting() != Highlighting.Empty) {</b>
+<i class="no-highlight">509</i>&nbsp;
+<i class="no-highlight">510</i>&nbsp;            Pawn actor;
+<i class="no-highlight">511</i>&nbsp;            // Pawn target;
+<i class="no-highlight">512</i>&nbsp;
+<i class="no-highlight">513</i>&nbsp;            MediaPlayer audio;
+<b class="nc"><i class="no-highlight">514</i>&nbsp;            audio = MediaPlayer.create(this, R.raw.move_sound);</b>
+<b class="nc"><i class="no-highlight">515</i>&nbsp;            audio.setVolume(5,5);</b>
+<i class="no-highlight">516</i>&nbsp;
+<i class="no-highlight">517</i>&nbsp;            // Actions when clicking a highlighted field
+<b class="nc"><i class="no-highlight">518</i>&nbsp;            switch (field.getHighlighting()) {</b>
+<i class="no-highlight">519</i>&nbsp;                case Empty:
+<b class="nc"><i class="no-highlight">520</i>&nbsp;                    clearBoard();</b>
+<b class="nc"><i class="no-highlight">521</i>&nbsp;                    break;</b>
+<i class="no-highlight">522</i>&nbsp;                case Reachable:
+<b class="nc"><i class="no-highlight">523</i>&nbsp;                    break;</b>
+<i class="no-highlight">524</i>&nbsp;                case MovableUp:
+<b class="nc"><i class="no-highlight">525</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">526</i>&nbsp;                    actor.move(lastSelected, field, Direction.UP);</b>
+<b class="nc"><i class="no-highlight">527</i>&nbsp;                    audio.start();</b>
+<b class="nc"><i class="no-highlight">528</i>&nbsp;                    break;</b>
+<i class="no-highlight">529</i>&nbsp;                case MovableDown:
+<b class="nc"><i class="no-highlight">530</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">531</i>&nbsp;                    actor.move(lastSelected, field, Direction.DOWN);</b>
+<b class="nc"><i class="no-highlight">532</i>&nbsp;                    audio.start();</b>
+<b class="nc"><i class="no-highlight">533</i>&nbsp;                    break;</b>
+<i class="no-highlight">534</i>&nbsp;                case MovableLeft:
+<b class="nc"><i class="no-highlight">535</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">536</i>&nbsp;                    actor.move(lastSelected, field, Direction.LEFT);</b>
+<b class="nc"><i class="no-highlight">537</i>&nbsp;                    audio.start();</b>
+<b class="nc"><i class="no-highlight">538</i>&nbsp;                    break;</b>
+<i class="no-highlight">539</i>&nbsp;                case MovableRight:
+<b class="nc"><i class="no-highlight">540</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">541</i>&nbsp;                    actor.move(lastSelected, field, Direction.RIGHT);</b>
+<b class="nc"><i class="no-highlight">542</i>&nbsp;                    audio.start();</b>
+<b class="nc"><i class="no-highlight">543</i>&nbsp;                    break;</b>
+<i class="no-highlight">544</i>&nbsp;                case Movable:
+<b class="nc"><i class="no-highlight">545</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">546</i>&nbsp;                    actor.move(lastSelected, field, Direction.NONE);</b>
+<b class="nc"><i class="no-highlight">547</i>&nbsp;                    audio.start();</b>
+<b class="nc"><i class="no-highlight">548</i>&nbsp;                    break;</b>
+<i class="no-highlight">549</i>&nbsp;                case Healable:
+<i class="no-highlight">550</i>&nbsp;                    //TODO
+<b class="nc"><i class="no-highlight">551</i>&nbsp;                    break;</b>
+<i class="no-highlight">552</i>&nbsp;                case Attackable1:
+<b class="nc"><i class="no-highlight">553</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">554</i>&nbsp;                    if(field.getSegment() != null &amp;&amp; actor.getAttack1().canAttack()) {</b>
+<b class="nc"><i class="no-highlight">555</i>&nbsp;                        actor.attack1(this, field);</b>
+<b class="nc"><i class="no-highlight">556</i>&nbsp;                        audio = MediaPlayer.create(this, actor.getAttack1().getAudio());</b>
+<b class="nc"><i class="no-highlight">557</i>&nbsp;                        audio.start();</b>
+<b class="nc"><i class="no-highlight">558</i>&nbsp;                        actor.getAttack1().SetAttackFlag(false);</b>
+<i class="no-highlight">559</i>&nbsp;
+<i class="no-highlight">560</i>&nbsp;                    }
+<i class="no-highlight">561</i>&nbsp;                    break;
+<i class="no-highlight">562</i>&nbsp;                case Attackable2:
+<b class="nc"><i class="no-highlight">563</i>&nbsp;                    actor = lastSelected.getSegment().getPawn();</b>
+<b class="nc"><i class="no-highlight">564</i>&nbsp;                    if(field.getSegment() != null &amp;&amp; actor.getAttack2().canAttack()) {</b>
+<b class="nc"><i class="no-highlight">565</i>&nbsp;                        actor.attack2(this, field);</b>
+<b class="nc"><i class="no-highlight">566</i>&nbsp;                        audio = MediaPlayer.create(this, actor.getAttack2().getAudio());</b>
+<b class="nc"><i class="no-highlight">567</i>&nbsp;                        audio.start();</b>
+<b class="nc"><i class="no-highlight">568</i>&nbsp;                        actor.getAttack2().SetAttackFlag(false);</b>
+<i class="no-highlight">569</i>&nbsp;                    }
+<i class="no-highlight">570</i>&nbsp;                    break;
+<i class="no-highlight">571</i>&nbsp;                case Buildable:
+<i class="no-highlight">572</i>&nbsp;                    //TODO
+<b class="nc"><i class="no-highlight">573</i>&nbsp;                    break;</b>
+<i class="no-highlight">574</i>&nbsp;                case SpawnableP1:
+<b class="nc"><i class="no-highlight">575</i>&nbsp;                    if(board.currentPlayer != 0) break;</b>
+<b class="nc"><i class="no-highlight">576</i>&nbsp;                    showSpawnableList(findViewById(field.getId()));</b>
+<b class="nc"><i class="no-highlight">577</i>&nbsp;                    break;</b>
+<i class="no-highlight">578</i>&nbsp;                case SpawnableP2:
+<b class="nc"><i class="no-highlight">579</i>&nbsp;                    if(board.currentPlayer != 1) break;</b>
+<b class="nc"><i class="no-highlight">580</i>&nbsp;                    showSpawnableList(findViewById(field.getId()));</b>
+<b class="nc"><i class="no-highlight">581</i>&nbsp;                    break;</b>
+<i class="no-highlight">582</i>&nbsp;                default:
+<i class="no-highlight">583</i>&nbsp;
+<i class="no-highlight">584</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">585</i>&nbsp;            refreshInteractableView(field);</b>
+<i class="no-highlight">586</i>&nbsp;
+<b class="nc"><i class="no-highlight">587</i>&nbsp;            checkEndCondition();</b>
+<i class="no-highlight">588</i>&nbsp;
+<b class="nc"><i class="no-highlight">589</i>&nbsp;            clearBoard();</b>
+<b class="nc"><i class="no-highlight">590</i>&nbsp;            refreshBoard();</b>
+<i class="no-highlight">591</i>&nbsp;
+<i class="no-highlight">592</i>&nbsp;        }
+<i class="no-highlight">593</i>&nbsp;    }
+<i class="no-highlight">594</i>&nbsp;
+<i class="no-highlight">595</i>&nbsp;    private void checkEndCondition() {
+<b class="nc"><i class="no-highlight">596</i>&nbsp;        if(board.currentState == LevelState.Running &amp;&amp; (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){</b>
+<i class="no-highlight">597</i>&nbsp;            //game has ended
+<i class="no-highlight">598</i>&nbsp;
+<b class="nc"><i class="no-highlight">599</i>&nbsp;            if(board.pawnsInTeam1.size() == 0 ) {</b>
+<b class="nc"><i class="no-highlight">600</i>&nbsp;                Toast.makeText(MainActivity.this, &quot;Spieler 2 hat gewonnen&quot;, Toast.LENGTH_SHORT).show();</b>
+<b class="nc"><i class="no-highlight">601</i>&nbsp;            } else if (board.pawnsInTeam2.size() == 0) {</b>
+<b class="nc"><i class="no-highlight">602</i>&nbsp;                Toast.makeText(MainActivity.this, &quot;Spieler 1 hat gewonnen&quot;, Toast.LENGTH_SHORT).show();</b>
+<i class="no-highlight">603</i>&nbsp;            }
+<i class="no-highlight">604</i>&nbsp;
+<b class="nc"><i class="no-highlight">605</i>&nbsp;            board.setState(LevelState.Finished);</b>
+<i class="no-highlight">606</i>&nbsp;
+<i class="no-highlight">607</i>&nbsp;            //Intent i = new Intent(this, LevelSelection.class);
+<i class="no-highlight">608</i>&nbsp;            //startActivity(i);
+<i class="no-highlight">609</i>&nbsp;        }
+<i class="no-highlight">610</i>&nbsp;    }
+<i class="no-highlight">611</i>&nbsp;
+<i class="no-highlight">612</i>&nbsp;
+<i class="no-highlight">613</i>&nbsp;    private void setHighlightingMove(Field field) {
+<b class="nc"><i class="no-highlight">614</i>&nbsp;        clearBoard();</b>
+<i class="no-highlight">615</i>&nbsp;
+<b class="nc"><i class="no-highlight">616</i>&nbsp;        Pawn pawn = field.getSegment().getPawn();</b>
+<i class="no-highlight">617</i>&nbsp;
+<b class="nc"><i class="no-highlight">618</i>&nbsp;        if (pawn.getLeftSteps() &gt; 0) {</b>
+<b class="nc"><i class="no-highlight">619</i>&nbsp;            for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {</b>
+<b class="nc"><i class="no-highlight">620</i>&nbsp;                if(neighborField.getSegment() != null) {</b>
+<b class="nc"><i class="no-highlight">621</i>&nbsp;                    continue;</b>
+<i class="no-highlight">622</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">623</i>&nbsp;                neighborField.setHighlighting(Highlighting.Reachable);</b>
+<b class="nc"><i class="no-highlight">624</i>&nbsp;            }</b>
+<i class="no-highlight">625</i>&nbsp;
+<b class="nc"><i class="no-highlight">626</i>&nbsp;            if (board.getField((short)(field.x + 1), field.y) != null &amp;&amp; board.getField((short)(field.x + 1), field.y).getSegment() == null) {</b>
+<b class="nc"><i class="no-highlight">627</i>&nbsp;                board.getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);</b>
+<i class="no-highlight">628</i>&nbsp;            }
+<i class="no-highlight">629</i>&nbsp;
+<b class="nc"><i class="no-highlight">630</i>&nbsp;            if (board.getField((short)(field.x - 1), field.y) != null &amp;&amp; board.getField((short)(field.x - 1), field.y).getSegment() == null) {</b>
+<b class="nc"><i class="no-highlight">631</i>&nbsp;                board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);</b>
+<i class="no-highlight">632</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">633</i>&nbsp;            if (board.getField(field.x, (short)(field.y+1)) != null &amp;&amp; board.getField(field.x, (short)(field.y+1)).getSegment() == null) {</b>
+<b class="nc"><i class="no-highlight">634</i>&nbsp;                board.getField(field.x, (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);</b>
+<i class="no-highlight">635</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">636</i>&nbsp;            if (board.getField(field.x, (short)(field.y-1)) != null &amp;&amp; board.getField(field.x, (short)(field.y-1)).getSegment() == null) {</b>
+<b class="nc"><i class="no-highlight">637</i>&nbsp;                board.getField(field.x, (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);</b>
+<i class="no-highlight">638</i>&nbsp;            }
+<i class="no-highlight">639</i>&nbsp;        }
+<i class="no-highlight">640</i>&nbsp;    }
+<i class="no-highlight">641</i>&nbsp;
+<i class="no-highlight">642</i>&nbsp;
+<i class="no-highlight">643</i>&nbsp;    private void setHighlightingAttack(Field field, byte attackNum, byte range) {
+<b class="nc"><i class="no-highlight">644</i>&nbsp;        clearBoard();</b>
+<b class="nc"><i class="no-highlight">645</i>&nbsp;        for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), range, ActionID.ATTACK_1)) {</b>
+<b class="nc"><i class="no-highlight">646</i>&nbsp;            if (neighborField.getSegment() != null &amp;&amp; neighborField.getSegment().getPawn().getTeam() != board.currentPlayer) {</b>
+<b class="nc"><i class="no-highlight">647</i>&nbsp;                if (attackNum == 1) {</b>
+<b class="nc"><i class="no-highlight">648</i>&nbsp;                    neighborField.setHighlighting(Highlighting.Attackable1);</b>
+<b class="nc"><i class="no-highlight">649</i>&nbsp;                } else if (attackNum == 2) {</b>
+<b class="nc"><i class="no-highlight">650</i>&nbsp;                    neighborField.setHighlighting(Highlighting.Attackable2);</b>
+<i class="no-highlight">651</i>&nbsp;                }
+<i class="no-highlight">652</i>&nbsp;            } else {
+<b class="nc"><i class="no-highlight">653</i>&nbsp;                neighborField.setHighlighting(Highlighting.Attackable);</b>
+<i class="no-highlight">654</i>&nbsp;            }
+<i class="no-highlight">655</i>&nbsp;
+<b class="nc"><i class="no-highlight">656</i>&nbsp;        }</b>
+<i class="no-highlight">657</i>&nbsp;    }
+<i class="no-highlight">658</i>&nbsp;
+<i class="no-highlight">659</i>&nbsp;
+<i class="no-highlight">660</i>&nbsp;    private void clearBoard() {
+<b class="nc"><i class="no-highlight">661</i>&nbsp;        if(board.currentState == LevelState.Preparation) {</b>
+<i class="no-highlight">662</i>&nbsp;            return;
+<i class="no-highlight">663</i>&nbsp;        }
+<i class="no-highlight">664</i>&nbsp;
+<b class="nc"><i class="no-highlight">665</i>&nbsp;        for (short y = 0; y &lt; height; y++) {</b>
+<b class="nc"><i class="no-highlight">666</i>&nbsp;            for (short x = 0; x &lt; width; x++) {</b>
+<b class="nc"><i class="no-highlight">667</i>&nbsp;                Field currentF = board.getField(x,y);</b>
+<b class="nc"><i class="no-highlight">668</i>&nbsp;                currentF.setHighlighting(Highlighting.Empty);</b>
+<i class="no-highlight">669</i>&nbsp;            }
+<i class="no-highlight">670</i>&nbsp;        }
+<i class="no-highlight">671</i>&nbsp;    }
+<i class="no-highlight">672</i>&nbsp;
+<i class="no-highlight">673</i>&nbsp;
+<i class="no-highlight">674</i>&nbsp;    private void loadDefaultView() {
+<b class="nc"><i class="no-highlight">675</i>&nbsp;        clearBoard();</b>
+<b class="nc"><i class="no-highlight">676</i>&nbsp;        clearInfoPanel();</b>
+<i class="no-highlight">677</i>&nbsp;    }
+<i class="no-highlight">678</i>&nbsp;
+<i class="no-highlight">679</i>&nbsp;    private void clearInfoPanel() {
+<b class="nc"><i class="no-highlight">680</i>&nbsp;        TextView showName =  findViewById(ActionID.NAME);</b>
+<b class="nc"><i class="no-highlight">681</i>&nbsp;        TextView showHealth = findViewById(ActionID.HP);</b>
+<b class="nc"><i class="no-highlight">682</i>&nbsp;        TextView showSteps = findViewById(ActionID.STEPS);</b>
+<b class="nc"><i class="no-highlight">683</i>&nbsp;        TextView showClass = findViewById(ActionID.CLASS);</b>
+<i class="no-highlight">684</i>&nbsp;
+<b class="nc"><i class="no-highlight">685</i>&nbsp;        showName.setVisibility(View.INVISIBLE);</b>
+<b class="nc"><i class="no-highlight">686</i>&nbsp;        showHealth.setVisibility(View.INVISIBLE);</b>
+<b class="nc"><i class="no-highlight">687</i>&nbsp;        showSteps.setVisibility(View.INVISIBLE);</b>
+<b class="nc"><i class="no-highlight">688</i>&nbsp;        showClass.setVisibility(View.INVISIBLE);</b>
+<i class="no-highlight">689</i>&nbsp;
+<b class="nc"><i class="no-highlight">690</i>&nbsp;        Button btn = findViewById(ActionID.MOVE);</b>
+<b class="nc"><i class="no-highlight">691</i>&nbsp;        btn.setVisibility(View.INVISIBLE);</b>
+<b class="nc"><i class="no-highlight">692</i>&nbsp;        btn = findViewById(ActionID.ATTACK_1);</b>
+<b class="nc"><i class="no-highlight">693</i>&nbsp;        btn.setVisibility(View.INVISIBLE);</b>
+<b class="nc"><i class="no-highlight">694</i>&nbsp;        btn = findViewById(ActionID.ATTACK_2);</b>
+<b class="nc"><i class="no-highlight">695</i>&nbsp;        btn.setVisibility(View.INVISIBLE);</b>
+<i class="no-highlight">696</i>&nbsp;    }
+<i class="no-highlight">697</i>&nbsp;
+<i class="no-highlight">698</i>&nbsp;
+<i class="no-highlight">699</i>&nbsp;    @SuppressLint(&quot;ResourceType&quot;)
+<i class="no-highlight">700</i>&nbsp;    private void loadInfoWithPawn() {
+<b class="nc"><i class="no-highlight">701</i>&nbsp;        if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {</b>
+<b class="nc"><i class="no-highlight">702</i>&nbsp;            TextView showName = findViewById(ActionID.NAME);</b>
+<b class="nc"><i class="no-highlight">703</i>&nbsp;            TextView showHealth = findViewById(ActionID.HP);</b>
+<b class="nc"><i class="no-highlight">704</i>&nbsp;            TextView showSteps = findViewById(ActionID.STEPS);</b>
+<b class="nc"><i class="no-highlight">705</i>&nbsp;            TextView showClass = findViewById(ActionID.CLASS);</b>
+<i class="no-highlight">706</i>&nbsp;
+<b class="nc"><i class="no-highlight">707</i>&nbsp;            showName.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">708</i>&nbsp;            showHealth.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">709</i>&nbsp;            showSteps.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">710</i>&nbsp;            showClass.setVisibility(View.VISIBLE);</b>
+<i class="no-highlight">711</i>&nbsp;
+<b class="nc"><i class="no-highlight">712</i>&nbsp;            showName.setText(&quot;Name: &quot; + lastSelected.getSegment().getPawn().getName());</b>
+<b class="nc"><i class="no-highlight">713</i>&nbsp;            showHealth.setText(&quot;HP: &quot; + lastSelected.getSegment().getPawn().getCurrentSize() + &quot; / &quot; + lastSelected.getSegment().getPawn().getMaxSize());</b>
+<b class="nc"><i class="no-highlight">714</i>&nbsp;            showSteps.setText(&quot;Steps: &quot; + lastSelected.getSegment().getPawn().getLeftSteps());</b>
+<i class="no-highlight">715</i>&nbsp;
+<b class="nc"><i class="no-highlight">716</i>&nbsp;            Button btn = findViewById(ActionID.MOVE);</b>
+<b class="nc"><i class="no-highlight">717</i>&nbsp;            btn.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">718</i>&nbsp;            btn = findViewById(ActionID.ATTACK_1);</b>
+<b class="nc"><i class="no-highlight">719</i>&nbsp;            btn.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i class="no-highlight">720</i>&nbsp;            btn = findViewById(ActionID.ATTACK_2);</b>
+<b class="nc"><i class="no-highlight">721</i>&nbsp;            btn.setVisibility(View.VISIBLE);</b>
+<i class="no-highlight">722</i>&nbsp;
+<b class="nc"><i class="no-highlight">723</i>&nbsp;            btn = findViewById(ActionID.ATTACK_1);</b>
+<b class="nc"><i class="no-highlight">724</i>&nbsp;            btn.setText(lastSelected.getSegment().getPawn().getAttack1().getNameOfAttack());</b>
+<b class="nc"><i class="no-highlight">725</i>&nbsp;            btn = findViewById(ActionID.ATTACK_2);</b>
+<b class="nc"><i class="no-highlight">726</i>&nbsp;            btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());</b>
+<i class="no-highlight">727</i>&nbsp;
+<b class="nc"><i class="no-highlight">728</i>&nbsp;            btn = findViewById(1100);</b>
+<b class="nc"><i class="no-highlight">729</i>&nbsp;            btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);</b>
+<i class="no-highlight">730</i>&nbsp;            
+<i class="no-highlight">731</i>&nbsp;        }
+<i class="no-highlight">732</i>&nbsp;    }
+<i class="no-highlight">733</i>&nbsp;
+<i class="no-highlight">734</i>&nbsp;    /**
+<i class="no-highlight">735</i>&nbsp;     * Show menu for spawnable pawns
+<i class="no-highlight">736</i>&nbsp;     * @param v spawnable button field that has been pressed
+<i class="no-highlight">737</i>&nbsp;     */
+<i class="no-highlight">738</i>&nbsp;    public void showSpawnableList(View v) {
+<b class="nc"><i class="no-highlight">739</i>&nbsp;        PopupMenu selectionList = new PopupMenu(this, v);</b>
+<b class="nc"><i class="no-highlight">740</i>&nbsp;        selectionList.setOnMenuItemClickListener(this);</b>
+<i class="no-highlight">741</i>&nbsp;
+<b class="nc"><i class="no-highlight">742</i>&nbsp;        selectionList.getMenu().add(v.getId(), 0 ,0 , &quot;Bug&quot;);</b>
+<b class="nc"><i class="no-highlight">743</i>&nbsp;        selectionList.getMenu().add(v.getId(),1,1,&quot;Dumbbell&quot;);</b>
+<b class="nc"><i class="no-highlight">744</i>&nbsp;        selectionList.getMenu().add(v.getId(),2,2,&quot;T3INF2002&quot;);</b>
+<i class="no-highlight">745</i>&nbsp;
+<b class="nc"><i class="no-highlight">746</i>&nbsp;        selectionList.show();</b>
+<i class="no-highlight">747</i>&nbsp;    }
+<i class="no-highlight">748</i>&nbsp;
+<i class="no-highlight">749</i>&nbsp;    /**
+<i class="no-highlight">750</i>&nbsp;     * Actual spawning of pawn on the selected button field
+<i class="no-highlight">751</i>&nbsp;     * @param item selected pawn to spawn on field
+<i class="no-highlight">752</i>&nbsp;     * @return if spawning was successful
+<i class="no-highlight">753</i>&nbsp;     */
+<i class="no-highlight">754</i>&nbsp;    @Override
+<i class="no-highlight">755</i>&nbsp;    public boolean onMenuItemClick(MenuItem item) {
+<i class="no-highlight">756</i>&nbsp;
+<b class="nc"><i class="no-highlight">757</i>&nbsp;        Field field = board.getFieldById(item.getGroupId());</b>
+<i class="no-highlight">758</i>&nbsp;        Pawn p;
+<b class="nc"><i class="no-highlight">759</i>&nbsp;        if(item.getTitle().equals(&quot;Bug&quot;)) {</b>
+<b class="nc"><i class="no-highlight">760</i>&nbsp;            p = new Bug();</b>
+<b class="nc"><i class="no-highlight">761</i>&nbsp;        } else if(item.getTitle().equals(&quot;Dumbbell&quot;)) {</b>
+<b class="nc"><i class="no-highlight">762</i>&nbsp;            p = new Dumbbell();</b>
+<b class="nc"><i class="no-highlight">763</i>&nbsp;        } else if(item.getTitle().equals(&quot;T3INF2002&quot;)){</b>
+<b class="nc"><i class="no-highlight">764</i>&nbsp;            p = new Compilerbau();</b>
+<i class="no-highlight">765</i>&nbsp;        } else {
+<b class="nc"><i class="no-highlight">766</i>&nbsp;            throw new NoSuchElementException(&quot;Error, selected pawn not implemented&quot;);</b>
+<i class="no-highlight">767</i>&nbsp;        }
+<i class="no-highlight">768</i>&nbsp;
+<i class="no-highlight">769</i>&nbsp;        MediaPlayer sound_spawn;
+<b class="nc"><i class="no-highlight">770</i>&nbsp;        sound_spawn = MediaPlayer.create(this, R.raw.spawn2);</b>
+<b class="nc"><i class="no-highlight">771</i>&nbsp;        sound_spawn.setVolume(1,1);</b>
+<b class="nc"><i class="no-highlight">772</i>&nbsp;        sound_spawn.start();</b>
+<i class="no-highlight">773</i>&nbsp;
+<b class="nc"><i class="no-highlight">774</i>&nbsp;        field.setHighlighting(Highlighting.Empty);</b>
+<i class="no-highlight">775</i>&nbsp;
+<b class="nc"><i class="no-highlight">776</i>&nbsp;        board.pawnsOnBoard.add(p);</b>
+<b class="nc"><i class="no-highlight">777</i>&nbsp;        p.createSegment(field, BodyType.Head);</b>
+<b class="nc"><i class="no-highlight">778</i>&nbsp;        p.setTeam(board.currentPlayer);</b>
+<b class="nc"><i class="no-highlight">779</i>&nbsp;        Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();</b>
+<i class="no-highlight">780</i>&nbsp;
+<b class="nc"><i class="no-highlight">781</i>&nbsp;        mapFieldToView(field);</b>
+<i class="no-highlight">782</i>&nbsp;
+<b class="nc"><i class="no-highlight">783</i>&nbsp;        return true;</b>
+<i class="no-highlight">784</i>&nbsp;    }
+<i class="no-highlight">785</i>&nbsp;
+<i class="no-highlight">786</i>&nbsp;
+<i class="no-highlight">787</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-28 11:30</div>
+</div>
+</body>
+</html>

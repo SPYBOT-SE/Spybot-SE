@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SavegameUtil</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.utilities</a>
+</div>
+
+<h1>Coverage Summary for Class: SavegameUtil (com.utilities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SavegameUtil</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/41)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.utilities;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import android.content.Context;
+<i class="no-highlight">4</i>&nbsp;import android.util.Log;
+<i class="no-highlight">5</i>&nbsp;import com.example.spybot.R;
+<i class="no-highlight">6</i>&nbsp;import com.model.Savegame;
+<i class="no-highlight">7</i>&nbsp;import com.model.shortcuts.Json;
+<i class="no-highlight">8</i>&nbsp;import org.json.JSONException;
+<i class="no-highlight">9</i>&nbsp;import org.json.JSONObject;
+<i class="no-highlight">10</i>&nbsp;
+<i class="no-highlight">11</i>&nbsp;import java.io.FileNotFoundException;
+<i class="no-highlight">12</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">13</i>&nbsp;import java.io.InputStream;
+<i class="no-highlight">14</i>&nbsp;
+<b class="nc"><i class="no-highlight">15</i>&nbsp;public class SavegameUtil {</b>
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    public static void loadSavegame(Context ctx) {
+<i class="no-highlight">18</i>&nbsp;        Savegame sg;
+<i class="no-highlight">19</i>&nbsp;
+<b class="nc"><i class="no-highlight">20</i>&nbsp;        if (!isFileExisting(Json.SAVEGAMEFILE, ctx)) {</b>
+<b class="nc"><i class="no-highlight">21</i>&nbsp;            resetSavegame(ctx);</b>
+<i class="no-highlight">22</i>&nbsp;        }
+<i class="no-highlight">23</i>&nbsp;
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        sg = getSavegame(ctx, false);</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        if (sg == null) {</b>
+<i class="no-highlight">26</i>&nbsp;            //Savegame is corrupted
+<i class="no-highlight">27</i>&nbsp;
+<b class="nc"><i class="no-highlight">28</i>&nbsp;            sg = getSavegame(ctx, true);</b>
+<i class="no-highlight">29</i>&nbsp;        }
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;        //TODO set savegame somewhere, accessible for all activities
+<b class="nc"><i class="no-highlight">33</i>&nbsp;        sg.toString();</b>
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;    }
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;    /**
+<i class="no-highlight">38</i>&nbsp;     * Get an instance of a savegame related to the savegame file.
+<i class="no-highlight">39</i>&nbsp;     * If there is a problem with the savegame and the defaultSavegame param is false, null will be returned,
+<i class="no-highlight">40</i>&nbsp;     * otherwise a default instance will be returned.
+<i class="no-highlight">41</i>&nbsp;     *
+<i class="no-highlight">42</i>&nbsp;     * @param ctx
+<i class="no-highlight">43</i>&nbsp;     * @param defaultSavegame, if returned value should be a default savegame, otherwise will be null
+<i class="no-highlight">44</i>&nbsp;     * @return
+<i class="no-highlight">45</i>&nbsp;     */
+<i class="no-highlight">46</i>&nbsp;    private static Savegame getSavegame(Context ctx, boolean defaultSavegame) {
+<i class="no-highlight">47</i>&nbsp;        Savegame savegame;
+<i class="no-highlight">48</i>&nbsp;
+<b class="nc"><i class="no-highlight">49</i>&nbsp;        if (defaultSavegame) {</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;            savegame = withoutError(ctx);</b>
+<i class="no-highlight">51</i>&nbsp;        } else {
+<i class="no-highlight">52</i>&nbsp;            try {
+<b class="nc"><i class="no-highlight">53</i>&nbsp;                savegame = withError(ctx);</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;                Log.e(&quot;Spybot/Exception&quot;, &quot;Corrupted Savegame&quot;);</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;                savegame = null;</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;            } catch (JSONException e) {</b>
+<b class="nc"><i class="no-highlight">58</i>&nbsp;                Log.e(&quot;Spybot/Exception&quot;, &quot;JSON parse Exception&quot;);</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;                savegame = null;</b>
+<b class="nc"><i class="no-highlight">60</i>&nbsp;            }</b>
+<i class="no-highlight">61</i>&nbsp;        }
+<i class="no-highlight">62</i>&nbsp;
+<b class="nc"><i class="no-highlight">63</i>&nbsp;        return savegame;</b>
+<i class="no-highlight">64</i>&nbsp;    }
+<i class="no-highlight">65</i>&nbsp;
+<i class="no-highlight">66</i>&nbsp;    private static Savegame withError(Context ctx) throws IOException, JSONException {
+<b class="nc"><i class="no-highlight">67</i>&nbsp;        String json = FileUtil.readFromFile(Json.SAVEGAMEFILE, ctx);</b>
+<i class="no-highlight">68</i>&nbsp;
+<b class="nc"><i class="no-highlight">69</i>&nbsp;        return new Savegame(new JSONObject(json));</b>
+<i class="no-highlight">70</i>&nbsp;    }
+<i class="no-highlight">71</i>&nbsp;
+<i class="no-highlight">72</i>&nbsp;    private static Savegame withoutError(Context ctx) {
+<i class="no-highlight">73</i>&nbsp;        Savegame savegame;
+<i class="no-highlight">74</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">75</i>&nbsp;            savegame = withError(ctx);</b>
+<b class="nc"><i class="no-highlight">76</i>&nbsp;        } catch (IOException |JSONException e) {</b>
+<b class="nc"><i class="no-highlight">77</i>&nbsp;            savegame = new Savegame();</b>
+<b class="nc"><i class="no-highlight">78</i>&nbsp;        }</b>
+<i class="no-highlight">79</i>&nbsp;
+<b class="nc"><i class="no-highlight">80</i>&nbsp;        return  savegame;</b>
+<i class="no-highlight">81</i>&nbsp;    }
+<i class="no-highlight">82</i>&nbsp;
+<i class="no-highlight">83</i>&nbsp;
+<i class="no-highlight">84</i>&nbsp;
+<i class="no-highlight">85</i>&nbsp;    public static void resetSavegame(Context ctx) {
+<b class="nc"><i class="no-highlight">86</i>&nbsp;        String defaultSavegame = Json.DEFAULTSAVEGAME;</b>
+<i class="no-highlight">87</i>&nbsp;
+<i class="no-highlight">88</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">89</i>&nbsp;            defaultSavegame = FileUtil.getFileContent(ctx.getResources().openRawResource(R.raw.savegame));</b>
+<b class="nc"><i class="no-highlight">90</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i class="no-highlight">91</i>&nbsp;            Log.e(&quot;Spybot/Exception&quot;, &quot;Could not read default savegame resource, hardcoded String used&quot;);</b>
+<b class="nc"><i class="no-highlight">92</i>&nbsp;        }</b>
+<i class="no-highlight">93</i>&nbsp;
+<b class="nc"><i class="no-highlight">94</i>&nbsp;        FileUtil.writeToFile(Json.SAVEGAMEFILE, defaultSavegame, ctx);</b>
+<b class="nc"><i class="no-highlight">95</i>&nbsp;        Log.i(&quot;Spybot/Savegame&quot;, &quot;Savegame resetted&quot;);</b>
+<i class="no-highlight">96</i>&nbsp;    }
+<i class="no-highlight">97</i>&nbsp;
+<i class="no-highlight">98</i>&nbsp;    public static boolean isFileExisting(String filename, Context ctx) {
+<b class="nc"><i class="no-highlight">99</i>&nbsp;        boolean ret = true;</b>
+<i class="no-highlight">100</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">101</i>&nbsp;            InputStream inputStream = ctx.openFileInput(filename);</b>
+<b class="nc"><i class="no-highlight">102</i>&nbsp;            inputStream.close();</b>
+<b class="nc"><i class="no-highlight">103</i>&nbsp;        } catch (FileNotFoundException e) {</b>
+<b class="nc"><i class="no-highlight">104</i>&nbsp;            ret = false;</b>
+<b class="nc"><i class="no-highlight">105</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i class="no-highlight">106</i>&nbsp;            Log.e(&quot;Spybot/Exception&quot;, &quot;General IOException&quot;);</b>
+<b class="nc"><i class="no-highlight">107</i>&nbsp;        }</b>
+<b class="nc"><i class="no-highlight">108</i>&nbsp;        return ret;</b>
+<i class="no-highlight">109</i>&nbsp;    }
+<i class="no-highlight">110</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-05-28 11:30</div>
+</div>
+</body>
+</html>
