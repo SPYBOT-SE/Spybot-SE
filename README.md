@@ -1,2 +1,2 @@
 # Spybot
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/af7296c0f78f4e329b3930afde58ba99)](https://www.codacy.com/gh/janick3110/Spybot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=janick3110/Spybot&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1c44a27187c247b1ae6fa7a401d62b99)](https://www.codacy.com/gh/SPYBOT-SE/Spybot-SE/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SPYBOT-SE/Spybot-SE&amp;utm_campaign=Badge_Grade)

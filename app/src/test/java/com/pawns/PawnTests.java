@@ -4,13 +4,12 @@ import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PawnTests {
 
-    int[][] testLvl = {
+    private final int[][] testLvl = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -21,13 +20,13 @@ public class PawnTests {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
-    Board board;
+    private Board board;
 
-    Field field1;
-    Field field2;
-    Field field3;
+    private Field field1;
+    private Field field2;
+    private Field field3;
 
-    Pawn p;
+    private Pawn p;
 
     @BeforeEach
     void iniBoard() {

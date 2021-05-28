@@ -1,8 +1,8 @@
 package com.example.spybot;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -17,14 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
-import com.level.levelSingle;
+import com.level.LevelSingle;
 import com.model.Direction;
 import com.model.LevelState;
 import com.model.shortcuts.ActionID;
 import com.pawns.*;
 import com.player.Player;
 import com.spybot.app.AppSetting;
-import com.utilities.BoardUtil;
 
 import java.util.NoSuchElementException;
 
@@ -32,17 +31,14 @@ import static com.example.spybot.MainMenu.music;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    public static int[][] selectedLevel = levelSingle.Error;
+    public static int[][] selectedLevel = LevelSingle.Error;
 
     private Board board = null;
-
 
     private int height = 0;
     private int width = 0;
 
     private Field lastSelected = null;
-
-    private Resources r = null;
 
     public static Player player1;
     public static Player player2;
@@ -52,12 +48,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         super.onCreate(savedInstanceState);
 
-        r = getResources();
-
         board = new Board(selectedLevel);
 
-        height = board.getSizeY();
-        width = board.getSizeX();
+        height = board.sizeY;
+        width = board.sizeX;
 
 
 
@@ -72,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         infoPanel.setOrientation(LinearLayout.VERTICAL);
         parentLayout.addView(infoPanel); //add info box to parent
 
-        SetUpInfoPanel(infoPanel);
+        setUpInfoPanel(infoPanel);
         //infoPanel.setBackgroundColor(Color.GRAY);
 
 
@@ -117,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         loadDefaultView();
     }
 
-    void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
+    private void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
         Button btnTag = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -169,11 +163,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                             && field.getSegment().getPawn().getTeam() == board.currentPlayer) {
                         lastSelected = field;
                         loadInfoWithPawn();
-                        setHighlightingMove(field);
+                        board.setHighlightingMove(field, this);
                     }
+                    break;
+                default:
             }
         } else { // ID > 1000 are not on board
-            clearBoard();
+            board.clearBoard();
 
             if(lastSelected == null) {
                 return;
@@ -181,13 +177,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             switch (id) {
                 case ActionID.MOVE:
-                    setHighlightingMove(lastSelected);
+                    board.setHighlightingMove(lastSelected, this);
                     break;
                 case ActionID.ATTACK_1:
-                    setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange());
+                    board.setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange(), this);
                     break;
                 case ActionID.ATTACK_2:
-                    setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange());
+                    board.setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange(), this);
                     break;
                 default:
             }
@@ -197,11 +193,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-    void RefreshInteractableView(Field field){
+    @SuppressLint("WrongConstant")
+    private void refreshInteractableView(Field field){
         if (field != null){
             Button button = findViewById(field.getId());
             int visible = field.getStatus() ? 0 : 4;
-            button.setVisibility((int)visible);
+            button.setVisibility(visible);
 
         } else{
             for (short y = 0; y < height; y++) {
@@ -222,8 +219,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-
-    void SetUpInfoPanel(LinearLayout panel) {
+    @SuppressLint("ResourceType")
+    private void setUpInfoPanel(LinearLayout panel) {
         Button btn = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -231,17 +228,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         int width = dm.widthPixels;
 
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
-        btn.setId((int)1100);
+        btn.setId(1100);
 
         btn.setVisibility(View.VISIBLE);
         btn.setClickable(false);
         panel.addView(btn);
 
 
-        CreateTextViews(panel, "Name:", Color.BLACK,ActionID.NAME);
-        CreateTextViews(panel, "HP:", Color.BLACK, ActionID.HP);
-        CreateTextViews(panel, "Steps:", Color.BLACK, ActionID.STEPS);
-        CreateTextViews(panel, "Class:", Color.BLACK, ActionID.CLASS);
+        createTextViews(panel, "Name:", Color.BLACK,ActionID.NAME);
+        createTextViews(panel, "HP:", Color.BLACK, ActionID.HP);
+        createTextViews(panel, "Steps:", Color.BLACK, ActionID.STEPS);
+        createTextViews(panel, "Class:", Color.BLACK, ActionID.CLASS);
 
         LinearLayout btnLayout = new LinearLayout(this);
         btnLayout.setOrientation(LinearLayout.VERTICAL);
@@ -277,20 +274,20 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btn.setText("Next Turn");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-            TurnButtonOnClick();
+            turnButtonOnClick();
         });
 
         btn = createButton(btnLayout, ActionID.BACK, 20);
         btn.setText("Back");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-            LoadMainMenu();
+            loadMainMenu();
         });
 
         panel.addView(btnLayout);
     }
 
-    private void LoadMainMenu(){
+    private void loadMainMenu(){
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setTitle("Leave game");
@@ -302,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ExitGame();
+                        exitGame();
                     }
                 });
 
@@ -318,17 +315,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         alert11.show();
     }
 
-    private void ExitGame(){
+    private void exitGame(){
         Intent i = new Intent(this, LevelSelection.class);
         startActivity(i);
     }
 
-    private void TurnButtonOnClick(){
+    private void turnButtonOnClick(){
         if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
             board.currentPlayer = 1;
         } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
             board.currentPlayer = 0;
-            SortPawnsInTeams();
+            board.sortPawnsInTeams();
             board.currentState = LevelState.Running;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
             board.currentPlayer = 1;
@@ -339,24 +336,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         }
         int currentPlayerIndex = board.currentPlayer;
-        ResetAttributes();
-        clearBoard();
+        resetAttributes();
+        board.clearBoard();
         refreshBoard();
         Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();
     }
 
-    private void SortPawnsInTeams() {
-        for (Pawn pawn: board.pawnsOnBoard) {
-            if (pawn.getTeam() == 0){
-                board.pawnsInTeam1.add(pawn);
-            } else if (pawn.getTeam() == 1){
-                board.pawnsInTeam2.add(pawn);
-            }
-        }
-    }
 
-
-    private void ResetAttributes(){
+    private void resetAttributes(){
         for (Pawn pawn: board.pawnsOnBoard) {
             pawn.setLeftSteps(pawn.getSpeed());
             pawn.getAttack1().SetAttackFlag(true);
@@ -365,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void CreateTextViews(LinearLayout panel, String description, int color, int id) {
+    private void createTextViews(LinearLayout panel, String description, int color, int id) {
         TextView text = new TextView(this);
         text.setText(description);
         text.setTextColor(color);
@@ -393,8 +380,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
      * @param field current field to refresh picture
      */
     private void mapFieldToView(Field field) {
-
-        Resources r = getResources();
 
         Button currBut = findViewById(field.getId());
 
@@ -511,7 +496,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (field.getHighlighting() != Highlighting.Empty) {
 
             Pawn actor;
-            Pawn target;
+            // Pawn target;
 
             MediaPlayer audio;
             audio = MediaPlayer.create(this, R.raw.move_sound);
@@ -520,7 +505,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
                 case Empty:
-                    clearBoard();
+                    board.clearBoard();
                     break;
                 case Reachable:
                     break;
@@ -576,101 +561,45 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     break;
                 case SpawnableP1:
                     if(board.currentPlayer != 0) break;
-                    ShowSpawnableList(findViewById(field.getId()));
+                    showSpawnableList(findViewById(field.getId()));
                     break;
                 case SpawnableP2:
                     if(board.currentPlayer != 1) break;
-                    ShowSpawnableList(findViewById(field.getId()));
+                    showSpawnableList(findViewById(field.getId()));
                     break;
                 default:
 
             }
-            RefreshInteractableView(field);
-            if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
-                //game has ended
+            refreshInteractableView(field);
 
-                if(board.pawnsInTeam1.size() == 0 ) {
-                    Toast.makeText(MainActivity.this, "Spieler 2 hat gewonnen", Toast.LENGTH_SHORT).show();
-                } else if (board.pawnsInTeam2.size() == 0) {
-                    Toast.makeText(MainActivity.this, "Spieler 1 hat gewonnen", Toast.LENGTH_SHORT).show();
-                }
+            checkEndCondition();
 
-                board.setState(LevelState.Finished);
-
-                //Intent i = new Intent(this, LevelSelection.class);
-                //startActivity(i);
-            }
-
-
-            clearBoard();
+            board.clearBoard();
             refreshBoard();
 
         }
     }
 
-    private void setHighlightingMove(Field field) {
-        clearBoard();
+    private void checkEndCondition() {
+        if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
+            //game has ended
 
-        Pawn pawn = field.getSegment().getPawn();
-
-        if (pawn.getLeftSteps() > 0) {
-            for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
-                if(neighborField.getSegment() != null) {
-                    continue;
-                }
-                neighborField.setHighlighting(Highlighting.Reachable);
+            if(board.pawnsInTeam1.size() == 0 ) {
+                Toast.makeText(MainActivity.this, "Spieler 2 hat gewonnen", Toast.LENGTH_SHORT).show();
+            } else if (board.pawnsInTeam2.size() == 0) {
+                Toast.makeText(MainActivity.this, "Spieler 1 hat gewonnen", Toast.LENGTH_SHORT).show();
             }
 
-            if (board.getField((short)(field.x + 1), field.y) != null && board.getField((short)(field.x + 1), field.y).getSegment() == null) {
-                board.getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);
-            }
+            board.setState(LevelState.Finished);
 
-            if (board.getField((short)(field.x - 1), field.y) != null && board.getField((short)(field.x - 1), field.y).getSegment() == null) {
-                board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
-            }
-            if (board.getField(field.x, (short)(field.y+1)) != null && board.getField(field.x, (short)(field.y+1)).getSegment() == null) {
-                board.getField(field.x, (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
-            }
-            if (board.getField(field.x, (short)(field.y-1)) != null && board.getField(field.x, (short)(field.y-1)).getSegment() == null) {
-                board.getField(field.x, (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
-            }
-        }
-    }
-
-
-    private void setHighlightingAttack(Field field, byte attackNum, byte range) {
-        clearBoard();
-        for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), range, ActionID.ATTACK_1)) {
-            if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != board.currentPlayer) {
-                if (attackNum == 1) {
-                    neighborField.setHighlighting(Highlighting.Attackable1);
-                } else if (attackNum == 2) {
-                    neighborField.setHighlighting(Highlighting.Attackable2);
-                }
-            } else {
-                neighborField.setHighlighting(Highlighting.Attackable);
-            }
-
-        }
-    }
-
-
-    private void clearBoard() {
-        if(board.currentState == LevelState.Preparation) {
-            return;
-        }
-
-        for (short y = 0; y < height; y++) {
-            for (short x = 0; x < width; x++) {
-                Field currentF = board.getField(x,y);
-                currentF.setHighlighting(Highlighting.Empty);
-            }
+            //Intent i = new Intent(this, LevelSelection.class);
+            //startActivity(i);
         }
     }
 
 
     private void loadDefaultView() {
-        clearBoard();
+        board.clearBoard();
         clearInfoPanel();
     }
 
@@ -694,6 +623,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
+    @SuppressLint("ResourceType")
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
             TextView showName = findViewById(ActionID.NAME);
@@ -722,7 +652,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.ATTACK_2);
             btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
 
-            btn = findViewById((int)1100);
+            btn = findViewById(1100);
             btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
             
         }
@@ -732,7 +662,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
      * Show menu for spawnable pawns
      * @param v spawnable button field that has been pressed
      */
-    public void ShowSpawnableList(View v) {
+    public void showSpawnableList(View v) {
         PopupMenu selectionList = new PopupMenu(this, v);
         selectionList.setOnMenuItemClickListener(this);
 

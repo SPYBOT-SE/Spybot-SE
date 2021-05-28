@@ -1,5 +1,6 @@
 package com.utility;
 
+/*
 import com.example.spybot.R;
 import com.level.Field;
 import com.model.AdjacencyList;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
-
+*/
 
 class UtilityTest {
     /*
