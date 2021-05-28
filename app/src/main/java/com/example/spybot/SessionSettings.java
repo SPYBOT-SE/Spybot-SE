@@ -27,46 +27,46 @@ public class SessionSettings extends AppCompatActivity {
             startActivity(i);
         });
         findViewById(R.id.btnSwapPlayers).setOnClickListener((v) -> {
-            SwapPlayers();
+            swapPlayers();
         });
         findViewById(R.id.btnChangePlayer1).setOnClickListener((v) -> {
-            ChangePlayer(true);
+            changePlayer(true);
         });
         findViewById(R.id.btnChangePlayer2).setOnClickListener((v) -> {
-            ChangePlayer(false);
+            changePlayer(false);
         });
         findViewById(R.id.btnTogglePlayer).setOnClickListener((v) -> {
-            TogglePlayer();
+            togglePlayer();
         });
         findViewById(R.id.btnRenamePlayer).setOnClickListener((v) -> {
-            RenamePlayer();
+            renamePlayer();
         });
         findViewById(R.id.btnResetPlayer).setOnClickListener((v) -> {
-            ResetPlayer();
+            resetPlayer();
         });
         findViewById(R.id.btnDeletePlayer).setOnClickListener((v) -> {
-            DeletePlayer();
+            deletePlayer();
         });
         findViewById(R.id.btnResetSavegame).setOnClickListener((v) -> {
-            ResetSaveGame();
+            resetSaveGame();
         });
 
 
     }
 
-    void SwapPlayers(){
+    public void swapPlayers(){
         Player temp = MainActivity.player1;
         MainActivity.player1 = MainActivity.player2;
         MainActivity.player2 = temp;
 
     }
 
-    void ChangePlayer(boolean side){
+    public void changePlayer(boolean side){
 
     }
 
 
-    void TogglePlayer(){
+    public void togglePlayer(){
         selectedPlayerBool = !selectedPlayerBool;
 
         if (selectedPlayerBool){
@@ -76,19 +76,19 @@ public class SessionSettings extends AppCompatActivity {
         }
     }
 
-    void RenamePlayer(){
+    public void renamePlayer(){
         selectedPlayer.setPlayerName(findViewById(R.id.inputNewPlayerName).toString());
     }
 
-    void DeletePlayer(){
+    public void deletePlayer(){
 
     }
 
-    void ResetPlayer(){
+    public void resetPlayer(){
 
     }
 
-    void ResetSaveGame(){
+    public void resetSaveGame(){
 
     }
 

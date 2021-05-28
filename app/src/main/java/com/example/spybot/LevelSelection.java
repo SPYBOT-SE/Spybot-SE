@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import com.level.levelSingle;
+import com.level.LevelSingle;
 import com.spybot.app.AppSetting;
 
 import static com.example.spybot.MainMenu.music;
@@ -70,7 +70,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onClick(View v) {
-            MainActivity.selectedLevel = levelSingle.getLevel(v.getId());
+            MainActivity.selectedLevel = LevelSingle.getLevel(v.getId());
 
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);

@@ -1,5 +1,6 @@
 package com.example.spybot;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
-import com.level.levelSingle;
+import com.level.LevelSingle;
 import com.model.Direction;
 import com.model.LevelState;
 import com.model.shortcuts.ActionID;
@@ -31,7 +32,7 @@ import static com.example.spybot.MainMenu.music;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    public static int[][] selectedLevel = levelSingle.Error;
+    public static int[][] selectedLevel = LevelSingle.Error;
 
     private Board board = null;
 
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
+    @SuppressLint("WrongConstant")
     private void refreshInteractableView(Field field){
         if (field != null){
             Button button = findViewById(field.getId());
@@ -219,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
+    @SuppressLint("ResourceType")
     private void setUpInfoPanel(LinearLayout panel) {
         Button btn = new Button(this);
 
@@ -693,6 +696,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
+    @SuppressLint("ResourceType")
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
             TextView showName = findViewById(ActionID.NAME);

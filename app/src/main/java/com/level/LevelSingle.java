@@ -2,36 +2,12 @@ package com.level;
 
 import java.util.HashMap;
 
-public class levelSingle {
+public class LevelSingle {
 
     private static boolean initialized = false;
 
-
-    public static int[][] getLevel(int levelID) {
-        if(!initialized) {
-            initializeLevels();
-            initialized = true;
-        }
-
-        if(!levels.containsKey(levelID)) {
-            return Error;
-        }
-
-        return levels.get(levelID);
-    }
-
-    /**
-     * Hashmap that maps button IDs to levels
-     */
+    // Hashmap that maps button IDs to levels
     private static final HashMap<Integer, int[][]> levels = new HashMap<>();
-    private static void initializeLevels() {
-        levels.put(0, Ones);
-        levels.put(1, TestLevel1);
-        levels.put(2, TestLevel2);
-        levels.put(3, TestLevel3);
-        levels.put(4, TestLevel4);
-        levels.put(5, SPF);
-    }
 
     /*
     Definition:
@@ -135,4 +111,28 @@ public class levelSingle {
             {0x01, 0x01, 0x01, 0x01},
             {0x01, 0x01, 0x01, 0x01},
     };
+
+    public static int[][] getLevel(int levelID) {
+        if(!initialized) {
+            initializeLevels();
+            initialized = true;
+        }
+
+        if(!levels.containsKey(levelID)) {
+            return Error;
+        }
+
+        return levels.get(levelID);
+    }
+
+
+    private static void initializeLevels() {
+        levels.put(0, Ones);
+        levels.put(1, TestLevel1);
+        levels.put(2, TestLevel2);
+        levels.put(3, TestLevel3);
+        levels.put(4, TestLevel4);
+        levels.put(5, SPF);
+    }
+
 }
