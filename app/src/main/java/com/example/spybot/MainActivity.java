@@ -24,7 +24,6 @@ import com.model.shortcuts.ActionID;
 import com.pawns.*;
 import com.player.Player;
 import com.spybot.app.AppSetting;
-import com.utilities.BoardUtil;
 
 import java.util.NoSuchElementException;
 
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public static int[][] selectedLevel = LevelSingle.Error;
 
     private Board board = null;
-
 
     private int height = 0;
     private int width = 0;
@@ -52,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         board = new Board(selectedLevel);
 
-        height = board.getSizeY();
-        width = board.getSizeX();
+        height = board.sizeY;
+        width = board.sizeX;
 
 
 
@@ -165,13 +163,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                             && field.getSegment().getPawn().getTeam() == board.currentPlayer) {
                         lastSelected = field;
                         loadInfoWithPawn();
-                        setHighlightingMove(field);
+                        board.setHighlightingMove(field, this);
                     }
                     break;
                 default:
             }
         } else { // ID > 1000 are not on board
-            clearBoard();
+            board.clearBoard();
 
             if(lastSelected == null) {
                 return;
@@ -179,13 +177,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             switch (id) {
                 case ActionID.MOVE:
-                    setHighlightingMove(lastSelected);
+                    board.setHighlightingMove(lastSelected, this);
                     break;
                 case ActionID.ATTACK_1:
-                    setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange());
+                    board.setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange(), this);
                     break;
                 case ActionID.ATTACK_2:
-                    setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange());
+                    board.setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange(), this);
                     break;
                 default:
             }
@@ -327,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             board.currentPlayer = 1;
         } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
             board.currentPlayer = 0;
-            sortPawnsInTeams();
+            board.sortPawnsInTeams();
             board.currentState = LevelState.Running;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
             board.currentPlayer = 1;
@@ -339,19 +337,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
         int currentPlayerIndex = board.currentPlayer;
         resetAttributes();
-        clearBoard();
+        board.clearBoard();
         refreshBoard();
         Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();
-    }
-
-    private void sortPawnsInTeams() {
-        for (Pawn pawn: board.pawnsOnBoard) {
-            if (pawn.getTeam() == 0){
-                board.pawnsInTeam1.add(pawn);
-            } else if (pawn.getTeam() == 1){
-                board.pawnsInTeam2.add(pawn);
-            }
-        }
     }
 
 
@@ -517,7 +505,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
                 case Empty:
-                    clearBoard();
+                    board.clearBoard();
                     break;
                 case Reachable:
                     break;
@@ -586,7 +574,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             checkEndCondition();
 
-            clearBoard();
+            board.clearBoard();
             refreshBoard();
 
         }
@@ -610,69 +598,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void setHighlightingMove(Field field) {
-        clearBoard();
-
-        Pawn pawn = field.getSegment().getPawn();
-
-        if (pawn.getLeftSteps() > 0) {
-            for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
-                if(neighborField.getSegment() != null) {
-                    continue;
-                }
-                neighborField.setHighlighting(Highlighting.Reachable);
-            }
-
-            if (board.getField((short)(field.x + 1), field.y) != null && board.getField((short)(field.x + 1), field.y).getSegment() == null) {
-                board.getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);
-            }
-
-            if (board.getField((short)(field.x - 1), field.y) != null && board.getField((short)(field.x - 1), field.y).getSegment() == null) {
-                board.getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
-            }
-            if (board.getField(field.x, (short)(field.y+1)) != null && board.getField(field.x, (short)(field.y+1)).getSegment() == null) {
-                board.getField(field.x, (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
-            }
-            if (board.getField(field.x, (short)(field.y-1)) != null && board.getField(field.x, (short)(field.y-1)).getSegment() == null) {
-                board.getField(field.x, (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
-            }
-        }
-    }
-
-
-    private void setHighlightingAttack(Field field, byte attackNum, byte range) {
-        clearBoard();
-        for (Field neighborField : BoardUtil.getFieldsInRange(board, field.getId(), range, ActionID.ATTACK_1)) {
-            if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != board.currentPlayer) {
-                if (attackNum == 1) {
-                    neighborField.setHighlighting(Highlighting.Attackable1);
-                } else if (attackNum == 2) {
-                    neighborField.setHighlighting(Highlighting.Attackable2);
-                }
-            } else {
-                neighborField.setHighlighting(Highlighting.Attackable);
-            }
-
-        }
-    }
-
-
-    private void clearBoard() {
-        if(board.currentState == LevelState.Preparation) {
-            return;
-        }
-
-        for (short y = 0; y < height; y++) {
-            for (short x = 0; x < width; x++) {
-                Field currentF = board.getField(x,y);
-                currentF.setHighlighting(Highlighting.Empty);
-            }
-        }
-    }
-
-
     private void loadDefaultView() {
-        clearBoard();
+        board.clearBoard();
         clearInfoPanel();
     }
 

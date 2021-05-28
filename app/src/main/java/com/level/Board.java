@@ -1,9 +1,12 @@
 package com.level;
 
+import com.example.spybot.MainActivity;
 import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.model.LevelState;
+import com.model.shortcuts.ActionID;
 import com.pawns.Pawn;
+import com.utilities.BoardUtil;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -19,15 +22,16 @@ public class Board {
     public byte currentPlayer = 0;
     public LevelState currentState = LevelState.Preparation;
 
-    private int sizeY; //vertical axis
-    private int sizeX; //horizontal axis
-
+    public final int sizeY; //vertical axis
+    public final int sizeX; //horizontal axis
 
     private Field[][] board;
     private AdjacencyList<Field> graph;
 
 
     public Board(int[][] level) {
+        sizeY = level.length;
+        sizeX = level[0].length;
 
         initBoard(level);
         initGraph();
@@ -38,8 +42,7 @@ public class Board {
     }
 
     private void initBoard(int[][] fieldDef) {
-        sizeY = fieldDef.length;
-        sizeX = fieldDef[0].length;
+
 
         board = new Field[sizeX][sizeY];
 
@@ -136,14 +139,6 @@ public class Board {
         return board[id % sizeX][id / sizeX];
     }
 
-    public int getSizeX() {
-        return sizeX;
-    }
-
-    public int getSizeY() {
-        return sizeY;
-    }
-
     public LevelState getState() {
         return currentState;
     }
@@ -169,6 +164,74 @@ public class Board {
             if (neighbour.getStatus()) {
                 graph.addEdge(middle, neighbour);
             }
+        }
+    }
+
+    public void clearBoard() {
+        if(currentState == LevelState.Preparation) {
+            return;
+        }
+
+        for (short y = 0; y < sizeY; y++) {
+            for (short x = 0; x < sizeX; x++) {
+                Field currentF = getField(x,y);
+                currentF.setHighlighting(Highlighting.Empty);
+            }
+        }
+    }
+
+    public void sortPawnsInTeams() {
+        for (Pawn pawn: pawnsOnBoard) {
+            if (pawn.getTeam() == 0){
+                pawnsInTeam1.add(pawn);
+            } else if (pawn.getTeam() == 1){
+                pawnsInTeam2.add(pawn);
+            }
+        }
+    }
+
+    public void setHighlightingMove(Field field, MainActivity mainActivity) {
+        clearBoard();
+
+        Pawn pawn = field.getSegment().getPawn();
+
+        if (pawn.getLeftSteps() > 0) {
+            for (Field neighborField : BoardUtil.getFieldsInRange(this, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
+                if(neighborField.getSegment() != null) {
+                    continue;
+                }
+                neighborField.setHighlighting(Highlighting.Reachable);
+            }
+
+            if (getField((short)(field.x + 1), field.y) != null && getField((short)(field.x + 1), field.y).getSegment() == null) {
+                getField((short)(field.x + 1), field.y).setHighlighting(Highlighting.MovableRight);
+            }
+
+            if (getField((short)(field.x - 1), field.y) != null && getField((short)(field.x - 1), field.y).getSegment() == null) {
+                getField((short)(field.x - 1), field.y).setHighlighting(Highlighting.MovableLeft);
+            }
+            if (getField(field.x, (short)(field.y+1)) != null && getField(field.x, (short)(field.y+1)).getSegment() == null) {
+                getField(field.x, (short)(field.y+1)).setHighlighting(Highlighting.MovableDown);
+            }
+            if (getField(field.x, (short)(field.y-1)) != null && getField(field.x, (short)(field.y-1)).getSegment() == null) {
+                getField(field.x, (short)(field.y-1)).setHighlighting(Highlighting.MovableUp);
+            }
+        }
+    }
+
+    public void setHighlightingAttack(Field field, byte attackNum, byte range, MainActivity mainActivity) {
+        clearBoard();
+        for (Field neighborField : BoardUtil.getFieldsInRange(this, field.getId(), range, ActionID.ATTACK_1)) {
+            if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != currentPlayer) {
+                if (attackNum == 1) {
+                    neighborField.setHighlighting(Highlighting.Attackable1);
+                } else if (attackNum == 2) {
+                    neighborField.setHighlighting(Highlighting.Attackable2);
+                }
+            } else {
+                neighborField.setHighlighting(Highlighting.Attackable);
+            }
+
         }
     }
 }
