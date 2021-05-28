@@ -190,7 +190,7 @@ public class Board {
         }
     }
 
-    public void setHighlightingMove(Field field, MainActivity mainActivity) {
+    public void setHighlightingMove(Field field) {
         clearBoard();
 
         Pawn pawn = field.getSegment().getPawn();

@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                             && field.getSegment().getPawn().getTeam() == board.currentPlayer) {
                         lastSelected = field;
                         loadInfoWithPawn();
-                        board.setHighlightingMove(field, this);
+                        board.setHighlightingMove(field);
                     }
                     break;
                 default:
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             switch (id) {
                 case ActionID.MOVE:
-                    board.setHighlightingMove(lastSelected, this);
+                    board.setHighlightingMove(lastSelected);
                     break;
                 case ActionID.ATTACK_1:
                     board.setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange(), this);
