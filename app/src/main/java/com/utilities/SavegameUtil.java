@@ -16,6 +16,14 @@ public class SavegameUtil {
 
     private static Savegame savegame;
 
+    public static Savegame getSavegame() {
+        return savegame;
+    }
+
+    public static void setSavegame(Savegame savegame) {
+        SavegameUtil.savegame = savegame;
+    }
+
     public static void loadSavegame(Context ctx) {
         Savegame sg;
 
@@ -29,10 +37,7 @@ public class SavegameUtil {
             sg = getSavegame(ctx, true);
         }
 
-
-        //TODO set savegame somewhere, accessible for all activities
         savegame = sg;
-
     }
 
     /**
@@ -81,8 +86,6 @@ public class SavegameUtil {
         return  savegame;
     }
 
-
-
     public static void resetSavegame(Context ctx) {
         String defaultSavegame = Json.DEFAULTSAVEGAME;
 
@@ -107,6 +110,10 @@ public class SavegameUtil {
             Log.e("Spybot/Exception", "General IOException");
         }
         return ret;
+    }
+
+    public static void writeSavegame(Context ctx) {
+        FileUtil.writeToFile(Json.SAVEGAMEFILE, savegame.toJSON(0), ctx);
     }
 
 }

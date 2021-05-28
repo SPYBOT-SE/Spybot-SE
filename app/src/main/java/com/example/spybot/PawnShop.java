@@ -43,7 +43,7 @@ public class PawnShop extends AppCompatActivity {
             BuyFigure(PawnTypes.dumbbell,2000);
         });
         findViewById(R.id.buyBtnIcon3).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.T3INF2002,5000);
+            BuyFigure(PawnTypes.t3inf2002,5000);
         });
         findViewById(R.id.buyBtnIcon4).setOnClickListener((v) -> {
             BuyFigure(PawnTypes.bug, 10000);

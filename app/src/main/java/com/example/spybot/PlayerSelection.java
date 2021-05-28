@@ -25,9 +25,6 @@ public class PlayerSelection extends AppCompatActivity {
     }
 
     void MoveToNextLevel(){
-        //SavegameUtil.resetSavegame(this);
-        //SavegameUtil.loadSavegame(this);
-
         String player1Name = findViewById(R.id.player1Input).toString().toUpperCase();
         String player2Name = findViewById(R.id.player1Input).toString().toUpperCase();
 

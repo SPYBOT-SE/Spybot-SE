@@ -5,14 +5,14 @@
       "name":"p1",
       "currency":0,
       "inventory":[
-        "Bug"
+        "bug"
       ]
     },
     {
       "name":"p2",
       "currency":0,
       "inventory":[
-        "Bug"
+        "bug"
       ]
     }
   ]
