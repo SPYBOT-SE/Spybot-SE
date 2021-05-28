@@ -14,6 +14,8 @@ import java.io.InputStream;
 
 public class SavegameUtil {
 
+    private static Savegame savegame;
+
     public static void loadSavegame(Context ctx) {
         Savegame sg;
 
@@ -24,13 +26,12 @@ public class SavegameUtil {
         sg = getSavegame(ctx, false);
         if (sg == null) {
             //Savegame is corrupted
-
             sg = getSavegame(ctx, true);
         }
 
 
         //TODO set savegame somewhere, accessible for all activities
-        sg.toString();
+        savegame = sg;
 
     }
 
@@ -107,4 +108,5 @@ public class SavegameUtil {
         }
         return ret;
     }
+
 }

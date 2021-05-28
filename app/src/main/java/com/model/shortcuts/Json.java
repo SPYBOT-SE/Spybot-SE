@@ -3,26 +3,26 @@ package com.model.shortcuts;
 public class Json {
 
     public static final String SAVEGAMEFILE = "savegame.json";
-    public static final String INITIALIZED = "initialized";
-    public static final String ID = "id";
-    public static final String PLAYERONE = "p1";
-    public static final String PLAYERTWO = "p2";
+    public static final String PLAYERS = "players";
+    public static final String NAME = "name";
+    public static final String CUR = "currency";
     public static final String INV = "inventory";
     public static final String DEFAULTSAVEGAME = "{\n" +
-            "  \"initialized\": false,\n" +
-            "  \"Players\":\n" +
+            "  \"players\":\n" +
             "  {\n" +
-            "    \"p1\":\n" +
+            "    \"0\":\n" +
             "    {\n" +
-            "      \"id\":1,\n" +
-            "      \"inv\":[\n" +
+            "      \"name\":\"p1\",\n" +
+            "      \"currency\":0,\n" +
+            "      \"inventory\":[\n" +
             "        \"Bug\"\n" +
             "      ]\n" +
             "    },\n" +
-            "    \"p2\":\n" +
+            "    \"1\":\n" +
             "    {\n" +
-            "      \"id\":2,\n" +
-            "      \"inv\":[\n" +
+            "      \"name\":\"p1\",\n" +
+            "      \"currency\":0,\n" +
+            "      \"inventory\":[\n" +
             "        \"Bug\"\n" +
             "      ]\n" +
             "    }\n" +

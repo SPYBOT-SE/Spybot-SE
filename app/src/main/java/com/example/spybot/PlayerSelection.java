@@ -25,6 +25,9 @@ public class PlayerSelection extends AppCompatActivity {
     }
 
     void MoveToNextLevel(){
+        //SavegameUtil.resetSavegame(this);
+        //SavegameUtil.loadSavegame(this);
+
         String player1Name = findViewById(R.id.player1Input).toString().toUpperCase();
         String player2Name = findViewById(R.id.player1Input).toString().toUpperCase();
 
@@ -43,7 +46,7 @@ public class PlayerSelection extends AppCompatActivity {
     }
 
     Player CreateNewPlayer(String playerName){
-        Player newPlayer = new Player(true);
+        Player newPlayer = new Player(playerName);
         //create new player
         //add player to savegame
         //return

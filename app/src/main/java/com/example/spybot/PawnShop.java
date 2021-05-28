@@ -64,13 +64,13 @@ public class PawnShop extends AppCompatActivity {
     }
 
     void BuyFigure(PawnTypes pawnType, int pawnCost){
-        if(pawnCost < selectedPlayer.getMoney() && !selectedPlayer.getCatalogue().contains(pawnType)){
-            selectedPlayer.setMoney(pawnCost);
+        if(pawnCost < selectedPlayer.getCurrency() && !selectedPlayer.getCatalogue().contains(pawnType)){
+            selectedPlayer.setCurrency(pawnCost);
             selectedPlayer.getCatalogue().add(pawnType);
         }
 
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
-        money.setText(selectedPlayer.getMoney());
+        money.setText(selectedPlayer.getCurrency());
     }
 
     @Override

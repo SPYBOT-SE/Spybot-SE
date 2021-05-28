@@ -1,20 +1,19 @@
 {
-  "initialized": false,
-  "Players":
-  {
-    "p1":
+  "players":
+  [
     {
-      "id":1,
+      "name":"p1",
+      "currency":0,
       "inventory":[
         "Bug"
       ]
     },
-    "p2":
     {
-      "id":2,
+      "name":"p2",
+      "currency":0,
       "inventory":[
         "Bug"
       ]
     }
-  }
+  ]
 }
