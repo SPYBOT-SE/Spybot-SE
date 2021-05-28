@@ -90,7 +90,7 @@ public class BoardUtil {
         }
     }
 
-
+/*
     public static ArrayDeque<Field> getShortestPath(AdjacencyList<Field> graph, Field start, Field goal) throws NoSuchElementException {
         if (!existingStartGoal(graph, start, goal)) {
             throw new NoSuchElementException("Start or goal field not found");
@@ -140,7 +140,7 @@ public class BoardUtil {
         }
 
         return deque;
-    }
+    }*/
 
     private static boolean existingStartGoal(AdjacencyList<Field> graph, Field start, Field goal) {
         HashSet<Vertex<Field>> set = graph.getAllVertices();
