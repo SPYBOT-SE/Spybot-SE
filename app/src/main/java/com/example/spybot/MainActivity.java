@@ -2,7 +2,6 @@ package com.example.spybot;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -42,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private Field lastSelected = null;
 
-    private Resources r = null;
-
     public static Player player1;
     public static Player player2;
 
@@ -51,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        r = getResources();
 
         board = new Board(selectedLevel);
 
@@ -117,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         loadDefaultView();
     }
 
-    void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
+    private void createButton(LinearLayout layout, int id, int viewVisibility, int ratio) {
         Button btnTag = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -171,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         loadInfoWithPawn();
                         setHighlightingMove(field);
                     }
+                    break;
+                default:
             }
         } else { // ID > 1000 are not on board
             clearBoard();
@@ -197,11 +194,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-    void RefreshInteractableView(Field field){
+    private void RefreshInteractableView(Field field){
         if (field != null){
             Button button = findViewById(field.getId());
             int visible = field.getStatus() ? 0 : 4;
-            button.setVisibility((int)visible);
+            button.setVisibility(visible);
 
         } else{
             for (short y = 0; y < height; y++) {
@@ -222,8 +219,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-
-    void SetUpInfoPanel(LinearLayout panel) {
+    private void SetUpInfoPanel(LinearLayout panel) {
         Button btn = new Button(this);
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -231,17 +227,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         int width = dm.widthPixels;
 
         btn.setLayoutParams(new LinearLayout.LayoutParams(width / 6, width / 6));
-        btn.setId((int)1100);
+        btn.setId(1100);
 
         btn.setVisibility(View.VISIBLE);
         btn.setClickable(false);
         panel.addView(btn);
 
 
-        CreateTextViews(panel, "Name:", Color.BLACK,ActionID.NAME);
-        CreateTextViews(panel, "HP:", Color.BLACK, ActionID.HP);
-        CreateTextViews(panel, "Steps:", Color.BLACK, ActionID.STEPS);
-        CreateTextViews(panel, "Class:", Color.BLACK, ActionID.CLASS);
+        createTextViews(panel, "Name:", Color.BLACK,ActionID.NAME);
+        createTextViews(panel, "HP:", Color.BLACK, ActionID.HP);
+        createTextViews(panel, "Steps:", Color.BLACK, ActionID.STEPS);
+        createTextViews(panel, "Class:", Color.BLACK, ActionID.CLASS);
 
         LinearLayout btnLayout = new LinearLayout(this);
         btnLayout.setOrientation(LinearLayout.VERTICAL);
@@ -277,20 +273,20 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btn.setText("Next Turn");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-            TurnButtonOnClick();
+            turnButtonOnClick();
         });
 
         btn = createButton(btnLayout, ActionID.BACK, 20);
         btn.setText("Back");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-            LoadMainMenu();
+            loadMainMenu();
         });
 
         panel.addView(btnLayout);
     }
 
-    private void LoadMainMenu(){
+    private void loadMainMenu(){
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setTitle("Leave game");
@@ -302,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ExitGame();
+                        exitGame();
                     }
                 });
 
@@ -318,17 +314,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         alert11.show();
     }
 
-    private void ExitGame(){
+    private void exitGame(){
         Intent i = new Intent(this, LevelSelection.class);
         startActivity(i);
     }
 
-    private void TurnButtonOnClick(){
+    private void turnButtonOnClick(){
         if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
             board.currentPlayer = 1;
         } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
             board.currentPlayer = 0;
-            SortPawnsInTeams();
+            sortPawnsInTeams();
             board.currentState = LevelState.Running;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
             board.currentPlayer = 1;
@@ -339,13 +335,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         }
         int currentPlayerIndex = board.currentPlayer;
-        ResetAttributes();
+        resetAttributes();
         clearBoard();
         refreshBoard();
         Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();
     }
 
-    private void SortPawnsInTeams() {
+    private void sortPawnsInTeams() {
         for (Pawn pawn: board.pawnsOnBoard) {
             if (pawn.getTeam() == 0){
                 board.pawnsInTeam1.add(pawn);
@@ -356,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void ResetAttributes(){
+    private void resetAttributes(){
         for (Pawn pawn: board.pawnsOnBoard) {
             pawn.setLeftSteps(pawn.getSpeed());
             pawn.getAttack1().SetAttackFlag(true);
@@ -365,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    private void CreateTextViews(LinearLayout panel, String description, int color, int id) {
+    private void createTextViews(LinearLayout panel, String description, int color, int id) {
         TextView text = new TextView(this);
         text.setText(description);
         text.setTextColor(color);
@@ -393,8 +389,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
      * @param field current field to refresh picture
      */
     private void mapFieldToView(Field field) {
-
-        Resources r = getResources();
 
         Button currBut = findViewById(field.getId());
 
@@ -511,7 +505,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (field.getHighlighting() != Highlighting.Empty) {
 
             Pawn actor;
-            Pawn target;
+            // Pawn target;
 
             MediaPlayer audio;
             audio = MediaPlayer.create(this, R.raw.move_sound);
@@ -576,37 +570,42 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     break;
                 case SpawnableP1:
                     if(board.currentPlayer != 0) break;
-                    ShowSpawnableList(findViewById(field.getId()));
+                    showSpawnableList(findViewById(field.getId()));
                     break;
                 case SpawnableP2:
                     if(board.currentPlayer != 1) break;
-                    ShowSpawnableList(findViewById(field.getId()));
+                    showSpawnableList(findViewById(field.getId()));
                     break;
                 default:
 
             }
             RefreshInteractableView(field);
-            if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
-                //game has ended
 
-                if(board.pawnsInTeam1.size() == 0 ) {
-                    Toast.makeText(MainActivity.this, "Spieler 2 hat gewonnen", Toast.LENGTH_SHORT).show();
-                } else if (board.pawnsInTeam2.size() == 0) {
-                    Toast.makeText(MainActivity.this, "Spieler 1 hat gewonnen", Toast.LENGTH_SHORT).show();
-                }
-
-                board.setState(LevelState.Finished);
-
-                //Intent i = new Intent(this, LevelSelection.class);
-                //startActivity(i);
-            }
-
+            checkEndCondition();
 
             clearBoard();
             refreshBoard();
 
         }
     }
+
+    private void checkEndCondition() {
+        if(board.currentState == LevelState.Running && (board.pawnsInTeam1.size() == 0 || board.pawnsInTeam2.size() == 0)){
+            //game has ended
+
+            if(board.pawnsInTeam1.size() == 0 ) {
+                Toast.makeText(MainActivity.this, "Spieler 2 hat gewonnen", Toast.LENGTH_SHORT).show();
+            } else if (board.pawnsInTeam2.size() == 0) {
+                Toast.makeText(MainActivity.this, "Spieler 1 hat gewonnen", Toast.LENGTH_SHORT).show();
+            }
+
+            board.setState(LevelState.Finished);
+
+            //Intent i = new Intent(this, LevelSelection.class);
+            //startActivity(i);
+        }
+    }
+
 
     private void setHighlightingMove(Field field) {
         clearBoard();
@@ -722,7 +721,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn = findViewById(ActionID.ATTACK_2);
             btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
 
-            btn = findViewById((int)1100);
+            btn = findViewById(1100);
             btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
             
         }
@@ -732,7 +731,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
      * Show menu for spawnable pawns
      * @param v spawnable button field that has been pressed
      */
-    public void ShowSpawnableList(View v) {
+    public void showSpawnableList(View v) {
         PopupMenu selectionList = new PopupMenu(this, v);
         selectionList.setOnMenuItemClickListener(this);
 
