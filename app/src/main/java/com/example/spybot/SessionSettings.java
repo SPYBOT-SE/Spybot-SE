@@ -54,19 +54,19 @@ public class SessionSettings extends AppCompatActivity {
 
     }
 
-    public void swapPlayers(){
+    private void swapPlayers(){
         Player temp = MainActivity.player1;
         MainActivity.player1 = MainActivity.player2;
         MainActivity.player2 = temp;
 
     }
 
-    public void changePlayer(boolean side){
+    private void changePlayer(boolean side){
 
     }
 
 
-    public void togglePlayer(){
+    private void togglePlayer(){
         selectedPlayerBool = !selectedPlayerBool;
 
         if (selectedPlayerBool){
@@ -76,19 +76,19 @@ public class SessionSettings extends AppCompatActivity {
         }
     }
 
-    public void renamePlayer(){
+    private void renamePlayer(){
         selectedPlayer.setPlayerName(findViewById(R.id.inputNewPlayerName).toString());
     }
 
-    public void deletePlayer(){
+    private void deletePlayer(){
 
     }
 
-    public void resetPlayer(){
+    private void resetPlayer(){
 
     }
 
-    public void resetSaveGame(){
+    private void resetSaveGame(){
 
     }
 
