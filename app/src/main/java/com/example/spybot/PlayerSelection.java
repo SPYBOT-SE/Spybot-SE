@@ -26,7 +26,7 @@ public class PlayerSelection extends AppCompatActivity {
 
     void MoveToNextLevel(){
         String player1Name = findViewById(R.id.player1Input).toString().toUpperCase();
-        String player2Name = findViewById(R.id.player1Input).toString().toUpperCase();
+        String player2Name = findViewById(R.id.player2Input).toString().toUpperCase();
 
 //        MainActivity.player1 = GetPlayerFromSavegame(player1Name);
 //        MainActivity.player2 = GetPlayerFromSavegame(player2Name);
