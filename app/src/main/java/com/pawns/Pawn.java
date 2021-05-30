@@ -4,7 +4,6 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import com.example.spybot.MainActivity;
 import com.example.spybot.R;
-import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
 import com.pawns.Attack.Attack;
@@ -89,7 +88,11 @@ public abstract class Pawn {
             case RIGHT:
                 createSegment(from, BodyType.TailRight);
                 break;
+            default:
+                createSegment(from, BodyType.Tail);
+                break;
         }
+
 
 
         while(segments.size() > maxSize) {
