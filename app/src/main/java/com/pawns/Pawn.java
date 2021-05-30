@@ -1,5 +1,7 @@
 package com.pawns;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import com.example.spybot.MainActivity;
 import com.example.spybot.R;
 import com.level.Board;
@@ -45,7 +47,7 @@ public abstract class Pawn {
         field.setSegment(newSeg);
     }
 
-    public void die() {
+    public void die(Context c) {
 
         Field field = this.getSegments().get(0).getField();
         field.setSegment(null);
@@ -54,6 +56,9 @@ public abstract class Pawn {
         field.board.pawnsOnBoard.remove(this);
         field.board.pawnsInTeam2.remove(this);
         field.board.pawnsInTeam1.remove(this);
+
+        MediaPlayer deathSound = MediaPlayer.create(c, R.raw.death_sound);
+        deathSound.start();
     }
 
     public void move(Field from, Field to, Direction direction) {

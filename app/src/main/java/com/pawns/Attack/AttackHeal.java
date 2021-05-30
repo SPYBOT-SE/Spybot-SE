@@ -37,7 +37,7 @@ public class AttackHeal extends Attack{
 
                 }
                 else {
-                    targetPawn.die();
+                    targetPawn.die(m);
                     continue;
                 }
 
