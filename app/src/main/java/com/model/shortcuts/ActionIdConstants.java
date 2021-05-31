@@ -1,6 +1,6 @@
 package com.model.shortcuts;
 
-public class ActionID {
+public class ActionIdConstants {
     public final static int MOVE = 1001;
     public final static int ATTACK_1 = 1002;
     public final static int ATTACK_2 = 1003;

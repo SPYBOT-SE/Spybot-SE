@@ -2,14 +2,13 @@ package com.example.spybot;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import com.application.AppSettingsHelper;
 import com.model.Savegame;
-import com.model.shortcuts.Json;
+import com.model.shortcuts.JsonConstants;
 import com.player.Player;
-import com.spybot.app.AppSetting;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
@@ -24,7 +23,7 @@ public class PlayerSelection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_selection_view);
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         Button selectBtn = findViewById(R.id.selectPlayers);
         selectBtn.setOnClickListener((v) -> {
@@ -46,7 +45,7 @@ public class PlayerSelection extends AppCompatActivity {
         MainActivity.player2 = GetPlayerFromSavegame(player2Name, savegame.getPlayers());
 
         SavegameUtil.setSavegame(savegame);
-        FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
+        FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
         Intent i = new Intent(this, SessionMainMenu.class);
         startActivity(i);
     }

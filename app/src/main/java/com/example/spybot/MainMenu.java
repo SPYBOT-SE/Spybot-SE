@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import com.model.shortcuts.Json;
-import com.spybot.app.AppSetting;
+import com.application.AppSettingsHelper;
+import com.model.shortcuts.JsonConstants;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
@@ -19,7 +19,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startmenu);
 
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         //create Buttons
         Button start = findViewById(R.id.btnStart);
@@ -65,7 +65,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.btnSettings:
-                FileUtil.writeToFile(Json.SAVEGAMEFILE, "defaultSavegame", this);
+                FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE, "defaultSavegame", this);
                 SavegameUtil.loadSavegame(this);
                 break;
             default:

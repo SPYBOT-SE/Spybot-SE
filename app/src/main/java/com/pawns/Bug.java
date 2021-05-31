@@ -1,8 +1,8 @@
 package com.pawns;
 
 import com.example.spybot.R;
-import com.pawns.Attack.AttackHeal;
-import com.pawns.Attack.AttackSpeed;
+import com.pawns.attacks.AttackHeal;
+import com.pawns.attacks.AttackSpeed;
 
 public class Bug extends Pawn {
 

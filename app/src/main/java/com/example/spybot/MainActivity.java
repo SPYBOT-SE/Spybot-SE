@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import com.application.AppSettingsHelper;
 import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
@@ -21,12 +22,11 @@ import com.level.LevelSingle;
 import com.model.Direction;
 import com.model.LevelState;
 import com.model.Savegame;
-import com.model.shortcuts.ActionID;
-import com.model.shortcuts.Json;
+import com.model.shortcuts.ActionIdConstants;
+import com.model.shortcuts.JsonConstants;
 import com.pawns.*;
 import com.player.PawnTypes;
 import com.player.Player;
-import com.spybot.app.AppSetting;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         currentPlayer = player1;
 
         setContentView(R.layout.activity_main);
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         LinearLayout parentLayout = new LinearLayout(this); //main layout of the level screen
         parentLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -184,13 +184,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
 
             switch (id) {
-                case ActionID.MOVE:
+                case ActionIdConstants.MOVE:
                     board.setHighlightingMove(lastSelected, this);
                     break;
-                case ActionID.ATTACK_1:
+                case ActionIdConstants.ATTACK_1:
                     board.setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange(), this);
                     break;
-                case ActionID.ATTACK_2:
+                case ActionIdConstants.ATTACK_2:
                     board.setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange(), this);
                     break;
                 default:
@@ -243,10 +243,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         panel.addView(btn);
 
 
-        createTextViews(panel, "Name:", Color.BLACK,ActionID.NAME);
-        createTextViews(panel, "HP:", Color.BLACK, ActionID.HP);
-        createTextViews(panel, "Steps:", Color.BLACK, ActionID.STEPS);
-        createTextViews(panel, "Class:", Color.BLACK, ActionID.CLASS);
+        createTextViews(panel, "Name:", Color.BLACK, ActionIdConstants.NAME);
+        createTextViews(panel, "HP:", Color.BLACK, ActionIdConstants.HP);
+        createTextViews(panel, "Steps:", Color.BLACK, ActionIdConstants.STEPS);
+        createTextViews(panel, "Class:", Color.BLACK, ActionIdConstants.CLASS);
 
         LinearLayout btnLayout = new LinearLayout(this);
         btnLayout.setOrientation(LinearLayout.VERTICAL);
@@ -257,35 +257,35 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
 
-        btn = createButton(btnLayout, ActionID.MOVE, 20);
+        btn = createButton(btnLayout, ActionIdConstants.MOVE, 20);
         btn.setText("Move");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.ATTACK_1, 20);
+        btn = createButton(btnLayout, ActionIdConstants.ATTACK_1, 20);
         btn.setText("Attack 1");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.ATTACK_2, 20);
+        btn = createButton(btnLayout, ActionIdConstants.ATTACK_2, 20);
         btn.setText("Attack 2");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             OnClick(v.getId());
         });
 
-        btn = createButton(btnLayout, ActionID.NEXT_TURN, 20);
+        btn = createButton(btnLayout, ActionIdConstants.NEXT_TURN, 20);
         btn.setText("Next Turn");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
             turnButtonOnClick();
         });
 
-        btn = createButton(btnLayout, ActionID.BACK, 20);
+        btn = createButton(btnLayout, ActionIdConstants.BACK, 20);
         btn.setText("Back");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
@@ -350,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
         int currentPlayerIndex = board.currentPlayer;
 
-        TextView playerName = findViewById(ActionID.CLASS);
+        TextView playerName = findViewById(ActionIdConstants.CLASS);
         playerName.setText(currentPlayer.getPlayerName());
 
         resetAttributes();
@@ -363,8 +363,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void resetAttributes(){
         for (Pawn pawn: board.pawnsOnBoard) {
             pawn.setLeftSteps(pawn.getSpeed());
-            pawn.getAttack1().SetAttackFlag(true);
-            pawn.getAttack2().SetAttackFlag(true);
+            pawn.getAttack1().setAttackFlag(true);
+            pawn.getAttack2().setAttackFlag(true);
         }
     }
 
@@ -390,12 +390,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-    void RewardWinner(Player winner){
-        winner.ChangeMoney(10000);
+    private void rewardWinner(Player winner){
+        winner.changeMoney(10000);
 
         Savegame savegame = SavegameUtil.getSavegame();
         SavegameUtil.setSavegame(savegame);
-        FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
+        FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
     }
 
 
@@ -568,7 +568,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         actor.attack1(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack1().getAudio());
                         audio.start();
-                        actor.getAttack1().SetAttackFlag(false);
+                        actor.getAttack1().setAttackFlag(false);
 
                     }
                     break;
@@ -578,7 +578,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         actor.attack2(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack2().getAudio());
                         audio.start();
-                        actor.getAttack2().SetAttackFlag(false);
+                        actor.getAttack2().setAttackFlag(false);
                     }
                     break;
                 case Buildable:
@@ -611,10 +611,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             if(board.pawnsInTeam1.size() == 0 ) {
                 Toast.makeText(MainActivity.this, player2.getPlayerName() + " hat gewonnen", Toast.LENGTH_SHORT).show();
-                RewardWinner(player2);
+                rewardWinner(player2);
             } else if (board.pawnsInTeam2.size() == 0) {
                 Toast.makeText(MainActivity.this, player1.getPlayerName() + " hat gewonnen", Toast.LENGTH_SHORT).show();
-                RewardWinner(player1);
+                rewardWinner(player1);
             }
 
             board.setState(LevelState.Finished);
@@ -631,21 +631,21 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void clearInfoPanel() {
-        TextView showName =  findViewById(ActionID.NAME);
-        TextView showHealth = findViewById(ActionID.HP);
-        TextView showSteps = findViewById(ActionID.STEPS);
-        TextView showClass = findViewById(ActionID.CLASS);
+        TextView showName =  findViewById(ActionIdConstants.NAME);
+        TextView showHealth = findViewById(ActionIdConstants.HP);
+        TextView showSteps = findViewById(ActionIdConstants.STEPS);
+        TextView showClass = findViewById(ActionIdConstants.CLASS);
 
         showName.setVisibility(View.INVISIBLE);
         showHealth.setVisibility(View.INVISIBLE);
         showSteps.setVisibility(View.INVISIBLE);
         showClass.setVisibility(View.INVISIBLE);
 
-        Button btn = findViewById(ActionID.MOVE);
+        Button btn = findViewById(ActionIdConstants.MOVE);
         btn.setVisibility(View.INVISIBLE);
-        btn = findViewById(ActionID.ATTACK_1);
+        btn = findViewById(ActionIdConstants.ATTACK_1);
         btn.setVisibility(View.INVISIBLE);
-        btn = findViewById(ActionID.ATTACK_2);
+        btn = findViewById(ActionIdConstants.ATTACK_2);
         btn.setVisibility(View.INVISIBLE);
     }
 
@@ -653,10 +653,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @SuppressLint("ResourceType")
     private void loadInfoWithPawn() {
         if (lastSelected.getSegment().getPawn().getTeam() == board.currentPlayer) {
-            TextView showName = findViewById(ActionID.NAME);
-            TextView showHealth = findViewById(ActionID.HP);
-            TextView showSteps = findViewById(ActionID.STEPS);
-            TextView showClass = findViewById(ActionID.CLASS);
+            TextView showName = findViewById(ActionIdConstants.NAME);
+            TextView showHealth = findViewById(ActionIdConstants.HP);
+            TextView showSteps = findViewById(ActionIdConstants.STEPS);
+            TextView showClass = findViewById(ActionIdConstants.CLASS);
 
             showName.setVisibility(View.VISIBLE);
             showHealth.setVisibility(View.VISIBLE);
@@ -667,16 +667,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             showHealth.setText("HP: " + lastSelected.getSegment().getPawn().getCurrentSize() + " / " + lastSelected.getSegment().getPawn().getMaxSize());
             showSteps.setText("Steps: " + lastSelected.getSegment().getPawn().getLeftSteps());
 
-            Button btn = findViewById(ActionID.MOVE);
+            Button btn = findViewById(ActionIdConstants.MOVE);
             btn.setVisibility(View.VISIBLE);
-            btn = findViewById(ActionID.ATTACK_1);
+            btn = findViewById(ActionIdConstants.ATTACK_1);
             btn.setVisibility(View.VISIBLE);
-            btn = findViewById(ActionID.ATTACK_2);
+            btn = findViewById(ActionIdConstants.ATTACK_2);
             btn.setVisibility(View.VISIBLE);
 
-            btn = findViewById(ActionID.ATTACK_1);
+            btn = findViewById(ActionIdConstants.ATTACK_1);
             btn.setText(lastSelected.getSegment().getPawn().getAttack1().getNameOfAttack());
-            btn = findViewById(ActionID.ATTACK_2);
+            btn = findViewById(ActionIdConstants.ATTACK_2);
             btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
 
             btn = findViewById(1100);

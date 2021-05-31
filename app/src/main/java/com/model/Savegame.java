@@ -1,7 +1,7 @@
 package com.model;
 
 import android.util.Log;
-import com.model.shortcuts.Json;
+import com.model.shortcuts.JsonConstants;
 import com.player.Player;
 import com.utilities.GeneralUtil;
 import org.json.JSONArray;
@@ -22,10 +22,10 @@ public class Savegame {
 
     public Savegame(JSONObject json) {
         try {
-            JSONArray playersJson = json.getJSONArray(Json.PLAYERS);
+            JSONArray playersJson = json.getJSONArray(JsonConstants.PLAYERS);
             for (int i = 0; i < playersJson.length(); i++) {
                 json = playersJson.getJSONObject(i);
-                players.put(json.getString(Json.NAME), new Player(json));
+                players.put(json.getString(JsonConstants.NAME), new Player(json));
             }
         } catch (JSONException e) {
             Log.e("Spybot/Exception", "JSON parse exception in Savegame constructor");

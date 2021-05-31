@@ -2,12 +2,15 @@ package com.utilities;
 
 import com.level.Board;
 import com.level.Field;
-import com.model.shortcuts.ActionID;
 import com.model.AdjacencyList;
 import com.model.Vertex;
+import com.model.shortcuts.ActionIdConstants;
 import com.pawns.PawnSegment;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class BoardUtil {
 
@@ -18,11 +21,11 @@ public class BoardUtil {
         HashSet<Field> fieldsInRange;
 
         switch (action) {
-            case ActionID.MOVE:
+            case ActionIdConstants.MOVE:
                 fieldsInRange = getMovableFields(board, range, deque);
                 break;
-            case ActionID.ATTACK_1:
-            case ActionID.ATTACK_2:
+            case ActionIdConstants.ATTACK_1:
+            case ActionIdConstants.ATTACK_2:
             default:
                 fieldsInRange = getAllFields(board, range, deque, id);
                 break;

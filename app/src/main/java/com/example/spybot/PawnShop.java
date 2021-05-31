@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.application.AppSettingsHelper;
 import com.player.PawnTypes;
 import com.player.Player;
-import com.spybot.app.AppSetting;
 
 import static com.example.spybot.MainMenu.music;
 
@@ -19,7 +19,7 @@ public class PawnShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pawn_shop);
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
         // money.setText(selectedPlayer.getMoney());
@@ -33,27 +33,27 @@ public class PawnShop extends AppCompatActivity {
         });
 
         findViewById(R.id.playerToggle).setOnClickListener((v) -> {
-            TogglePlayer();
+            togglePlayer();
         });
 
         findViewById(R.id.buyBtnIcon1).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug,1000);
+            buyFigure(PawnTypes.bug,1000);
         });
         findViewById(R.id.buyBtnIcon2).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.dumbbell,2000);
+            buyFigure(PawnTypes.dumbbell,2000);
         });
         findViewById(R.id.buyBtnIcon3).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.t3inf2002,5000);
+            buyFigure(PawnTypes.t3inf2002,5000);
         });
         findViewById(R.id.buyBtnIcon4).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug, 10000);
+            buyFigure(PawnTypes.bug, 10000);
         });
         findViewById(R.id.buyBtnIcon5).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug, 15000);
+            buyFigure(PawnTypes.bug, 15000);
         });
     }
 
-    void TogglePlayer(){
+    private void togglePlayer() {
         selectedPlayerBool = !selectedPlayerBool;
 
         if (selectedPlayerBool){
@@ -63,7 +63,7 @@ public class PawnShop extends AppCompatActivity {
         }
     }
 
-    void BuyFigure(PawnTypes pawnType, int pawnCost){
+    private void buyFigure(PawnTypes pawnType, int pawnCost) {
         if(pawnCost < selectedPlayer.getCurrency() && !selectedPlayer.getCatalogue().contains(pawnType)){
             selectedPlayer.setCurrency(pawnCost);
             selectedPlayer.getCatalogue().add(pawnType);

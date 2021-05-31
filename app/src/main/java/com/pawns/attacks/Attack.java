@@ -1,4 +1,4 @@
-package com.pawns.Attack;
+package com.pawns.attacks;
 
 import com.example.spybot.MainActivity;
 import com.level.Field;
@@ -27,7 +27,7 @@ public abstract class Attack {
         return canAttack;
     }
 
-    public void SetAttackFlag(boolean canAttack) {
+    public void setAttackFlag(boolean canAttack) {
         this.canAttack = canAttack;
     }
 

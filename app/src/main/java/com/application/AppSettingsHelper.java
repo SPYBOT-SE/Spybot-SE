@@ -1,9 +1,9 @@
-package com.spybot.app;
+package com.application;
 
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AppSetting {
+public class AppSettingsHelper {
 
     public static void hideSystemUI(AppCompatActivity activity) {
         // Enables regular immersive mode.

@@ -1,6 +1,6 @@
 package com.model.shortcuts;
 
-public class Json {
+public class JsonConstants {
 
     public static final String SAVEGAMEFILE = "savegame.json";
     public static final String PLAYERS = "players";

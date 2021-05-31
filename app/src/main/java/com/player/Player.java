@@ -1,7 +1,7 @@
 package com.player;
 
 import android.util.Log;
-import com.model.shortcuts.Json;
+import com.model.shortcuts.JsonConstants;
 import com.utilities.GeneralUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,10 +23,10 @@ public class Player {
 
     public Player(JSONObject json) {
         try {
-            playerName = json.getString(Json.NAME);
-            currency = json.getInt(Json.CUR);
+            playerName = json.getString(JsonConstants.NAME);
+            currency = json.getInt(JsonConstants.CUR);
 
-            JSONArray inventory = json.getJSONArray(Json.INV);
+            JSONArray inventory = json.getJSONArray(JsonConstants.INV);
             for (int i = 0; i < inventory.length(); i++) {
                 String pawn = inventory.getString(i);
                 switch (pawn) {
@@ -56,7 +56,7 @@ public class Player {
         return playerName;
     }
 
-    public void ChangeMoney(int amount){
+    public void changeMoney(int amount){
         currency += amount;
     }
 

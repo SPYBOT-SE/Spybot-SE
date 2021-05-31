@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import com.example.spybot.R;
 import com.model.Savegame;
-import com.model.shortcuts.Json;
+import com.model.shortcuts.JsonConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +27,7 @@ public class SavegameUtil {
     public static void loadSavegame(Context ctx) {
         Savegame sg;
 
-        if (!isFileExisting(Json.SAVEGAMEFILE, ctx)) {
+        if (!isFileExisting(JsonConstants.SAVEGAMEFILE, ctx)) {
             resetSavegame(ctx);
         }
 
@@ -45,9 +45,9 @@ public class SavegameUtil {
      * If there is a problem with the savegame and the defaultSavegame param is false, null will be returned,
      * otherwise a default instance will be returned.
      *
-     * @param ctx
+     * @param ctx Context
      * @param defaultSavegame, if returned value should be a default savegame, otherwise will be null
-     * @return
+     * @return loaded Savegame
      */
     private static Savegame getSavegame(Context ctx, boolean defaultSavegame) {
         Savegame savegame;
@@ -70,7 +70,7 @@ public class SavegameUtil {
     }
 
     private static Savegame withError(Context ctx) throws IOException, JSONException {
-        String json = FileUtil.readFromFile(Json.SAVEGAMEFILE, ctx);
+        String json = FileUtil.readFromFile(JsonConstants.SAVEGAMEFILE, ctx);
 
         return new Savegame(new JSONObject(json));
     }
@@ -87,7 +87,7 @@ public class SavegameUtil {
     }
 
     public static void resetSavegame(Context ctx) {
-        String defaultSavegame = Json.DEFAULTSAVEGAME;
+        String defaultSavegame = JsonConstants.DEFAULTSAVEGAME;
 
         try {
             defaultSavegame = FileUtil.getFileContent(ctx.getResources().openRawResource(R.raw.savegame));
@@ -95,7 +95,7 @@ public class SavegameUtil {
             Log.e("Spybot/Exception", "Could not read default savegame resource, hardcoded String used");
         }
 
-        FileUtil.writeToFile(Json.SAVEGAMEFILE, defaultSavegame, ctx);
+        FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE, defaultSavegame, ctx);
         Log.i("Spybot/Savegame", "Savegame resetted");
     }
 
@@ -113,7 +113,7 @@ public class SavegameUtil {
     }
 
     public static void writeSavegame(Context ctx) {
-        FileUtil.writeToFile(Json.SAVEGAMEFILE, savegame.toJSON(0), ctx);
+        FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE, savegame.toJSON(0), ctx);
     }
 
 }

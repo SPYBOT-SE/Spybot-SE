@@ -1,7 +1,7 @@
 package com.pawns;
 
 import com.example.spybot.R;
-import com.pawns.Attack.AttackBuild;
+import com.pawns.attacks.AttackBuild;
 
 public class Compilerbau extends Pawn{
 

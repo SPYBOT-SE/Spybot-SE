@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import com.application.AppSettingsHelper;
 import com.model.Savegame;
-import com.model.shortcuts.Json;
+import com.model.shortcuts.JsonConstants;
 import com.player.Player;
-import com.spybot.app.AppSetting;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
@@ -23,7 +23,7 @@ public class SessionSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_menu);
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         selectedPlayer = MainActivity.player1;
 
@@ -89,7 +89,7 @@ public class SessionSettings extends AppCompatActivity {
         if(!savegame.getPlayers().containsKey(input.toString().toUpperCase())){
             selectedPlayer.setPlayerName(input.getText().toString().toUpperCase());
             SavegameUtil.setSavegame(savegame);
-            FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
+            FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
         }
 
 
@@ -103,7 +103,7 @@ public class SessionSettings extends AppCompatActivity {
             savegame.getPlayers().remove(selectedPlayer.getPlayerName().toUpperCase());
 
             SavegameUtil.setSavegame(savegame);
-            FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
+            FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
 
             Intent i = new Intent(this, MainMenu.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

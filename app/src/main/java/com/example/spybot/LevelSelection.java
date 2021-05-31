@@ -1,17 +1,15 @@
 package com.example.spybot;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import com.application.AppSettingsHelper;
 import com.level.LevelSingle;
-import com.model.shortcuts.ActionID;
-import com.spybot.app.AppSetting;
+import com.model.shortcuts.ActionIdConstants;
 
 import static com.example.spybot.MainMenu.music;
 
@@ -21,7 +19,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.level_selection);
-            AppSetting.hideSystemUI(this);
+            AppSettingsHelper.hideSystemUI(this);
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
             int name = 0;
@@ -58,7 +56,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
             backButton.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 10));
             backButton.setText("Back");
-            backButton.setId(ActionID.BACK);
+            backButton.setId(ActionIdConstants.BACK);
             backButton.setOnClickListener((v) -> {
                     Intent i = new Intent(this, SessionMainMenu.class);
                     startActivity(i);
