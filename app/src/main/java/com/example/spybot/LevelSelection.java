@@ -48,7 +48,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             layout.setBackgroundResource(R.drawable.background);
         }
 
-        void createBackButton(LinearLayout row){
+        private void createBackButton(LinearLayout row){
             Button backButton = new Button(this);
 
             DisplayMetrics dm = new DisplayMetrics();
@@ -66,7 +66,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         }
 
 
-        void createButton(String name, LinearLayout layout, int i) {
+        private void createButton(String name, LinearLayout layout, int i) {
             Button btnTag = new Button(this);
 
             DisplayMetrics dm = new DisplayMetrics();

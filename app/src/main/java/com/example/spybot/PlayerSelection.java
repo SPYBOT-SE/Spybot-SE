@@ -27,11 +27,11 @@ public class PlayerSelection extends AppCompatActivity {
 
         Button selectBtn = findViewById(R.id.selectPlayers);
         selectBtn.setOnClickListener((v) -> {
-            MoveToNextLevel();
+            moveToNextLevel();
         });
     }
 
-    private void MoveToNextLevel(){
+    private void moveToNextLevel(){
         SavegameUtil.loadSavegame(this);
         Savegame savegame = SavegameUtil.getSavegame();
 
