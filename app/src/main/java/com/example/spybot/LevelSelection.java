@@ -1,10 +1,9 @@
 package com.example.spybot;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -42,14 +41,14 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             row.setLayoutParams(new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
-            CreateBackButton(row);
+            createBackButton(row);
 //
             layout.addView(row);
             setContentView(layout);
             layout.setBackgroundResource(R.drawable.background);
         }
 
-        void CreateBackButton(LinearLayout row){
+        void createBackButton(LinearLayout row){
             Button backButton = new Button(this);
 
             DisplayMetrics dm = new DisplayMetrics();
