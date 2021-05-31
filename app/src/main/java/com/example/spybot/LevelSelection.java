@@ -1,13 +1,16 @@
 package com.example.spybot;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.level.LevelSingle;
+import com.model.shortcuts.ActionID;
 import com.spybot.app.AppSetting;
 
 import static com.example.spybot.MainMenu.music;
@@ -34,9 +37,35 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
                 }
                 layout.addView(row);
             }
+            //create back button
+            LinearLayout row = new LinearLayout(this);
+            row.setLayoutParams(new LinearLayout.LayoutParams
+                    (LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+            CreateBackButton(row);
+//
+            layout.addView(row);
             setContentView(layout);
             layout.setBackgroundResource(R.drawable.background);
         }
+
+        void CreateBackButton(LinearLayout row){
+            Button backButton = new Button(this);
+
+            DisplayMetrics dm = new DisplayMetrics();
+            this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
+            int width = dm.widthPixels;
+
+            backButton.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 10));
+            backButton.setText("Back");
+            backButton.setId(ActionID.BACK);
+            backButton.setOnClickListener((v) -> {
+                    Intent i = new Intent(this, SessionMainMenu.class);
+                    startActivity(i);
+           });
+            row.addView(backButton);
+        }
+
 
         void createButton(String name, LinearLayout layout, int i) {
             Button btnTag = new Button(this);
@@ -50,6 +79,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             String text =  Integer.toString(i);
             btnTag.setText(name + "\n" + text);
             btnTag.setId(i);
+
             btnTag.setOnClickListener(this);
             layout.addView(btnTag);
 

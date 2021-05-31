@@ -2,10 +2,18 @@ package com.example.spybot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import com.model.Savegame;
+import com.model.shortcuts.Json;
 import com.player.Player;
 import com.spybot.app.AppSetting;
+import com.utilities.FileUtil;
+import com.utilities.SavegameUtil;
+
+import java.util.HashMap;
 
 import static com.example.spybot.MainMenu.music;
 
@@ -25,29 +33,37 @@ public class PlayerSelection extends AppCompatActivity {
     }
 
     void MoveToNextLevel(){
-        String player1Name = findViewById(R.id.player1Input).toString().toUpperCase();
-        String player2Name = findViewById(R.id.player2Input).toString().toUpperCase();
+        SavegameUtil.loadSavegame(this);
+        Savegame savegame = SavegameUtil.getSavegame();
 
-//        MainActivity.player1 = GetPlayerFromSavegame(player1Name);
-//        MainActivity.player2 = GetPlayerFromSavegame(player2Name);
+        EditText input = findViewById(R.id.player1Input);
+        String player1Name = input.getText().toString().toUpperCase();
+
+        input = findViewById(R.id.player2Input);
+        String player2Name = input.getText().toString().toUpperCase();
+
+        MainActivity.player1 = GetPlayerFromSavegame(player1Name, savegame.getPlayers());
+        MainActivity.player2 = GetPlayerFromSavegame(player2Name, savegame.getPlayers());
+
+        SavegameUtil.setSavegame(savegame);
+        FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
         Intent i = new Intent(this, SessionMainMenu.class);
         startActivity(i);
     }
 
-    Player GetPlayerFromSavegame(String playerName){
-        //Find player in save game
-        //If not found: create new Player
-        //              add new player to savegame -> CreateNewPlayer()
+    Player GetPlayerFromSavegame(String playerName, HashMap<String, Player> players){
+        if (players.containsKey(playerName)){
+            return players.get(playerName);
+        } else {
+            return CreateNewPlayer(playerName, players);
+        }
 
-        throw new UnsupportedOperationException("Not implemented");
     }
 
-    Player CreateNewPlayer(String playerName){
+    Player CreateNewPlayer(String playerName, HashMap<String, Player> players){
         Player newPlayer = new Player(playerName);
-        //create new player
-        //add player to savegame
-        //return
-        throw new UnsupportedOperationException();
+        players.put(playerName,newPlayer);
+        return newPlayer;
     }
 
     @Override

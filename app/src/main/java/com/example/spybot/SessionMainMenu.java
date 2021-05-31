@@ -47,6 +47,7 @@ public class SessionMainMenu extends AppCompatActivity {
         //End Session by setting players 1 and 2 null
         //Save
         Intent i = new Intent(this, MainMenu.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 

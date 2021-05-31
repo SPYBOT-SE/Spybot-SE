@@ -20,11 +20,17 @@ import com.level.Highlighting;
 import com.level.LevelSingle;
 import com.model.Direction;
 import com.model.LevelState;
+import com.model.Savegame;
 import com.model.shortcuts.ActionID;
+import com.model.shortcuts.Json;
 import com.pawns.*;
+import com.player.PawnTypes;
 import com.player.Player;
 import com.spybot.app.AppSetting;
+import com.utilities.FileUtil;
+import com.utilities.SavegameUtil;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import static com.example.spybot.MainMenu.music;
@@ -42,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public static Player player1;
     public static Player player2;
+    private Player currentPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         height = board.sizeY;
         width = board.sizeX;
 
-
+        currentPlayer = player1;
 
         setContentView(R.layout.activity_main);
         AppSetting.hideSystemUI(this);
@@ -317,25 +325,34 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void exitGame(){
         Intent i = new Intent(this, LevelSelection.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
     }
 
     private void turnButtonOnClick(){
         if (board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 0){
             board.currentPlayer = 1;
+            currentPlayer = player2;
         } else if(board.currentState.equals(LevelState.Preparation) && board.currentPlayer == 1){
             board.currentPlayer = 0;
             board.sortPawnsInTeams();
             board.currentState = LevelState.Running;
+            currentPlayer = player1;
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 0){
             board.currentPlayer = 1;
+            currentPlayer = player2;
 
 
         } else if(board.currentState.equals(LevelState.Running) && board.currentPlayer == 1){
             board.currentPlayer = 0;
+            currentPlayer = player1;
 
         }
         int currentPlayerIndex = board.currentPlayer;
+
+        TextView playerName = findViewById(ActionID.CLASS);
+        playerName.setText(currentPlayer.getPlayerName());
+
         resetAttributes();
         board.clearBoard();
         refreshBoard();
@@ -371,6 +388,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 mapFieldToView(board.getField(x,y));
             }
         }
+    }
+
+    void RewardWinner(Player winner){
+        winner.ChangeMoney(10000);
+
+        Savegame savegame = SavegameUtil.getSavegame();
+        SavegameUtil.setSavegame(savegame);
+        FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
     }
 
 
@@ -585,9 +610,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             //game has ended
 
             if(board.pawnsInTeam1.size() == 0 ) {
-                Toast.makeText(MainActivity.this, "Spieler 2 hat gewonnen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, player2.getPlayerName() + " hat gewonnen", Toast.LENGTH_SHORT).show();
+                RewardWinner(player2);
             } else if (board.pawnsInTeam2.size() == 0) {
-                Toast.makeText(MainActivity.this, "Spieler 1 hat gewonnen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, player1.getPlayerName() + " hat gewonnen", Toast.LENGTH_SHORT).show();
+                RewardWinner(player1);
             }
 
             board.setState(LevelState.Finished);
@@ -666,9 +693,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         PopupMenu selectionList = new PopupMenu(this, v);
         selectionList.setOnMenuItemClickListener(this);
 
-        selectionList.getMenu().add(v.getId(), 0 ,0 , "Bug");
-        selectionList.getMenu().add(v.getId(),1,1,"Dumbbell");
-        selectionList.getMenu().add(v.getId(),2,2,"T3INF2002");
+        for(int i=0;i<currentPlayer.getCatalogue().size();i++){
+            ArrayList<PawnTypes> catalogue = currentPlayer.getCatalogue();
+            switch(catalogue.get(i)){
+                case bug:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Bug");
+                    break;
+                case dumbbell:
+                    selectionList.getMenu().add(v.getId(),1,1,"Dumbbell");
+                    break;
+                case t3inf2002:
+                    selectionList.getMenu().add(v.getId(),2,2,"T3INF2002");
+                    break;
+                default:
+                    break;
+            }
+        }
 
         selectionList.show();
     }
