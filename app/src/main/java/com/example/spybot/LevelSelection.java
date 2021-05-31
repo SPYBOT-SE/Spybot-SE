@@ -1,5 +1,6 @@
 package com.example.spybot;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -40,14 +41,14 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             row.setLayoutParams(new LinearLayout.LayoutParams
                     (LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
-            CreateBackButton(row);
+            createBackButton(row);
 //
             layout.addView(row);
             setContentView(layout);
             layout.setBackgroundResource(R.drawable.background);
         }
 
-        void CreateBackButton(LinearLayout row){
+        private void createBackButton(LinearLayout row){
             Button backButton = new Button(this);
 
             DisplayMetrics dm = new DisplayMetrics();
@@ -65,7 +66,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
         }
 
 
-        void createButton(String name, LinearLayout layout, int i) {
+        private void createButton(String name, LinearLayout layout, int i) {
             Button btnTag = new Button(this);
 
             DisplayMetrics dm = new DisplayMetrics();

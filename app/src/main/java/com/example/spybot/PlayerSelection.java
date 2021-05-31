@@ -27,11 +27,11 @@ public class PlayerSelection extends AppCompatActivity {
 
         Button selectBtn = findViewById(R.id.selectPlayers);
         selectBtn.setOnClickListener((v) -> {
-            MoveToNextLevel();
+            moveToNextLevel();
         });
     }
 
-    void MoveToNextLevel(){
+    private void moveToNextLevel(){
         SavegameUtil.loadSavegame(this);
         Savegame savegame = SavegameUtil.getSavegame();
 
@@ -41,8 +41,8 @@ public class PlayerSelection extends AppCompatActivity {
         input = findViewById(R.id.player2Input);
         String player2Name = input.getText().toString().toUpperCase();
 
-        MainActivity.player1 = GetPlayerFromSavegame(player1Name, savegame.getPlayers());
-        MainActivity.player2 = GetPlayerFromSavegame(player2Name, savegame.getPlayers());
+        MainActivity.player1 = getPlayerFromSavegame(player1Name, savegame.getPlayers());
+        MainActivity.player2 = getPlayerFromSavegame(player2Name, savegame.getPlayers());
 
         SavegameUtil.setSavegame(savegame);
         FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
@@ -50,16 +50,16 @@ public class PlayerSelection extends AppCompatActivity {
         startActivity(i);
     }
 
-    Player GetPlayerFromSavegame(String playerName, HashMap<String, Player> players){
+    private Player getPlayerFromSavegame(String playerName, HashMap<String, Player> players){
         if (players.containsKey(playerName)){
             return players.get(playerName);
         } else {
-            return CreateNewPlayer(playerName, players);
+            return createNewPlayer(playerName, players);
         }
 
     }
 
-    Player CreateNewPlayer(String playerName, HashMap<String, Player> players){
+    private Player createNewPlayer(String playerName, HashMap<String, Player> players){
         Player newPlayer = new Player(playerName);
         players.put(playerName,newPlayer);
         return newPlayer;
