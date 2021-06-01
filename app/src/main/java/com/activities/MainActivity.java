@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         LinearLayout parentLayout = new LinearLayout(this); //main layout of the level screen
         parentLayout.setOrientation(LinearLayout.HORIZONTAL);
-        parentLayout.setBackgroundResource(R.drawable.background);
+        parentLayout.setBackgroundResource(R.drawable.main_background);
 
         LinearLayout infoPanel = new LinearLayout(this); //layout containing the information
         infoPanel.setOrientation(LinearLayout.VERTICAL);
@@ -241,10 +241,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         panel.addView(btn);
 
 
-        createTextViews(panel, "Name:", Color.BLACK, ActionIdConstants.NAME);
-        createTextViews(panel, "HP:", Color.BLACK, ActionIdConstants.HP);
-        createTextViews(panel, "Steps:", Color.BLACK, ActionIdConstants.STEPS);
-        createTextViews(panel, "Class:", Color.BLACK, ActionIdConstants.CLASS);
+        createTextViews(panel, "Name:", Color.WHITE, ActionIdConstants.NAME);
+        createTextViews(panel, "HP:", Color.WHITE, ActionIdConstants.HP);
+        createTextViews(panel, "Steps:", Color.WHITE, ActionIdConstants.STEPS);
+        createTextViews(panel, "NAME", Color.WHITE, ActionIdConstants.CLASS);
 
         LinearLayout btnLayout = new LinearLayout(this);
         btnLayout.setOrientation(LinearLayout.VERTICAL);
@@ -372,6 +372,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         text.setText(description);
         text.setTextColor(color);
         text.setId(id);
+
+
         panel.addView(text);
     }
 
@@ -676,7 +678,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             btn.setText(lastSelected.getSegment().getPawn().getAttack2().getNameOfAttack());
 
             btn = findViewById(1100);
-            btn.setBackgroundResource(lastSelected.getSegment().getPawn().pictureHead);
+            btn.setBackgroundResource(lastSelected.getSegment().getPawn().icon);
             
         }
     }
@@ -692,14 +694,23 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         for(int i=0;i<currentPlayer.getCatalogue().size();i++){
             ArrayList<PawnTypes> catalogue = currentPlayer.getCatalogue();
             switch(catalogue.get(i)){
-                case bug:
-                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Bug");
+                case troop:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Troop");
                     break;
-                case dumbbell:
-                    selectionList.getMenu().add(v.getId(),1,1,"Dumbbell");
+                case plane:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Plane");
                     break;
-                case t3inf2002:
-                    selectionList.getMenu().add(v.getId(),2,2,"T3INF2002");
+                case sniper:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Sniper");
+                    break;
+                case tank:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Tank");
+                    break;
+                case healer:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Healer");
+                    break;
+                case horse:
+                    selectionList.getMenu().add(v.getId(), 0 ,0 , "Horse");
                     break;
                 default:
                     break;
@@ -719,18 +730,24 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         Field field = board.getFieldById(item.getGroupId());
         Pawn p;
-        if(item.getTitle().equals("Bug")) {
-            p = new Bug();
-        } else if(item.getTitle().equals("Dumbbell")) {
-            p = new Dumbbell();
-        } else if(item.getTitle().equals("T3INF2002")){
-            p = new Compilerbau();
+        if(item.getTitle().equals("Troop")) {
+            p = new PawnMachineGun();
+        } else if(item.getTitle().equals("Plane")) {
+            p = new PawnJet();
+        } else if(item.getTitle().equals("Sniper")){
+            p = new PawnSniper();
+        } else if(item.getTitle().equals("Horse")){
+            p = new PawnCavalry();
+        } else if(item.getTitle().equals("Healer")){
+            p = new PawnHealer();
+        } else if(item.getTitle().equals("Tank")){
+            p = new PawnTank();
         } else {
             throw new NoSuchElementException("Error, selected pawn not implemented");
         }
 
         MediaPlayer sound_spawn;
-        sound_spawn = MediaPlayer.create(this, R.raw.spawn2);
+        sound_spawn = MediaPlayer.create(this, p.getSpawnSound());
         sound_spawn.setVolume(1,1);
         sound_spawn.start();
 

@@ -15,7 +15,7 @@ public class JsonConstants {
             "      \"name\":\"P1\",\n" +
             "      \"currency\":0,\n" +
             "      \"inventory\":[\n" +
-            "        \"Bug\"\n" +
+            "        \"troop\"\n" +
             "      ]\n" +
             "    },\n" +
             "    \"1\":\n" +
@@ -23,7 +23,7 @@ public class JsonConstants {
             "      \"name\":\"P1\",\n" +
             "      \"currency\":0,\n" +
             "      \"inventory\":[\n" +
-            "        \"Bug\"\n" +
+            "        \"troop\"\n" +
             "      ]\n" +
             "    }\n" +
             "  }\n" +

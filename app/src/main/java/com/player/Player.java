@@ -18,7 +18,7 @@ public class Player {
     public Player(String name) {
         playerName = name;
         catalogue = new ArrayList<>();
-        catalogue.add(PawnTypes.bug);
+        catalogue.add(PawnTypes.troop);
     }
 
     public Player(JSONObject json) {
@@ -29,15 +29,24 @@ public class Player {
             JSONArray inventory = json.getJSONArray(JsonConstants.INV);
             for (int i = 0; i < inventory.length(); i++) {
                 String pawn = inventory.getString(i);
-                switch (pawn) {
-                    case "bug":
-                        catalogue.add(PawnTypes.bug);
+                switch (pawn){
+                    case "troop":
+                        catalogue.add(PawnTypes.troop);
                         break;
-                    case "dumbbell":
-                        catalogue.add(PawnTypes.dumbbell);
+                    case "healer":
+                        catalogue.add(PawnTypes.healer);
                         break;
-                    case "t3inf2002":
-                        catalogue.add(PawnTypes.t3inf2002);
+                    case "plane":
+                        catalogue.add(PawnTypes.plane);
+                        break;
+                    case "tank":
+                        catalogue.add(PawnTypes.tank);
+                        break;
+                    case "sniper":
+                        catalogue.add(PawnTypes.sniper);
+                        break;
+                    case "horse":
+                        catalogue.add(PawnTypes.horse);
                         break;
                     default:
                         Log.i("Spybot/Info", "Could not read pawntype from savegame for " + pawn);
@@ -48,7 +57,7 @@ public class Player {
             //e.printStackTrace();
             playerName = "player1";
             catalogue = new ArrayList<>();
-            catalogue.add(PawnTypes.bug);
+            catalogue.add(PawnTypes.troop);
         }
     }
 

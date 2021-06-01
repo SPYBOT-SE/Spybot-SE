@@ -1,5 +1,6 @@
 package com.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class PawnShop extends AppCompatActivity {
     private Player selectedPlayer;
     private boolean selectedPlayerBool = true;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class PawnShop extends AppCompatActivity {
 
 
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
-        money.setText(String.valueOf(selectedPlayer.getCurrency()));
+        money.setText(selectedPlayer.getCurrency() + "€");
 
         TextView playerName = findViewById(R.id.labelPlayerNameShop);
         playerName.setText(selectedPlayer.getPlayerName());
@@ -43,22 +45,23 @@ public class PawnShop extends AppCompatActivity {
         });
 
         findViewById(R.id.buyBtnIcon1).setOnClickListener((v) -> {
-            buyFigure(PawnTypes.dumbbell,1000, 1);
+            buyFigure(PawnTypes.horse,1000, 1);
         });
         findViewById(R.id.buyBtnIcon2).setOnClickListener((v) -> {
-            buyFigure(PawnTypes.dumbbell,2000, 2);
+            buyFigure(PawnTypes.healer,2000, 2);
         });
         findViewById(R.id.buyBtnIcon3).setOnClickListener((v) -> {
-            buyFigure(PawnTypes.t3inf2002,5000, 3);
+            buyFigure(PawnTypes.sniper,5000, 3);
         });
         findViewById(R.id.buyBtnIcon4).setOnClickListener((v) -> {
-            buyFigure(PawnTypes.bug, 10000,4);
+            buyFigure(PawnTypes.tank, 10000,4);
         });
         findViewById(R.id.buyBtnIcon5).setOnClickListener((v) -> {
-            buyFigure(PawnTypes.bug, 15000, 5);
+            buyFigure(PawnTypes.plane, 15000, 5);
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void togglePlayer() {
         selectedPlayerBool = !selectedPlayerBool;
 
@@ -67,8 +70,14 @@ public class PawnShop extends AppCompatActivity {
         } else {
             selectedPlayer = MainActivity.player2;
         }
+        TextView money = findViewById(R.id.labelPlayerMoneyShop);
+        money.setText(selectedPlayer.getCurrency() + "€");
+
+        TextView playerName = findViewById(R.id.labelPlayerNameShop);
+        playerName.setText(selectedPlayer.getPlayerName());
     }
 
+    @SuppressLint("SetTextI18n")
     private void buyFigure(PawnTypes pawnType, int pawnCost, int precondition) {
         if(pawnCost < selectedPlayer.getCurrency()
                 && !selectedPlayer.getCatalogue().contains(pawnType)
@@ -78,7 +87,7 @@ public class PawnShop extends AppCompatActivity {
         }
 
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
-        money.setText(String.valueOf(selectedPlayer.getCurrency()));
+        money.setText(selectedPlayer.getCurrency() + "€");
 
         SavegameUtil.writeSavegame(this);
     }

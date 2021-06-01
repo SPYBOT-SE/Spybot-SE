@@ -28,7 +28,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         Button settings = findViewById(R.id.btnSettings);
         settings.setOnClickListener(this);
 
-        music = MediaPlayer.create(this, R.raw.sound_background);
+        music = MediaPlayer.create(this, R.raw.epic_background);
+        music.setVolume(4,4);
         music.setLooping(true);
         music.start();
 

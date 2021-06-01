@@ -33,7 +33,7 @@ public abstract class Pawn {
     public int pictureTailRight = R.drawable.hantel_body_right;
     public int pictureTailLeft = R.drawable.hantel_body_left;
 
-
+    protected int spawnSound = R.raw.spawn;
     private final LinkedList<PawnSegment> segments = new LinkedList<>();
 
     public Pawn (boolean buildAbility) {
@@ -162,5 +162,9 @@ public abstract class Pawn {
 
     public Attack getAttack2() {
         return attack2;
+    }
+
+    public int getSpawnSound() {
+        return spawnSound;
     }
 }

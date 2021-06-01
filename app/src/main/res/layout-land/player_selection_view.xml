@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   android:layout_height="match_parent"
+                                                   android:background="@drawable/main_background">
 
     <LinearLayout
             android:orientation="vertical"
@@ -15,14 +16,14 @@
                 android:text="Choose players for session"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/labelHeader"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:layout_marginTop="16dp"
-        />
+                android:fontFamily="@font/military" android:textSize="24sp" android:textStyle="bold"/>
         <TextView
                 android:text="Player 1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/labelPlayer1"
-        />
+                android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
         <EditText
                 android:layout_width="502dp"
                 android:layout_height="50dp"
@@ -30,12 +31,12 @@
                 android:text="Name"
                 android:ems="10"
                 android:id="@+id/player1Input"
-        />
+                android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
         <TextView
                 android:text="Player 2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/labelPlayer2"
-        />
+                android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
         <EditText
                 android:layout_width="502dp"
                 android:layout_height="50dp"
@@ -43,11 +44,11 @@
                 android:text="Name"
                 android:ems="10"
                 android:id="@+id/player2Input"
-        />
+                android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
         <Button
                 android:text="Select"
                 android:layout_width="212dp"
                 android:layout_height="48dp" android:id="@+id/selectPlayers"
-        />
+                android:fontFamily="@font/military"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

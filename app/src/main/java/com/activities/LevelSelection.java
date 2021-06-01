@@ -46,7 +46,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 //
             layout.addView(row);
             setContentView(layout);
-            layout.setBackgroundResource(R.drawable.background);
+            layout.setBackgroundResource(R.drawable.main_background);
         }
 
         private void createBackButton(LinearLayout row){
@@ -58,6 +58,8 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
             backButton.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 10));
             backButton.setText("Back");
+
+
             backButton.setId(ActionIdConstants.BACK);
             backButton.setOnClickListener((v) -> {
                     Intent i = new Intent(this, SessionMainMenu.class);
@@ -78,6 +80,8 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
             btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 10));
             String text =  Integer.toString(i);
             btnTag.setText(name + "\n" + text);
+
+
             btnTag.setId(i);
 
             btnTag.setOnClickListener(this);
