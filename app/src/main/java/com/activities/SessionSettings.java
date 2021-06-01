@@ -114,6 +114,9 @@ public class SessionSettings extends AppCompatActivity {
 
     private void resetSaveGame(){
         SavegameUtil.resetSavegame(this);
+        Intent i = new Intent(this, MainMenu.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
     @Override
