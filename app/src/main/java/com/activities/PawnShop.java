@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 import com.player.PawnTypes;
 import com.player.Player;
-import com.spybot.app.AppSetting;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class PawnShop extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class PawnShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pawn_shop);
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         selectedPlayer = MainActivity.player1;
 
@@ -37,7 +38,7 @@ public class PawnShop extends AppCompatActivity {
         });
 
         findViewById(R.id.playerToggle).setOnClickListener((v) -> {
-            TogglePlayer();
+            togglePlayer();
         });
 
         findViewById(R.id.buyBtnIcon1).setOnClickListener((v) -> {
@@ -57,7 +58,7 @@ public class PawnShop extends AppCompatActivity {
         });
     }
 
-    void TogglePlayer(){
+    private void togglePlayer() {
         selectedPlayerBool = !selectedPlayerBool;
 
         if (selectedPlayerBool){
@@ -67,10 +68,8 @@ public class PawnShop extends AppCompatActivity {
         }
     }
 
-    void BuyFigure(PawnTypes pawnType, int pawnCost, int precondition){
-        if(pawnCost <= selectedPlayer.getCurrency()
-                && !selectedPlayer.getCatalogue().contains(pawnType)
-                && precondition == selectedPlayer.getCatalogue().size()){
+    private void buyFigure(PawnTypes pawnType, int pawnCost) {
+        if(pawnCost < selectedPlayer.getCurrency() && !selectedPlayer.getCatalogue().contains(pawnType)){
             selectedPlayer.setCurrency(pawnCost);
             selectedPlayer.getCatalogue().add(pawnType);
         }

@@ -1,8 +1,8 @@
 package com.pawns;
 
 import com.example.spybot.R;
-import com.pawns.Attack.AttackSize;
-import com.pawns.Attack.AttackSpeed;
+import com.pawns.attacks.AttackSize;
+import com.pawns.attacks.AttackSpeed;
 
 public class Dumbbell extends Pawn {
 

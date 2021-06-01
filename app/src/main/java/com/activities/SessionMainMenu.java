@@ -1,12 +1,13 @@
-package com.example.spybot;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import com.spybot.app.AppSetting;
+import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class SessionMainMenu extends AppCompatActivity {
     @Override
@@ -14,36 +15,28 @@ public class SessionMainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session_main_menu);
-        AppSetting.hideSystemUI(this);
+        AppSettingsHelper.hideSystemUI(this);
 
         Button selectBtn = findViewById(R.id.btnArena);
-        selectBtn.setOnClickListener((v) -> {
-            LoadLevels();
-        });
+        selectBtn.setOnClickListener((v) -> loadLevels());
 
         Button shopButton = findViewById(R.id.btnShop);
-        shopButton.setOnClickListener((v) -> {
-            LoadShop();
-        });
+        shopButton.setOnClickListener((v) -> loadShop());
 
         Button settingsButton = findViewById(R.id.btnPlayerSettings);
-        settingsButton.setOnClickListener((v) -> {
-            PlayerSettings();
-        });
+        settingsButton.setOnClickListener((v) -> playerSettings());
 
         Button endSessionButton = findViewById(R.id.btnEndSession);
-        endSessionButton.setOnClickListener((v) -> {
-            EndSession();
-        });
+        endSessionButton.setOnClickListener((v) -> endSession());
     }
 
-    void LoadLevels(){
+    private void loadLevels(){
 
         Intent i = new Intent(this, LevelSelection.class);
         startActivity(i);
     }
 
-    void EndSession(){
+    private void endSession(){
         //End Session by setting players 1 and 2 null
         //Save
         Intent i = new Intent(this, MainMenu.class);
@@ -51,15 +44,16 @@ public class SessionMainMenu extends AppCompatActivity {
         startActivity(i);
     }
 
-    void LoadShop(){
+    private void loadShop(){
         Intent i = new Intent(this, PawnShop.class);
         startActivity(i);
     }
 
-    void PlayerSettings(){
+    private void playerSettings(){
         Intent i = new Intent(this, SessionSettings.class);
         startActivity(i);
     }
+
     @Override
     public void onPause() {
         super.onPause();
