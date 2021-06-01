@@ -1,4 +1,4 @@
-package com.example.spybot;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import com.application.AppSettingsHelper;
 import com.example.spybot.R;
 import com.player.PawnTypes;
 import com.player.Player;
+import com.utilities.SavegameUtil;
 
 import static com.activities.MainMenu.music;
 
@@ -29,7 +30,7 @@ public class PawnShop extends AppCompatActivity {
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
         money.setText(String.valueOf(selectedPlayer.getCurrency()));
 
-        TextView playerName = findViewById(R.id.labelPlayerName);
+        TextView playerName = findViewById(R.id.labelPlayerNameShop);
         playerName.setText(selectedPlayer.getPlayerName());
 
         findViewById(R.id.btnBack).setOnClickListener((v) -> {
@@ -42,19 +43,19 @@ public class PawnShop extends AppCompatActivity {
         });
 
         findViewById(R.id.buyBtnIcon1).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug,1000, 1);
+            buyFigure(PawnTypes.dumbbell,1000, 1);
         });
         findViewById(R.id.buyBtnIcon2).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.dumbbell,2000, 2);
+            buyFigure(PawnTypes.dumbbell,2000, 2);
         });
         findViewById(R.id.buyBtnIcon3).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.t3inf2002,5000, 3);
+            buyFigure(PawnTypes.t3inf2002,5000, 3);
         });
         findViewById(R.id.buyBtnIcon4).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug, 10000,4);
+            buyFigure(PawnTypes.bug, 10000,4);
         });
         findViewById(R.id.buyBtnIcon5).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug, 15000, 5);
+            buyFigure(PawnTypes.bug, 15000, 5);
         });
     }
 
@@ -68,14 +69,18 @@ public class PawnShop extends AppCompatActivity {
         }
     }
 
-    private void buyFigure(PawnTypes pawnType, int pawnCost) {
-        if(pawnCost < selectedPlayer.getCurrency() && !selectedPlayer.getCatalogue().contains(pawnType)){
-            selectedPlayer.setCurrency(pawnCost);
+    private void buyFigure(PawnTypes pawnType, int pawnCost, int precondition) {
+        if(pawnCost < selectedPlayer.getCurrency()
+                && !selectedPlayer.getCatalogue().contains(pawnType)
+                && precondition == selectedPlayer.getCatalogue().size()){
+            selectedPlayer.addMoney(-pawnCost);
             selectedPlayer.getCatalogue().add(pawnType);
         }
 
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
-        money.setText(selectedPlayer.getCurrency());
+        money.setText(String.valueOf(selectedPlayer.getCurrency()));
+
+        SavegameUtil.writeSavegame(this);
     }
 
     @Override

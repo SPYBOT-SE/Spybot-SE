@@ -56,7 +56,7 @@ public class Player {
         return playerName;
     }
 
-    public void changeMoney(int amount){
+    public void addMoney(int amount){
         currency += amount;
     }
 

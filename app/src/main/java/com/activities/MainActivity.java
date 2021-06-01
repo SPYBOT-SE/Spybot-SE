@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void rewardWinner(Player winner){
-        winner.changeMoney(10000);
+        winner.addMoney(10000);
 
         SavegameUtil.writeSavegame(this);
     }

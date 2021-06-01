@@ -30,7 +30,7 @@
             <ImageView
                     android:layout_width="138dp"
                     android:layout_height="50dp" tools:srcCompat="@drawable/bug" android:id="@+id/icon1"
-            />
+                    app:srcCompat="@drawable/bug"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             <ImageView
                     android:layout_width="138dp"
                     android:layout_height="50dp" tools:srcCompat="@drawable/hantel_head" android:id="@+id/icon2"
-            />
+                    app:srcCompat="@drawable/hantel_head"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
