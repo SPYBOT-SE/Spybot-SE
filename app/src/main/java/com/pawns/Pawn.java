@@ -2,7 +2,7 @@ package com.pawns;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import com.example.spybot.MainActivity;
+import com.activities.MainActivity;
 import com.example.spybot.R;
 import com.level.Field;
 import com.model.Direction;

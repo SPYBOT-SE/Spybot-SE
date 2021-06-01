@@ -1,4 +1,4 @@
-package com.example.spybot;
+package com.activities;
 
 
 import android.content.Intent;
@@ -9,10 +9,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 import com.level.LevelSingle;
 import com.model.shortcuts.ActionIdConstants;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class LevelSelection extends AppCompatActivity implements View.OnClickListener {
 

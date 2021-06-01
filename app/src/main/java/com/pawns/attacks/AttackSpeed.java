@@ -1,6 +1,6 @@
 package com.pawns.attacks;
 
-import com.example.spybot.MainActivity;
+import com.activities.MainActivity;
 import com.level.Field;
 import com.pawns.Pawn;
 

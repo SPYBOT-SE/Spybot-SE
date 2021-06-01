@@ -1,17 +1,18 @@
-package com.example.spybot;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 import com.model.Savegame;
 import com.model.shortcuts.JsonConstants;
 import com.player.Player;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class SessionSettings extends AppCompatActivity {
 

@@ -1,12 +1,13 @@
-package com.example.spybot;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class SessionMainMenu extends AppCompatActivity {
     @Override

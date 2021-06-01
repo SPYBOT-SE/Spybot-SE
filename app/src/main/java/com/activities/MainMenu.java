@@ -1,4 +1,4 @@
-package com.example.spybot;
+package com.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 import com.model.shortcuts.JsonConstants;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;

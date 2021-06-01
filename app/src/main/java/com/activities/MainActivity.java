@@ -1,4 +1,4 @@
-package com.example.spybot;
+package com.activities;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -15,6 +15,7 @@ import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 import com.level.Board;
 import com.level.Field;
 import com.level.Highlighting;
@@ -33,7 +34,7 @@ import com.utilities.SavegameUtil;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 

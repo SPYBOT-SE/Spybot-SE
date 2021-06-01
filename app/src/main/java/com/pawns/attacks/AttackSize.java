@@ -1,6 +1,6 @@
 package com.pawns.attacks;
 
-import com.example.spybot.MainActivity;
+import com.activities.MainActivity;
 import com.level.Field;
 
 public class AttackSize extends Attack {

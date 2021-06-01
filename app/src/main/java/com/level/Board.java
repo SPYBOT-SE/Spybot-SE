@@ -1,6 +1,6 @@
 package com.level;
 
-import com.example.spybot.MainActivity;
+import com.activities.MainActivity;
 import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.model.LevelState;

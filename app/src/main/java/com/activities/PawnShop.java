@@ -1,14 +1,15 @@
-package com.example.spybot;
+package com.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
+import com.example.spybot.R;
 import com.player.PawnTypes;
 import com.player.Player;
 
-import static com.example.spybot.MainMenu.music;
+import static com.activities.MainMenu.music;
 
 public class PawnShop extends AppCompatActivity {
 
