@@ -6,10 +6,13 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.model.Savegame;
 import com.model.shortcuts.Json;
+import com.player.PawnTypes;
 import com.player.Player;
 import com.spybot.app.AppSetting;
 import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
+
+import java.util.HashMap;
 
 import static com.example.spybot.MainMenu.music;
 
@@ -35,10 +38,10 @@ public class SessionSettings extends AppCompatActivity {
             swapPlayers();
         });
         findViewById(R.id.btnChangePlayer1).setOnClickListener((v) -> {
-            changePlayer(true);
+            changePlayer(0);
         });
         findViewById(R.id.btnChangePlayer2).setOnClickListener((v) -> {
-            changePlayer(false);
+            changePlayer(1);
         });
         findViewById(R.id.btnTogglePlayer).setOnClickListener((v) -> {
             togglePlayer();
@@ -66,9 +69,35 @@ public class SessionSettings extends AppCompatActivity {
 
     }
 
-    private void changePlayer(boolean side){
+    private void changePlayer(int side){
+        SavegameUtil.loadSavegame(this);
+        Savegame savegame = SavegameUtil.getSavegame();
+
+
+        if (side == 0){
+            EditText nameInput = findViewById(R.id.inputNewFirstPlayerName);
+            MainActivity.player1 = getPlayerFromSavegame(nameInput.getText().toString().toUpperCase(), savegame.getPlayers());
+        } else if(side == 1){
+            EditText nameInput = findViewById(R.id.inputNewSecondPlayer);
+            MainActivity.player2 = getPlayerFromSavegame(nameInput.getText().toString().toUpperCase(), savegame.getPlayers());
+        }
+    }
+
+    private Player getPlayerFromSavegame(String playerName, HashMap<String, Player> players){
+        if (players.containsKey(playerName)){
+            return players.get(playerName);
+        } else {
+            return createNewPlayer(playerName, players);
+        }
 
     }
+
+    private Player createNewPlayer(String playerName, HashMap<String, Player> players){
+        Player newPlayer = new Player(playerName);
+        players.put(playerName,newPlayer);
+        return newPlayer;
+    }
+
 
 
     private void togglePlayer(){
@@ -114,11 +143,19 @@ public class SessionSettings extends AppCompatActivity {
     }
 
     private void resetPlayer(){
+        Savegame savegame = SavegameUtil.getSavegame();
 
+        selectedPlayer.getCatalogue().clear();
+        selectedPlayer.getCatalogue().add(PawnTypes.bug);
+
+        selectedPlayer.setCurrency(0);
+
+        SavegameUtil.setSavegame(savegame);
+        FileUtil.writeToFile(Json.SAVEGAMEFILE,savegame.toJSON(0), this);
     }
 
     private void resetSaveGame(){
-
+        //TODO
     }
 
     @Override

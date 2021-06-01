@@ -21,11 +21,15 @@ public class PawnShop extends AppCompatActivity {
         setContentView(R.layout.pawn_shop);
         AppSetting.hideSystemUI(this);
 
+        selectedPlayer = MainActivity.player1;
+
+
+
         TextView money = findViewById(R.id.labelPlayerMoneyShop);
-        // money.setText(selectedPlayer.getMoney());
+        money.setText(String.valueOf(selectedPlayer.getCurrency()));
 
         TextView playerName = findViewById(R.id.labelPlayerName);
-        // playerName.setText(selectedPlayer.getPlayerName());
+        playerName.setText(selectedPlayer.getPlayerName());
 
         findViewById(R.id.btnBack).setOnClickListener((v) -> {
             Intent i = new Intent(this, SessionMainMenu.class);
@@ -37,19 +41,19 @@ public class PawnShop extends AppCompatActivity {
         });
 
         findViewById(R.id.buyBtnIcon1).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug,1000);
+            BuyFigure(PawnTypes.bug,1000, 1);
         });
         findViewById(R.id.buyBtnIcon2).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.dumbbell,2000);
+            BuyFigure(PawnTypes.dumbbell,2000, 2);
         });
         findViewById(R.id.buyBtnIcon3).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.t3inf2002,5000);
+            BuyFigure(PawnTypes.t3inf2002,5000, 3);
         });
         findViewById(R.id.buyBtnIcon4).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug, 10000);
+            BuyFigure(PawnTypes.bug, 10000,4);
         });
         findViewById(R.id.buyBtnIcon5).setOnClickListener((v) -> {
-            BuyFigure(PawnTypes.bug, 15000);
+            BuyFigure(PawnTypes.bug, 15000, 5);
         });
     }
 
@@ -63,8 +67,10 @@ public class PawnShop extends AppCompatActivity {
         }
     }
 
-    void BuyFigure(PawnTypes pawnType, int pawnCost){
-        if(pawnCost < selectedPlayer.getCurrency() && !selectedPlayer.getCatalogue().contains(pawnType)){
+    void BuyFigure(PawnTypes pawnType, int pawnCost, int precondition){
+        if(pawnCost <= selectedPlayer.getCurrency()
+                && !selectedPlayer.getCatalogue().contains(pawnType)
+                && precondition == selectedPlayer.getCatalogue().size()){
             selectedPlayer.setCurrency(pawnCost);
             selectedPlayer.getCatalogue().add(pawnType);
         }
