@@ -22,13 +22,10 @@ import com.level.Highlighting;
 import com.level.LevelSingle;
 import com.model.Direction;
 import com.model.LevelState;
-import com.model.Savegame;
 import com.model.shortcuts.ActionIdConstants;
-import com.model.shortcuts.JsonConstants;
 import com.pawns.*;
 import com.player.PawnTypes;
 import com.player.Player;
-import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
 import java.util.ArrayList;
@@ -394,9 +391,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void rewardWinner(Player winner){
         winner.changeMoney(10000);
 
-        Savegame savegame = SavegameUtil.getSavegame();
-        SavegameUtil.setSavegame(savegame);
-        FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
+        SavegameUtil.writeSavegame(this);
     }
 
 

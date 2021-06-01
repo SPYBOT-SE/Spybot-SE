@@ -8,9 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
 import com.model.Savegame;
-import com.model.shortcuts.JsonConstants;
 import com.player.Player;
-import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
 import java.util.HashMap;
@@ -46,7 +44,8 @@ public class PlayerSelection extends AppCompatActivity {
         MainActivity.player2 = getPlayerFromSavegame(player2Name, savegame.getPlayers());
 
         SavegameUtil.setSavegame(savegame);
-        FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
+        SavegameUtil.writeSavegame(this);
+
         Intent i = new Intent(this, SessionMainMenu.class);
         startActivity(i);
     }

@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
 import com.model.Savegame;
-import com.model.shortcuts.JsonConstants;
 import com.player.Player;
-import com.utilities.FileUtil;
 import com.utilities.SavegameUtil;
 
 import static com.activities.MainMenu.music;
@@ -64,7 +62,6 @@ public class SessionSettings extends AppCompatActivity {
         Player temp = MainActivity.player1;
         MainActivity.player1 = MainActivity.player2;
         MainActivity.player2 = temp;
-
     }
 
     private void changePlayer(boolean side){
@@ -86,14 +83,11 @@ public class SessionSettings extends AppCompatActivity {
         Savegame savegame = SavegameUtil.getSavegame();
         EditText input = findViewById(R.id.inputNewPlayerName);
 
-
         if(!savegame.getPlayers().containsKey(input.toString().toUpperCase())){
             selectedPlayer.setPlayerName(input.getText().toString().toUpperCase());
             SavegameUtil.setSavegame(savegame);
-            FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
+            SavegameUtil.writeSavegame(this);
         }
-
-
     }
 
     private void deletePlayer(){
@@ -104,7 +98,7 @@ public class SessionSettings extends AppCompatActivity {
             savegame.getPlayers().remove(selectedPlayer.getPlayerName().toUpperCase());
 
             SavegameUtil.setSavegame(savegame);
-            FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE,savegame.toJSON(0), this);
+            SavegameUtil.writeSavegame(this);
 
             Intent i = new Intent(this, MainMenu.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -119,7 +113,7 @@ public class SessionSettings extends AppCompatActivity {
     }
 
     private void resetSaveGame(){
-
+        SavegameUtil.resetSavegame(this);
     }
 
     @Override
@@ -132,6 +126,5 @@ public class SessionSettings extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         music.start();
-
     }
 }

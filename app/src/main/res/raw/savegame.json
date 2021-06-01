@@ -2,14 +2,14 @@
   "players":
   [
     {
-      "name":"p1",
+      "name":"P1",
       "currency":0,
       "inventory":[
         "bug"
       ]
     },
     {
-      "name":"p2",
+      "name":"P2",
       "currency":0,
       "inventory":[
         "bug"
