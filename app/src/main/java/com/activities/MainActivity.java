@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.media.MediaPlayer;
@@ -485,6 +486,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         break;
                     default:
                 }
+                layerView[1].mutate().setColorFilter(0xffff0000, PorterDuff.Mode.MULTIPLY);
 
             }
         } else {
