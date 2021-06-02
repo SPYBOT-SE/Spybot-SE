@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+                                                   android:layout_height="match_parent"
+                                                   android:background="@drawable/main_background">
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" app:layout_constraintStart_toStartOf="parent"
@@ -14,7 +15,8 @@
             <TextView
                     android:text="Session Settings"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/settingsHeader" android:textSize="24sp"/>
+                    android:layout_height="wrap_content" android:id="@+id/settingsHeader" android:textSize="24sp"
+                    android:textColor="#FFFFFF" android:fontFamily="@font/military" android:textStyle="bold"/>
             <Button
                     android:text="Button"
                     android:layout_width="wrap_content"
@@ -22,39 +24,43 @@
             <Button
                     android:text="back"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnBackToMenu"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnBackToMenu"
+                    android:fontFamily="@font/military"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
             <Button
                     android:text="Swap Players"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnSwapPlayers"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnSwapPlayers"
+                    android:fontFamily="@font/military"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
             <Button
                     android:text="Change Player 1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnChangePlayer1"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnChangePlayer1"
+                    android:fontFamily="@font/military"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:text="Name"
                     android:ems="10"
-                    android:id="@+id/inputNewFirstPlayerName"/>
+                    android:id="@+id/inputNewFirstPlayerName" android:textAlignment="viewStart"
+                    android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
             <Button
                     android:text="Change Player 2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnChangePlayer2"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnChangePlayer2"
+                    android:fontFamily="@font/military"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:text="Name"
                     android:ems="10"
-                    android:id="@+id/inputNewSecondPlayer"/>
+                    android:id="@+id/inputNewSecondPlayer" android:textAlignment="viewStart"
+                    android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -62,7 +68,8 @@
             <TextView
                     android:text="Player Settings"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/textView2" android:textSize="24sp"/>
+                    android:layout_height="wrap_content" android:id="@+id/textView2" android:textSize="24sp"
+                    android:textColor="#FFFFFF" android:fontFamily="@font/military" android:textStyle="bold"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -71,11 +78,12 @@
                     android:text="playerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/labelPlayerName"
-                    android:textAlignment="textEnd" android:textColor="#000000"/>
+                    android:textAlignment="textEnd" android:textColor="#FFFFFF" android:fontFamily="@font/military"/>
             <Button
                     android:text="Toggle Player"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnTogglePlayer"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnTogglePlayer"
+                    android:fontFamily="@font/military"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -83,14 +91,14 @@
             <Button
                     android:text="Change Name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnRenamePlayer"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnRenamePlayer"
+                    android:fontFamily="@font/military"/>
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:text="Name"
                     android:ems="10"
-                    android:id="@+id/inputNewPlayerName"/>
+                    android:id="@+id/inputNewPlayerName" android:textColor="#FFFFFF"/>
         </TableRow>
         <TableRow
                 android:layout_width="match_parent"
@@ -98,15 +106,18 @@
             <Button
                     android:text="Reset Player"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnResetPlayer"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnResetPlayer"
+                    android:fontFamily="@font/military"/>
             <Button
                     android:text="Delete Player"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/btnDeletePlayer"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnDeletePlayer"
+                    android:fontFamily="@font/military"/>
             <Button
-                    android:text="Delete Savegame"
+                    android:text="Reset Savegame"
                     android:layout_width="174dp"
-                    android:layout_height="wrap_content" android:id="@+id/btnResetSavegame"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnResetSavegame"
+                    android:fontFamily="@font/military"/>
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

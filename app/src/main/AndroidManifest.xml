@@ -4,39 +4,39 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
 
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.activities.MainActivity"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".LevelSelection"
+        <activity android:name="com.activities.LevelSelection"
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".PlayerSelection"
+        <activity android:name="com.activities.PlayerSelection"
                   android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".PawnShop"
+        <activity android:name="com.activities.PawnShop"
                   android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".SessionMainMenu"
+        <activity android:name="com.activities.SessionMainMenu"
                   android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".SessionSettings"
+        <activity android:name="com.activities.SessionSettings"
                   android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".MainMenu"
+        <activity android:name="com.activities.MainMenu"
             android:screenOrientation="landscape">
 
             <intent-filter>

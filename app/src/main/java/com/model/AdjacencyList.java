@@ -1,13 +1,9 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 public class AdjacencyList<T> {
-    HashSet<Vertex<T>> vertices = new HashSet<>(96);
+    private HashSet<Vertex<T>> vertices = new HashSet<>(96);
 
 
     public void addVertex(T vertex) {

@@ -1,11 +1,12 @@
 package com.pawns;
 
-import com.example.spybot.MainActivity;
+import android.content.Context;
+import android.media.MediaPlayer;
+import com.activities.MainActivity;
 import com.example.spybot.R;
-import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
-import com.pawns.Attack.Attack;
+import com.pawns.attacks.Attack;
 
 import java.util.LinkedList;
 
@@ -32,7 +33,7 @@ public abstract class Pawn {
     public int pictureTailRight = R.drawable.hantel_body_right;
     public int pictureTailLeft = R.drawable.hantel_body_left;
 
-
+    protected int spawnSound = R.raw.spawn;
     private final LinkedList<PawnSegment> segments = new LinkedList<>();
 
     public Pawn (boolean buildAbility) {
@@ -45,7 +46,7 @@ public abstract class Pawn {
         field.setSegment(newSeg);
     }
 
-    public void die() {
+    public void die(Context c) {
 
         Field field = this.getSegments().get(0).getField();
         field.setSegment(null);
@@ -54,6 +55,9 @@ public abstract class Pawn {
         field.board.pawnsOnBoard.remove(this);
         field.board.pawnsInTeam2.remove(this);
         field.board.pawnsInTeam1.remove(this);
+
+        MediaPlayer deathSound = MediaPlayer.create(c, R.raw.death_sound);
+        deathSound.start();
     }
 
     public void move(Field from, Field to, Direction direction) {
@@ -84,7 +88,11 @@ public abstract class Pawn {
             case RIGHT:
                 createSegment(from, BodyType.TailRight);
                 break;
+            default:
+                createSegment(from, BodyType.Tail);
+                break;
         }
+
 
 
         while(segments.size() > maxSize) {
@@ -154,5 +162,9 @@ public abstract class Pawn {
 
     public Attack getAttack2() {
         return attack2;
+    }
+
+    public int getSpawnSound() {
+        return spawnSound;
     }
 }

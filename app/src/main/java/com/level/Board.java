@@ -1,10 +1,10 @@
 package com.level;
 
-import com.example.spybot.MainActivity;
+import com.activities.MainActivity;
 import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.model.LevelState;
-import com.model.shortcuts.ActionID;
+import com.model.shortcuts.ActionIdConstants;
 import com.pawns.Pawn;
 import com.utilities.BoardUtil;
 
@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 public class Board {
 
-    int idCount = 0;
+    private int idCount = 0;
 
     public ArrayList<Pawn> pawnsOnBoard = new ArrayList<>();
     public ArrayList<Pawn> pawnsInTeam1 = new ArrayList<>();
@@ -77,7 +77,18 @@ public class Board {
             case 2:
                 background = R.drawable.field_tiled;
                 break;
-
+            case 3:
+                background = R.drawable.grass;
+                break;
+            case 4:
+                background = R.drawable.dirt;
+                break;
+            case 5:
+                background = R.drawable.water;
+                break;
+            case 6:
+                background = R.drawable.street;
+                break;
             default:
                 throw new NoSuchElementException("Error, background " + background + " not implemented yet!");
         }
@@ -196,7 +207,7 @@ public class Board {
         Pawn pawn = field.getSegment().getPawn();
 
         if (pawn.getLeftSteps() > 0) {
-            for (Field neighborField : BoardUtil.getFieldsInRange(this, field.getId(), pawn.getLeftSteps(), ActionID.MOVE)) {
+            for (Field neighborField : BoardUtil.getFieldsInRange(this, field.getId(), pawn.getLeftSteps(), ActionIdConstants.MOVE)) {
                 if(neighborField.getSegment() != null) {
                     continue;
                 }
@@ -221,7 +232,7 @@ public class Board {
 
     public void setHighlightingAttack(Field field, byte attackNum, byte range, MainActivity mainActivity) {
         clearBoard();
-        for (Field neighborField : BoardUtil.getFieldsInRange(this, field.getId(), range, ActionID.ATTACK_1)) {
+        for (Field neighborField : BoardUtil.getFieldsInRange(this, field.getId(), range, ActionIdConstants.ATTACK_1)) {
             if (neighborField.getSegment() != null && neighborField.getSegment().getPawn().getTeam() != currentPlayer) {
                 if (attackNum == 1) {
                     neighborField.setHighlighting(Highlighting.Attackable1);

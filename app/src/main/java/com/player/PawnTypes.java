@@ -1,7 +1,10 @@
 package com.player;
 
 public enum PawnTypes {
-    bug,
-    dumbbell,
-    T3INF2002
+    troop,
+    horse,
+    healer,
+    sniper,
+    tank,
+    plane
 }
