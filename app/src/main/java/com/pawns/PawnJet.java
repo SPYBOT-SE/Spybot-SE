@@ -8,7 +8,7 @@ public class PawnJet extends Pawn {
 
     public PawnJet() {
         super(false);
-        this.name = "Jetplane";
+        this.name = "Jet";
         this.speed = 5;
         this.leftSteps = this.speed;
         this.maxSize = 8;

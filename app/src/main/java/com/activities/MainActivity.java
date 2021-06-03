@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public static Player player2;
     private Player currentPlayer;
 
+    private final int[] playerOneColor = new int[]{0xFF008fe2, 0xFF00a6c7, 0xFF00bca9, 0xFF00d28e, 0xFF00e872, 0xFF00ff55};
+    private final int[] playerTwoColor = new int[]{0xFFff390e, 0xFFff5c1c, 0xFFff7f2b, 0xFFffa239, 0xFFffc546, 0xFFffe955};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -486,7 +489,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         break;
                     default:
                 }
-                layerView[1].mutate().setColorFilter(0xffff0000, PorterDuff.Mode.MULTIPLY);
+                layerView[1].mutate().setColorFilter(colorPawn(segment.getPawn()), PorterDuff.Mode.MULTIPLY);
 
             }
         } else {
@@ -498,6 +501,33 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
+    private int colorPawn(Pawn pawn){
+        if(pawn.getTeam() == 0){
+            return getColorOfPawn(playerOneColor, pawn.getName());
+        } else if(pawn.getTeam() == 1){
+            return getColorOfPawn(playerTwoColor, pawn.getName());
+        } else return -1;
+    }
+
+    private int getColorOfPawn(int[] colorPalette, String pawnName){
+        switch(pawnName){
+            case "Gunner":
+                return colorPalette[0];
+            case "Cavalry":
+                return colorPalette[1];
+            case "Doctor":
+                return colorPalette[2];
+            case "Sniper":
+                return colorPalette[3];
+            case "Tank":
+                return colorPalette[4];
+            case "Jet":
+                return colorPalette[5];
+            default:
+                return -1;
+
+        }
+    }
 
     @Override
     public void onPause() {
@@ -525,7 +555,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             MediaPlayer audio;
             audio = MediaPlayer.create(this, R.raw.move_sound);
-            audio.setVolume(5,5);
+            audio.setVolume(GameSettings.sfxAmplifier,GameSettings.sfxAmplifier);
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
@@ -568,6 +598,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         actor.attack1(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack1().getAudio());
                         audio.start();
+                        audio.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
                         actor.getAttack1().setAttackFlag(false);
 
                     }
@@ -578,6 +609,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         actor.attack2(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack2().getAudio());
                         audio.start();
+                        audio.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
                         actor.getAttack2().setAttackFlag(false);
                     }
                     break;
@@ -750,7 +782,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         MediaPlayer sound_spawn;
         sound_spawn = MediaPlayer.create(this, p.getSpawnSound());
-        sound_spawn.setVolume(1,1);
+        sound_spawn.setVolume(GameSettings.sfxAmplifier,GameSettings.sfxAmplifier);
         sound_spawn.start();
 
         field.setHighlighting(Highlighting.Empty);

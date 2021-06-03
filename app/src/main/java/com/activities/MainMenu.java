@@ -8,7 +8,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
-import com.utilities.SavegameUtil;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -29,7 +28,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         settings.setOnClickListener(this);
 
         music = MediaPlayer.create(this, R.raw.epic_background);
-        music.setVolume(4,4);
+        music.setVolume(GameSettings.musicAmplifier,GameSettings.musicAmplifier);
         music.setLooping(true);
         music.start();
 
@@ -65,7 +64,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.btnSettings:
-                SavegameUtil.loadSavegame(this);
+                Intent n = new Intent(MainMenu.this, GameSettings.class);
+                startActivity(n);
                 break;
             default:
                 System.exit(1);

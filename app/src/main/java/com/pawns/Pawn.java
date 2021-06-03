@@ -2,6 +2,7 @@ package com.pawns;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import com.activities.GameSettings;
 import com.activities.MainActivity;
 import com.example.spybot.R;
 import com.level.Field;
@@ -57,7 +58,9 @@ public abstract class Pawn {
         field.board.pawnsInTeam1.remove(this);
 
         MediaPlayer deathSound = MediaPlayer.create(c, R.raw.death_sound);
+        deathSound.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
         deathSound.start();
+
     }
 
     public void move(Field from, Field to, Direction direction) {
