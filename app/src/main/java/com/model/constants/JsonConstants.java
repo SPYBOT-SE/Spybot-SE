@@ -3,10 +3,17 @@ package com.model.constants;
 public class JsonConstants {
 
     public static final String SAVEGAMEFILE = "savegame.json";
+
     public static final String PLAYERS = "players";
     public static final String NAME = "name";
     public static final String CUR = "currency";
     public static final String INV = "inventory";
+
+    public static final String SOUNDSTG = "soundsettings";
+    public static final String MASTERAMP = "master";
+    public static final String MUSICAMP = "music";
+    public static final String SFXAMP = "sfx";
+
     public static final String DEFAULTSAVEGAME = "{\n" +
             "  \"players\":\n" +
             "  {\n" +

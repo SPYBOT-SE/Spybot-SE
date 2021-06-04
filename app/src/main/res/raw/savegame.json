@@ -15,5 +15,11 @@
         "bug"
       ]
     }
-  ]
+  ],
+  "soundsettings":
+  {
+    "master":50,
+    "music":50,
+    "sfx":50
+  }
 }

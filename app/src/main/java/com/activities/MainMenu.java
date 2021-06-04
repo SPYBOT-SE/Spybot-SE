@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
-import com.utilities.SoundUtil;
+import com.utilities.SavegameUtil;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,14 +28,11 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener{
         Button settings = findViewById(R.id.btnSettings);
         settings.setOnClickListener(this);
 
+
         music = MediaPlayer.create(this, R.raw.epic_background);
-        music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
+        music.setVolume(SavegameUtil.getMusicVolume(), SavegameUtil.getMusicVolume());
         music.setLooping(true);
         music.start();
-
-        //MediaPlayer winxp = MediaPlayer.create(this, R.raw.winxp);
-        //winxp.start();
-
 
     }
 

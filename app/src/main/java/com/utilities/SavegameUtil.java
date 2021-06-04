@@ -16,6 +16,7 @@ public class SavegameUtil {
 
     private static Savegame savegame;
 
+
     public static Savegame getSavegame() {
         return savegame;
     }
@@ -114,6 +115,53 @@ public class SavegameUtil {
 
     public static void writeSavegame(Context ctx) {
         FileUtil.writeToFile(JsonConstants.SAVEGAMEFILE, savegame.toJSON(0), ctx);
+    }
+
+
+    public static float getMasterVolume() {
+        return 0.01f * savegame.getSounds().getMasterAmplifier();
+    }
+
+    public static float getMusicVolume() {
+        return (0.01f * savegame.getSounds().getMusicAmplifier()) * (0.01f * savegame.getSounds().getMasterAmplifier());
+    }
+
+    public static float getSfxVolume() {
+        return (0.01f * savegame.getSounds().getSfxAmplifier()) * (0.01f * savegame.getSounds().getMasterAmplifier());
+    }
+
+    public static int getMasterAmplifier() {
+        return savegame.getSounds().getMasterAmplifier();
+    }
+
+    public static void setMasterAmplifier(int amplifier) {
+        savegame.getSounds().setMasterAmplifier(amplifier);
+    }
+
+    public static int getMusicAmplifier() {
+        return savegame.getSounds().getMusicAmplifier();
+    }
+
+    public static void setMusicAmplifier(int amplifier) {
+        savegame.getSounds().setMusicAmplifier(amplifier);
+    }
+
+    public static int getSfxAmplifier() {
+        return savegame.getSounds().getSfxAmplifier();
+    }
+
+    public static void setSfxAmplifier(int amplifier) {
+        savegame.getSounds().setSfxAmplifier(amplifier);
+    }
+
+
+
+    public static void resetSounds() {
+        savegame.resetSounds();
+    }
+
+    public static void muteSounds() {
+        savegame.muteSounds();
     }
 
 }

@@ -9,8 +9,8 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
+import com.model.SoundValues;
 import com.utilities.SavegameUtil;
-import com.utilities.SoundUtil;
 
 import static com.activities.MainMenu.music;
 
@@ -51,14 +51,13 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         musicSlider.setOnSeekBarChangeListener(this);
         sfxSlider.setOnSeekBarChangeListener(this);
 
-        masterSlider.setProgress(SoundUtil.getMasterAmplifier());
-        musicSlider.setProgress(SoundUtil.getMusicAmplifier());
-        sfxSlider.setProgress(SoundUtil.getSfxAmplifier());
+        masterSlider.setProgress(SavegameUtil.getMasterAmplifier());
+        musicSlider.setProgress(SavegameUtil.getMusicAmplifier());
+        sfxSlider.setProgress(SavegameUtil.getSfxAmplifier());
 
         Switch soundtrackSwitch = findViewById(R.id.switchSoundtrack);
         soundtrackSwitch.setOnClickListener(this);
         soundtrackSwitch.setChecked(determineSound);
-
     }
 
     @Override
@@ -66,18 +65,18 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         if (fromUser) {
             switch (seekBar.getId()) {
                 case R.id.seekbarMaster:
-                    SoundUtil.setMasterAmplifier(progress);
+                    SavegameUtil.setMasterAmplifier(progress);
                     break;
                 case R.id.seekbarMusic:
-                    SoundUtil.setMusicAmplifier(progress);
+                    SavegameUtil.setMusicAmplifier(progress);
                     break;
                 case R.id.seekbarSFX:
-                    SoundUtil.setSfxAmplifier(progress);
+                    SavegameUtil.setSfxAmplifier(progress);
                     break;
                 default:
                     break;
             }
-            music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
+            music.setVolume(SavegameUtil.getMusicVolume(), SavegameUtil.getMusicVolume());
         }
     }
 
@@ -92,7 +91,7 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         if (seekBar.getId() == R.id.seekbarSFX) {
             MediaPlayer testSound;
             testSound = MediaPlayer.create(this, R.raw.sniper);
-            testSound.setVolume(SoundUtil.getSfxVolume(), SoundUtil.getSfxVolume());
+            testSound.setVolume(SavegameUtil.getSfxVolume(), SavegameUtil.getSfxVolume());
             testSound.start();
         }
     }
@@ -112,15 +111,15 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
     }
 
     private void andreasMode(){
-        SoundUtil.muteSound();
+        SavegameUtil.muteSounds();
         resetSlider(0);
-        MainMenu.music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
+        MainMenu.music.setVolume(SavegameUtil.getMusicVolume(), SavegameUtil.getMusicVolume());
     }
 
     private void resetSound(){
-        SoundUtil.resetSound();
-        resetSlider(SoundUtil.defaultAmplifier);
-        MainMenu.music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
+        SavegameUtil.resetSounds();
+        resetSlider(SoundValues.defaultAmplifier);
+        MainMenu.music.setVolume(SavegameUtil.getMusicVolume(), SavegameUtil.getMusicVolume());
     }
 
     private void switchSoundtrack(){
@@ -135,7 +134,7 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
 
         music.start();
         music.setLooping(true);
-        music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
+        music.setVolume(SavegameUtil.getMusicVolume(), SavegameUtil.getMusicVolume());
 
         Switch soundtrackSwitch = findViewById(R.id.switchSoundtrack);
         soundtrackSwitch.setChecked(determineSound);
