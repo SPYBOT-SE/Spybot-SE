@@ -1,8 +1,7 @@
 package com.pawns;
 
 import com.example.spybot.R;
-import com.pawns.attacks.AttackSize;
-import com.pawns.attacks.AttackSpeed;
+import com.pawns.attacks.AttackHeal;
 
 public class PawnJet extends Pawn {
 
@@ -11,7 +10,7 @@ public class PawnJet extends Pawn {
         this.name = "Jet";
         this.speed = 5;
         this.leftSteps = this.speed;
-        this.maxSize = 8;
+        this.maxSize = 4;
 
         this.icon = R.drawable.icon_military_jet;
 
@@ -21,8 +20,8 @@ public class PawnJet extends Pawn {
         this.spawnSound = R.raw.jet_flyby;
 
 
-        this.attack1 = new AttackSize("Lifting", R.drawable.highlighting_attack,R.raw.attack_sound, (byte) 1, (byte) 1);
-        this.attack2 = new AttackSpeed("Leaping", R.drawable.highlighting_attack,R.raw.attack_sound,(byte) 1, (byte) 1);
+        this.attack1 = new AttackHeal("Bomb", R.drawable.highlighting_attack,R.raw.attack_sound, (byte) 1, (byte) -6);
+        this.attack2 = new AttackHeal("Gun", R.drawable.highlighting_attack,R.raw.attack_sound,(byte) 3, (byte) -3);
 
     }
 }

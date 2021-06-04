@@ -36,7 +36,7 @@ public class AttackHeal extends Attack{
                     }
 
                 }
-                else {
+                else if (targetPawn.getSegments().size() == 1) {
                     targetPawn.die(m);
                     continue;
                 }
