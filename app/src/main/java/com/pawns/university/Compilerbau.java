@@ -1,9 +1,10 @@
-package com.pawns;
+package com.pawns.university;
 
 import com.example.spybot.R;
+import com.pawns.Pawn;
 import com.pawns.attacks.AttackBuild;
 
-public class Compilerbau extends Pawn{
+public class Compilerbau extends Pawn {
 
     public Compilerbau(){
         super(true);

@@ -1,6 +1,7 @@
-package com.pawns;
+package com.pawns.university;
 
 import com.example.spybot.R;
+import com.pawns.Pawn;
 import com.pawns.attacks.AttackHeal;
 import com.pawns.attacks.AttackSpeed;
 

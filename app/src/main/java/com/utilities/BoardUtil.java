@@ -4,7 +4,7 @@ import com.level.Board;
 import com.level.Field;
 import com.model.AdjacencyList;
 import com.model.Vertex;
-import com.model.shortcuts.ActionIdConstants;
+import com.model.constants.ActionIdConstants;
 import com.pawns.PawnSegment;
 
 import java.util.ArrayDeque;

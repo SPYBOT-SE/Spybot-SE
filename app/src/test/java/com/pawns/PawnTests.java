@@ -3,6 +3,7 @@ package com.pawns;
 import com.level.Board;
 import com.level.Field;
 import com.model.Direction;
+import com.pawns.university.Dumbbell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

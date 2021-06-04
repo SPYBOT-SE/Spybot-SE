@@ -1,6 +1,9 @@
-package com.pawns;
+package com.pawns.military;
 
 import com.example.spybot.R;
+import com.pawns.Pawn;
+import com.pawns.attacks.AttackSize;
+import com.pawns.attacks.AttackSpeed;
 import com.pawns.attacks.AttackHeal;
 
 public class PawnSniper extends Pawn {

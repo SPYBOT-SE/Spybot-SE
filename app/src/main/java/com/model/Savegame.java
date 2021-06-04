@@ -1,7 +1,7 @@
 package com.model;
 
 import android.util.Log;
-import com.model.shortcuts.JsonConstants;
+import com.model.constants.JsonConstants;
 import com.player.Player;
 import com.utilities.GeneralUtil;
 import org.json.JSONArray;

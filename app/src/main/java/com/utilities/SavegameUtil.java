@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import com.example.spybot.R;
 import com.model.Savegame;
-import com.model.shortcuts.JsonConstants;
+import com.model.constants.JsonConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 

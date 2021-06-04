@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
 import com.level.LevelSingle;
-import com.model.shortcuts.ActionIdConstants;
+import com.model.constants.ActionIdConstants;
 
 import static com.activities.MainMenu.music;
 

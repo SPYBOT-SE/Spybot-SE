@@ -1,4 +1,4 @@
-package com.model.shortcuts;
+package com.model.constants;
 
 public class JsonConstants {
 
