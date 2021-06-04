@@ -28,6 +28,17 @@ public class SessionMainMenu extends AppCompatActivity {
 
         Button endSessionButton = findViewById(R.id.btnEndSession);
         endSessionButton.setOnClickListener((v) -> endSession());
+
+        findViewById(R.id.btnLevelEditor).setOnClickListener((v) -> {
+            openLevelEditor();
+        });
+    }
+
+
+    private void openLevelEditor(){
+        Intent i = new Intent(this, LevelEditor.class);
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 
     private void loadLevels(){

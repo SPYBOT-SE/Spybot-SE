@@ -62,6 +62,7 @@ public class SessionSettings extends AppCompatActivity {
         });
 
 
+
     }
 
     private void swapPlayers(){
@@ -116,6 +117,8 @@ public class SessionSettings extends AppCompatActivity {
         }
     }
 
+
+    
     private void deletePlayer(){
         Savegame savegame = SavegameUtil.getSavegame();
 
