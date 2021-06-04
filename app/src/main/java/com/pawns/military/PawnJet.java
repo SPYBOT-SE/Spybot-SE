@@ -1,6 +1,7 @@
-package com.pawns;
+package com.pawns.military;
 
 import com.example.spybot.R;
+import com.pawns.Pawn;
 import com.pawns.attacks.AttackSize;
 import com.pawns.attacks.AttackSpeed;
 

@@ -1,4 +1,4 @@
-package com.model.shortcuts;
+package com.model.constants;
 
 public class ActionIdConstants {
     public final static int MOVE = 1001;

@@ -4,7 +4,7 @@ import com.activities.MainActivity;
 import com.example.spybot.R;
 import com.model.AdjacencyList;
 import com.model.LevelState;
-import com.model.shortcuts.ActionIdConstants;
+import com.model.constants.ActionIdConstants;
 import com.pawns.Pawn;
 import com.utilities.BoardUtil;
 
