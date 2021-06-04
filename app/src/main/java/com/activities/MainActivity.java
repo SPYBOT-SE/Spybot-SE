@@ -190,12 +190,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             switch (id) {
                 case ActionIdConstants.MOVE:
+                    if (lastSelected.getSegment().getPawn().getLeftSteps() == 0) break;
                     board.setHighlightingMove(lastSelected);
                     break;
                 case ActionIdConstants.ATTACK_1:
+                    if (!lastSelected.getSegment().getPawn().attackAvailable) break;
                     board.setHighlightingAttack(lastSelected, (byte) 1, lastSelected.getSegment().getPawn().getAttack1().getRange(), this);
                     break;
                 case ActionIdConstants.ATTACK_2:
+                    if (!lastSelected.getSegment().getPawn().attackAvailable) break;
                     board.setHighlightingAttack(lastSelected, (byte) 2, lastSelected.getSegment().getPawn().getAttack2().getRange(), this);
                     break;
                 default:
@@ -368,8 +371,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void resetAttributes(){
         for (Pawn pawn: board.pawnsOnBoard) {
             pawn.setLeftSteps(pawn.getSpeed());
-            pawn.getAttack1().setAttackFlag(true);
-            pawn.getAttack2().setAttackFlag(true);
+            pawn.attackAvailable = true;
         }
     }
 
@@ -597,23 +599,23 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     break;
                 case Attackable1:
                     actor = lastSelected.getSegment().getPawn();
-                    if(field.getSegment() != null && actor.getAttack1().canAttack()) {
+                    if(field.getSegment() != null && actor.attackAvailable) {
                         actor.attack1(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack1().getAudio());
                         audio.start();
                         audio.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
-                        actor.getAttack1().setAttackFlag(false);
+                        actor.attackAvailable = false;
 
                     }
                     break;
                 case Attackable2:
                     actor = lastSelected.getSegment().getPawn();
-                    if(field.getSegment() != null && actor.getAttack2().canAttack()) {
+                    if(field.getSegment() != null && actor.attackAvailable) {
                         actor.attack2(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack2().getAudio());
                         audio.start();
                         audio.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
-                        actor.getAttack2().setAttackFlag(false);
+                        actor.attackAvailable = false;
                     }
                     break;
                 case Buildable:

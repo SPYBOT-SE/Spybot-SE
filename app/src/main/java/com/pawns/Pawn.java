@@ -26,6 +26,8 @@ public abstract class Pawn {
     protected Attack attack1;
     protected Attack attack2;
 
+    public boolean attackAvailable = true;
+
     public int icon = R.drawable.bug;
     public int pictureHead = R.drawable.blank_head;
     public int pictureTail = R.drawable.blank_body;
@@ -106,11 +108,15 @@ public abstract class Pawn {
     }
 
     public void attack1(MainActivity m, Field target) {
-        this.attack1.performAttack(m, target);
+        if (attackAvailable) {
+            this.attack1.performAttack(m, target);
+        }
     }
 
     public void attack2(MainActivity m, Field target) {
-        this.attack2.performAttack(m, target);
+        if (attackAvailable) {
+            this.attack2.performAttack(m, target);
+        }
     }
 
 // ----- Getter & Setter -----

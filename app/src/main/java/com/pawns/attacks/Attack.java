@@ -10,7 +10,6 @@ public abstract class Attack {
     protected int audio;
     protected byte range;
     protected byte magnitude;
-    protected boolean canAttack;
 
     public Attack(String attackName, int icon, int audio, byte range, byte magnitude) {
         this.nameOfAttack = attackName;
@@ -21,15 +20,6 @@ public abstract class Attack {
     }
 
     public abstract void performAttack(MainActivity m, Field target);
-
-
-    public boolean canAttack() {
-        return canAttack;
-    }
-
-    public void setAttackFlag(boolean canAttack) {
-        this.canAttack = canAttack;
-    }
 
     public byte getRange() {
         return range;
