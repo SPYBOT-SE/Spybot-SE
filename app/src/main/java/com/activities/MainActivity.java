@@ -31,6 +31,7 @@ import com.pawns.military.*;
 import com.player.PawnTypes;
 import com.player.Player;
 import com.utilities.SavegameUtil;
+import com.utilities.SoundUtil;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -558,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             MediaPlayer audio;
             audio = MediaPlayer.create(this, R.raw.move_sound);
-            audio.setVolume(GameSettings.sfxAmplifier,GameSettings.sfxAmplifier);
+            audio.setVolume(SoundUtil.getSfxVolume(), SoundUtil.getSfxVolume());
 
             // Actions when clicking a highlighted field
             switch (field.getHighlighting()) {
@@ -601,7 +602,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         actor.attack1(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack1().getAudio());
                         audio.start();
-                        audio.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
+                        audio.setVolume(SoundUtil.getSfxVolume(), SoundUtil.getSfxVolume());
                         actor.getAttack1().setAttackFlag(false);
 
                     }
@@ -612,7 +613,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         actor.attack2(this, field);
                         audio = MediaPlayer.create(this, actor.getAttack2().getAudio());
                         audio.start();
-                        audio.setVolume(GameSettings.sfxAmplifier, GameSettings.sfxAmplifier);
+                        audio.setVolume(SoundUtil.getSfxVolume(), SoundUtil.getSfxVolume());
                         actor.getAttack2().setAttackFlag(false);
                     }
                     break;
@@ -783,7 +784,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         MediaPlayer sound_spawn;
         sound_spawn = MediaPlayer.create(this, p.getSpawnSound());
-        sound_spawn.setVolume(GameSettings.sfxAmplifier,GameSettings.sfxAmplifier);
+        sound_spawn.setVolume(SoundUtil.getSfxVolume(), SoundUtil.getSfxVolume());
         sound_spawn.start();
 
         field.setHighlighting(Highlighting.Empty);

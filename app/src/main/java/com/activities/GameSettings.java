@@ -9,17 +9,13 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
+import com.utilities.SavegameUtil;
+import com.utilities.SoundUtil;
 
 import static com.activities.MainMenu.music;
 
 public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, Switch.OnClickListener{
     //TODO fix bugs while starting the settings menu
-
-    public static float masterAmplifier = 0.5f;
-    public static float musicAmplifier = 0.5f;
-    public static float sfxAmplifier = 0.5f;
-
-    private final float divider = 0.01f;
 
     private static boolean determineSound = true;
     @Override
@@ -34,6 +30,7 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         });
 
         findViewById(R.id.btnResetSaveGame).setOnClickListener((v) -> {
+            SavegameUtil.resetSavegame(this);
             Intent i = new Intent(this, SessionMainMenu.class);
             startActivity(i);
         });
@@ -54,41 +51,37 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         musicSlider.setOnSeekBarChangeListener(this);
         sfxSlider.setOnSeekBarChangeListener(this);
 
-
-        masterSlider.setProgress((int)masterAmplifier * 100);
-        musicSlider.setProgress((int) (((musicAmplifier / masterAmplifier))/divider));
-        sfxSlider.setProgress((int) (((sfxAmplifier / masterAmplifier))/divider));
+        masterSlider.setProgress(SoundUtil.getMasterAmplifier());
+        musicSlider.setProgress(SoundUtil.getMusicAmplifier());
+        sfxSlider.setProgress(SoundUtil.getSfxAmplifier());
 
         Switch soundtrackSwitch = findViewById(R.id.switchSoundtrack);
         soundtrackSwitch.setOnClickListener(this);
         soundtrackSwitch.setChecked(determineSound);
 
-
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        SeekBar masterSlider = findViewById(R.id.seekbarMaster);
-        masterAmplifier = masterSlider.getProgress() * divider;
-
-        if (masterAmplifier == 0){
-            musicAmplifier = 0;
-            sfxAmplifier = 0;
-
-            music.setVolume(0,0);
-            return;
+        if (fromUser) {
+            switch (seekBar.getId()) {
+                case R.id.seekbarMaster:
+                    SoundUtil.setMasterAmplifier(progress);
+                    break;
+                case R.id.seekbarMusic:
+                    SoundUtil.setMusicAmplifier(progress);
+                    break;
+                case R.id.seekbarSFX:
+                    SoundUtil.setSfxAmplifier(progress);
+                    break;
+                default:
+                    break;
+            }
+            music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
         }
-
-        SeekBar musicSlider = findViewById(R.id.seekbarMusic);
-        musicAmplifier = musicSlider.getProgress() * masterAmplifier * divider;
-
-        SeekBar sfxSlider = findViewById(R.id.seekbarSFX);
-        sfxAmplifier = sfxSlider.getProgress() * masterAmplifier * divider;
-
-        music.setVolume(musicAmplifier, musicAmplifier);
-
-
     }
+
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -96,7 +89,12 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        if (seekBar.getId() == R.id.seekbarSFX) {
+            MediaPlayer testSound;
+            testSound = MediaPlayer.create(this, R.raw.sniper);
+            testSound.setVolume(SoundUtil.getSfxVolume(), SoundUtil.getSfxVolume());
+            testSound.start();
+        }
     }
 
 
@@ -114,43 +112,15 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
     }
 
     private void andreasMode(){
-        masterAmplifier = 0;
-        musicAmplifier = 0;
-
-        MainMenu.music.setVolume(0,0);
-
-        sfxAmplifier = 0;
-
-        SeekBar masterSlider = findViewById(R.id.seekbarMaster);
-        SeekBar musicSlider = findViewById(R.id.seekbarMusic);
-        SeekBar sfxSlider = findViewById(R.id.seekbarSFX);
-
-        masterSlider.setProgress(0);
-        musicSlider.setProgress(0);
-        sfxSlider.setProgress(0);
+        SoundUtil.muteSound();
+        resetSlider(0);
+        MainMenu.music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
     }
 
     private void resetSound(){
-        float volumeCalculations;
-
-        masterAmplifier = .5f;
-        musicAmplifier = .5f;
-        sfxAmplifier = .5f;
-
-        music.setVolume(musicAmplifier,musicAmplifier);
-
-        SeekBar masterSlider = findViewById(R.id.seekbarMaster);
-        SeekBar musicSlider = findViewById(R.id.seekbarMusic);
-        SeekBar sfxSlider = findViewById(R.id.seekbarSFX);
-
-        volumeCalculations = masterAmplifier *100;
-        masterSlider.setProgress((int)volumeCalculations);
-
-        volumeCalculations = musicAmplifier/(masterAmplifier * 0.01f);
-        musicSlider.setProgress((int) volumeCalculations);
-
-        volumeCalculations = sfxAmplifier/(masterAmplifier * 0.01f);
-        sfxSlider.setProgress((int) volumeCalculations);
+        SoundUtil.resetSound();
+        resetSlider(SoundUtil.defaultAmplifier);
+        MainMenu.music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
     }
 
     private void switchSoundtrack(){
@@ -165,7 +135,7 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
 
         music.start();
         music.setLooping(true);
-        music.setVolume(musicAmplifier, musicAmplifier);
+        music.setVolume(SoundUtil.getMusicVolume(), SoundUtil.getMusicVolume());
 
         Switch soundtrackSwitch = findViewById(R.id.switchSoundtrack);
         soundtrackSwitch.setChecked(determineSound);
@@ -176,5 +146,16 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
     @Override
     public void onClick(View v) {
         switchSoundtrack();
+    }
+
+    private void resetSlider(int progress) {
+        SeekBar masterSlider = findViewById(R.id.seekbarMaster);
+        masterSlider.setProgress(progress);
+
+        SeekBar musicSlider = findViewById(R.id.seekbarMusic);
+        musicSlider.setProgress(progress);
+
+        SeekBar sfxSlider = findViewById(R.id.seekbarSFX);
+        sfxSlider.setProgress(progress);
     }
 }
