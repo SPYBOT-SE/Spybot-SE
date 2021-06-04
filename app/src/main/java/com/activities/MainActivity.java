@@ -651,8 +651,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             board.setState(LevelState.Finished);
 
-            //Intent i = new Intent(this, LevelSelection.class);
-            //startActivity(i);
         }
     }
 
