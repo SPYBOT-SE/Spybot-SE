@@ -124,12 +124,14 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         SeekBar musicSlider = findViewById(R.id.seekbarMusic);
         SeekBar sfxSlider = findViewById(R.id.seekbarSFX);
 
-        masterSlider.setProgress((int)masterAmplifier);
-        musicSlider.setProgress((int) (musicAmplifier * divider/masterAmplifier));
-        sfxSlider.setProgress((int) (sfxAmplifier * divider/masterAmplifier));
+        masterSlider.setProgress(0);
+        musicSlider.setProgress(0);
+        sfxSlider.setProgress(0);
     }
 
     private void resetSound(){
+        float volumeCalculations;
+
         masterAmplifier = .5f;
         musicAmplifier = .5f;
         sfxAmplifier = .5f;
@@ -140,9 +142,14 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
         SeekBar musicSlider = findViewById(R.id.seekbarMusic);
         SeekBar sfxSlider = findViewById(R.id.seekbarSFX);
 
-        masterSlider.setProgress((int)masterAmplifier * 100);
-        musicSlider.setProgress((int) (musicAmplifier /divider));
-        sfxSlider.setProgress((int) (sfxAmplifier /divider));
+        volumeCalculations = masterAmplifier *100;
+        masterSlider.setProgress((int)volumeCalculations);
+
+        volumeCalculations = musicAmplifier/(masterAmplifier * 0.01f);
+        musicSlider.setProgress((int) volumeCalculations);
+
+        volumeCalculations = sfxAmplifier/(masterAmplifier * 0.01f);
+        sfxSlider.setProgress((int) volumeCalculations);
     }
 
     private void switchSoundtrack(){
