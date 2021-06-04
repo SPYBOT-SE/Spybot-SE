@@ -27,12 +27,12 @@ public abstract class Pawn {
     protected Attack attack2;
 
     public int icon = R.drawable.bug;
-    public int pictureHead = R.drawable.hantel_head;
-    public int pictureTail = R.drawable.hantel_body;
-    public int pictureTailUp = R.drawable.hantel_body_up;
-    public int pictureTailDown = R.drawable.hantel_body_down;
-    public int pictureTailRight = R.drawable.hantel_body_right;
-    public int pictureTailLeft = R.drawable.hantel_body_left;
+    public int pictureHead = R.drawable.blank_head;
+    public int pictureTail = R.drawable.blank_body;
+    public int pictureTailUp = R.drawable.blank_up;
+    public int pictureTailDown = R.drawable.blank_down;
+    public int pictureTailRight = R.drawable.blank_right;
+    public int pictureTailLeft = R.drawable.blank_left;
 
     protected int spawnSound = R.raw.spawn;
     private final LinkedList<PawnSegment> segments = new LinkedList<>();

@@ -16,12 +16,6 @@ public class PawnTank extends Pawn {
         this.icon = R.drawable.icon_military_tank;
 
         this.pictureHead = R.drawable.layer1_military_tank;
-        this.pictureTail = R.drawable.hantel_body;
-        this.pictureTailDown = R.drawable.hantel_body_down;
-        this.pictureTailUp = R.drawable.hantel_body_up;
-        this.pictureTailLeft = R.drawable.hantel_body_left;
-        this.pictureTailRight = R.drawable.hantel_body_right;
-
 
         this.spawnSound = R.raw.tank_moving;
 

@@ -13,6 +13,7 @@ import com.example.spybot.R;
 import static com.activities.MainMenu.music;
 
 public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, Switch.OnClickListener{
+    //TODO fix bugs while starting the settings menu
 
     public static float masterAmplifier = 0.5f;
     public static float musicAmplifier = 0.5f;
