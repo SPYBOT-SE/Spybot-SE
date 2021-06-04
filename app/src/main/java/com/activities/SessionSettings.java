@@ -3,10 +3,13 @@ package com.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.application.AppSettingsHelper;
 import com.example.spybot.R;
 import com.model.Savegame;
+import com.player.PawnTypes;
 import com.player.Player;
 import com.utilities.SavegameUtil;
 
@@ -25,6 +28,9 @@ public class SessionSettings extends AppCompatActivity {
         AppSettingsHelper.hideSystemUI(this);
 
         selectedPlayer = MainActivity.player1;
+        TextView showPlayerName = findViewById(R.id.labelPlayerName);
+        showPlayerName.setText(selectedPlayer.getPlayerName());
+
 
         findViewById(R.id.btnBackToMenu).setOnClickListener((v) -> {
             Intent i = new Intent(this, SessionMainMenu.class);
@@ -77,11 +83,31 @@ public class SessionSettings extends AppCompatActivity {
         } else {
             selectedPlayer = MainActivity.player2;
         }
+        TextView showPlayerName = findViewById(R.id.labelPlayerName);
+        showPlayerName.setText(selectedPlayer.getPlayerName());
     }
 
     private void renamePlayer(){
         Savegame savegame = SavegameUtil.getSavegame();
         EditText input = findViewById(R.id.inputNewPlayerName);
+
+
+        if(input.getText().toString().equals("Cheatmode")){
+
+            selectedPlayer.getCatalogue().clear();
+            selectedPlayer.getCatalogue().add(PawnTypes.troop);
+            selectedPlayer.getCatalogue().add(PawnTypes.horse);
+            selectedPlayer.getCatalogue().add(PawnTypes.healer);
+            selectedPlayer.getCatalogue().add(PawnTypes.sniper);
+            selectedPlayer.getCatalogue().add(PawnTypes.tank);
+            selectedPlayer.getCatalogue().add(PawnTypes.plane);
+
+            Toast.makeText(this, "Unlimited power!!!!!", Toast.LENGTH_SHORT).show();
+
+            SavegameUtil.setSavegame(savegame);
+            SavegameUtil.writeSavegame(this);
+            return;
+        }
 
         if(!savegame.getPlayers().containsKey(input.toString().toUpperCase())){
             selectedPlayer.setPlayerName(input.getText().toString().toUpperCase());
