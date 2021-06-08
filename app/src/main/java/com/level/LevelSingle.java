@@ -2,13 +2,15 @@ package com.level;
 
 import java.util.HashMap;
 
+import static com.model.constants.BackgroundConstants.*;
+
 public class LevelSingle {
 
     private static boolean initialized = false;
 
     // Hashmap that maps button IDs to levels
     private static final HashMap<Integer, int[][]> levels = new HashMap<>();
-
+    private static final HashMap<Integer, String> mapNames = new HashMap<>();
     /*
     Definition:
     
@@ -17,10 +19,12 @@ public class LevelSingle {
     0x...2  Deaktiviert     Classroom Hintergrund
     0x...3  Aktiviert       Classroom Hintergrund
     0x...4
+    0x...5  Aktiviert       Sand
     0x...7  Aktiviert       Grass
     0x...9  Aktiviert       Dirt
     0x...B  Aktiviert       Water
     0x...D  Aktiviert       Street
+    0x...F  Aktiviert       Forest
     ...
     0x...E  Deaktiviert     Hintergrund x
     0x...F  Aktiviert       Hintergrund x
@@ -99,6 +103,8 @@ public class LevelSingle {
 
     };
 
+
+
     public final static int[][] TestLevel5 = {
             {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
             {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
@@ -128,18 +134,46 @@ public class LevelSingle {
     };
 
     public final static int[][] Template = {
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07},
-            {0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07}
-
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G}
     };
+
+    public final static int[][] WORLD1 = {
+            {N, N, N, N, N, N, N, N, N, N, N, N, G, G, G, G, N, N},
+            {N, G, G, G, G, G, N, R, R, R, R, R, R, R, R, G, N, N},
+            {N, G, G, R, G, G, N, R, R, R, R, R, R, R, R, G, N, N},
+            {N, G, G, R, G, G, N, R, R, N, N, N, G, G, G, G, N, N},
+            {N, N, N, R, N, N, N, R, R, N, N, N, N, N, N, N, N, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G}
+    };
+
+    public final static int[][] TESTMAP1 = {
+            {9,9,9,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+        	{7,7,7,9,9,9,9,9,9,7,7,7,7,7,7,7,7,7},
+            {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+            {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
+    };
+
+
+
 
     public final static int[][] SPF = {
             {0x01, 0x01, 0x01, 0x01},
@@ -155,21 +189,52 @@ public class LevelSingle {
         }
 
         if(!levels.containsKey(levelID)) {
-            return Error;
+            return Template;
         }
 
         return levels.get(levelID);
     }
 
+    public static String getLevelName(int levelID){
+        if(!initialized) {
+            initializeLevels();
+            initialized = true;
+        }
+
+        if(!mapNames.containsKey(levelID)) {
+            return "Error";
+        }
+
+        return mapNames.get(levelID);
+    }
+
 
     private static void initializeLevels() {
-        levels.put(0, Ones);
-        levels.put(1, TestLevel1);
+        levels.put(0, WORLD1);
+        levels.put(1, WORLD1);
         levels.put(2, TestLevel2);
         levels.put(3, TestLevel3);
         levels.put(4, TestLevel4);
         levels.put(5, TestLevel5);
         levels.put(6, SPF);
+
+
+        mapNames.put(0, "The Beginning");
+        mapNames.put(1, "In The Open");
+        mapNames.put(2, "Island War");
+        mapNames.put(3, "In The Woods");
+        mapNames.put(4, "At The Beach");
+        mapNames.put(5, "In The City");
+        mapNames.put(6, "Highway Fights");
+        mapNames.put(7, "Tight Spot");
+        mapNames.put(8, "Bridge");
+        mapNames.put(9, "The Circle");
+        mapNames.put(10, "D");
+        mapNames.put(11, "E");
+        mapNames.put(12, "F");
+        mapNames.put(13, "G");
+        mapNames.put(14, "H");
+        mapNames.put(15, "I");
     }
 
 }

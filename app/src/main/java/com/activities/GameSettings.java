@@ -31,7 +31,8 @@ public class GameSettings extends AppCompatActivity implements SeekBar.OnSeekBar
 
         findViewById(R.id.btnResetSaveGame).setOnClickListener((v) -> {
             SavegameUtil.resetSavegame(this);
-            Intent i = new Intent(this, SessionMainMenu.class);
+            Intent i = new Intent(this, MainMenu.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         });
 

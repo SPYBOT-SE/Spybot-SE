@@ -4,6 +4,7 @@ package com.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -32,6 +33,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
                                 LinearLayout.LayoutParams.WRAP_CONTENT));
                 for (int j = 0; j < 4; j++) {
                     String buttonName = String.format("%8s", Integer.toBinaryString(name & 0xFF)).replace(' ', '0');
+                    Log.e("Debug", name + " is level " + LevelSingle.getLevelName(name));
                     createButton(buttonName, row, name);
                     name++;
                 }
@@ -77,8 +79,7 @@ public class LevelSelection extends AppCompatActivity implements View.OnClickLis
 
 
             btnTag.setLayoutParams(new LinearLayout.LayoutParams(width / 4, width / 10));
-            String text =  Integer.toString(i);
-            btnTag.setText(name + "\n" + text);
+            btnTag.setText(LevelSingle.getLevelName(i));
 
 
             btnTag.setId(i);

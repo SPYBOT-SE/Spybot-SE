@@ -75,7 +75,7 @@ public class Board {
                 background = R.drawable.field_classroom;
                 break;
             case 2:
-                background = R.drawable.field_tiled;
+                background = R.drawable.sand_small;
                 break;
             case 3:
                 background = R.drawable.grass_small;
@@ -88,6 +88,9 @@ public class Board {
                 break;
             case 6:
                 background = R.drawable.street_small;
+                break;
+            case 7:
+                background = R.drawable.forest_small;
                 break;
             default:
                 throw new NoSuchElementException("Error, background " + background + " not implemented yet!");

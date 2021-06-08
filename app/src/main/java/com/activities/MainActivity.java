@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         height = board.sizeY;
         width = board.sizeX;
-
         currentPlayer = player1;
 
         setContentView(R.layout.activity_main);
@@ -364,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         resetAttributes();
         board.clearBoard();
         refreshBoard();
-        Toast.makeText(MainActivity.this, Integer.toString(currentPlayerIndex), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, currentPlayer.getPlayerName() + " ist jetzt am Zug", Toast.LENGTH_SHORT).show();
     }
 
 
