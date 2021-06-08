@@ -14,7 +14,7 @@ import java.io.InputStream;
 
 public class SavegameUtil {
 
-    private static Savegame savegame;
+    private static Savegame savegame = new Savegame();
 
 
     public static Savegame getSavegame() {
