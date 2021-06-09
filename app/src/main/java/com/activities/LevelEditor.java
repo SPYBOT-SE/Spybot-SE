@@ -17,6 +17,7 @@ import com.example.spybot.R;
 import java.util.NoSuchElementException;
 
 import static com.model.constants.BackgroundConstants.G;
+import static com.model.constants.BackgroundConstants.N;
 
 public class LevelEditor extends AppCompatActivity {
 
@@ -28,16 +29,16 @@ public class LevelEditor extends AppCompatActivity {
     private int bgIndex = 5;
 
     public int[][] level = {
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G},
-            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G}
+            {N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N},
+            {G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, G, N}
     };
 
     @Override
@@ -197,7 +198,9 @@ public class LevelEditor extends AppCompatActivity {
         btn.setText("BACK");
         btnLayout.addView(btn);
         btn.setOnClickListener((v) -> {
-
+            Intent i = new Intent(this, SessionMainMenu.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
         });
 
         panel.addView(btnLayout);
@@ -247,9 +250,9 @@ public class LevelEditor extends AppCompatActivity {
     private void debugOutput(){
         String[] output = new String[10];
         for (short i = 0; i < 10; i++){
-            output[i] = i + " \t{" + Integer.toHexString(level[i][0]);
+            output[i] = i + " \t{" + "0x" + Integer.toHexString(level[i][0]);
             for (short j = 1; j < 18; j++){
-                output[i] += "," + Integer.toHexString(level[i][j]);
+                output[i] += "," + "0x" + Integer.toHexString(level[i][j]);
             }
             output[i] += "},";
         }
